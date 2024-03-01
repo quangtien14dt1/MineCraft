@@ -1,7 +1,23 @@
 #include "Camera.h"
 
 
+Camera::Camera() 
+	: m_pWindow(nullptr)
+	, m_projectionMatrix( glm::mat4(1.0f) )
+	, m_viewMatrix( glm::mat4(1.0f) )
+	, m_projectionViewMatrix( glm::mat4(1.0f) )
+	, m_viewDirection( glm::vec3(1.0f) )
+	, m_upPositipon( glm::vec3(1.0f))
+	, m_position( glm::vec3(1.0f))
+	, m_sProjectionData()
+{ /* do nothing */ }
+
 Camera::Camera(const Context* c, float a, float closeP, float farP) {
+	/* camera vector config */
+	glm::vec3 m_viewDirection = { 0.f, 0.f, -1.f };
+	glm::vec3 m_upPositipon = { 0, 1, 0 };
+	glm::vec3 m_position = { 0, 0, 2 };
+
 	/* initilizer matrix  */
 	m_projectionMatrix = glm::mat4(1.0f);
 	m_viewMatrix = glm::mat4(1.0f);

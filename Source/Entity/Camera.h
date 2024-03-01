@@ -3,6 +3,25 @@
 #include "../glm.h"
 #include "../Context.h"
 
+
+/* POV parameter  */
+struct POVDATA {
+	POVDATA() 
+		: angle(0)
+		, width(0)
+		, height(0)
+		, closePlane(0)
+		, farPlane(0)
+	{ /* do mothing */ }
+
+	float	angle;
+	int		width;
+	int		height;
+	float	closePlane;
+	float	farPlane;
+};
+
+
 /*
 * handle *View and *Projection Matrix4
 */
@@ -10,6 +29,8 @@ class Camera
 {
 
 public:
+
+	Camera();
 	/*
 	* Context* 
 	* Angle 
@@ -31,39 +52,27 @@ public:
 	void CalViewMatrix();
 	void CalProjectionMatrix();
 
-
-	/* moving keyboard function */
 	void MoveUp(float );
 	void MoveDown(float );
 	void MoveLeft(float );
 	void MoveRight(float );
 	void MoveFront(float );
 	void MoveBack(float );
-
 	void MouseUpdate(const float&, const float&);
 
-	/* POV parameter  */
-	struct {
-		float angle;
-		int width;
-		int height;
-		float closePlane;
-		float farPlane;
-
-	} m_sProjectionData ;
 private:
-	/* window pointer for handle event */
+	POVDATA m_sProjectionData;
 	sf::Window* m_pWindow;
 
 	/* saving matrix */
-	glm::mat4 m_projectionMatrix{ glm::mat4(1.0f) };
-	glm::mat4 m_viewMatrix{ glm::mat4(1.0f) };
-	glm::mat4 m_projectionViewMatrix{ glm::mat4(1.0f) };
+	glm::mat4 m_projectionMatrix;
+	glm::mat4 m_viewMatrix;
+	glm::mat4 m_projectionViewMatrix;
 
 public:
-	glm::vec3 m_viewDirection = { 0.f, 0.f, -1.f };
-	glm::vec3 m_upPositipon = { 0, 1, 0 };
-	glm::vec3 m_position = { 0, 0, 2 };
+	glm::vec3 m_viewDirection;
+	glm::vec3 m_upPositipon;
+	glm::vec3 m_position;
 
 	float m_rSpeed{ 0.3f };		// yaw pitch roll sensitivity
 	float m_mSpeed{ 0.05f };	// moving sensitivity

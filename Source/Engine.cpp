@@ -13,9 +13,9 @@ Engine::Engine(  Context* ct,  Application* a)
 {
 	m_pContext = ct;
 	m_pApplication = a;
-	if (m_pShader == NULL) { m_pShader = new BasicShader("Default", "Default");}
-	if (m_pCamera == NULL) { m_pCamera = new Camera(ct, 45, 0.1f, 100.0f); }
-	if(m_pKeyboard == NULL) { m_pKeyboard = new Keyboard(); }
+	m_shader = BasicShader("Default", "Default");
+	m_camera = Camera(ct, 45, 0.1f, 100.0f); 
+	m_keyboard = Keyboard();
 
 }
 
@@ -26,7 +26,7 @@ int Engine::InitGame() {
 
 	std::cout << "Init game " << std::endl;
 	Vertex vertices[] =
-	{ //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
+	{ //               COORDINATES           /            COLORS          /       TEXTURE COORDINATES    //
 		Vertex{glm::vec3(-1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
 		Vertex{glm::vec3(-1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3(1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
@@ -54,8 +54,7 @@ int Engine::InitGame() {
 
 	std::cout << "Init Mesh " << std::endl;
 	// create Mesh model
-	Mesh* m = new Mesh(verts, ind, tex);
-
+	Mesh m = Mesh(verts, ind);
 	AddNewData( m );
 
 	return 1;
@@ -64,11 +63,6 @@ int Engine::InitGame() {
 
 
 int Engine::UpdateGameLogic(float d) {
-
-	// clear and import new background buffer color 
-	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 
 	/* 
 	* Handle Event from engine level 
@@ -110,34 +104,16 @@ int Engine::UpdateGameLogic(float d) {
 
 };
 
-void Engine::HandleKeyboard(sf::Event& e, float d ) {
-	switch (e.key.code )
-	{
-	case sf::Keyboard::A:
-		m_pCamera->MoveLeft( d );
-		break;
-	case sf::Keyboard::W:
-		m_pCamera->MoveFront(d);
-		break;
-	case sf::Keyboard::S:
-		m_pCamera->MoveBack(d);
-		break;
-	case sf::Keyboard::D:
-		m_pCamera->MoveRight(d);
-		break;
-	default:
-		break;
-	}
-
-};
 
 void Engine::HandleMouseMoving( sf::Event& e, float d ) {
+
+	std::cout << "Handle keyboard" << std::endl;
 	// getting delta movement
 	float dx = e.mouseMove.x - m_pContext->m_pWindow->getSize().x;
 	float dy = e.mouseMove.y - m_pContext->m_pWindow->getSize().y;
 
 	// update camera 
-	m_pCamera->MouseUpdate(dx, dy);
+	m_camera.MouseUpdate(dx, dy);
 
 	// reset mouse position to center
 	sf::Mouse::setPosition(
@@ -149,13 +125,49 @@ void Engine::HandleMouseMoving( sf::Event& e, float d ) {
 
 void Engine::HandleScrolling(sf::Event& e, float d) {}
 
-void Engine::Draw() { for (auto m : m_vMesh) { m->Draw(m_pShader, m_pCamera );} }
+void Engine::Draw() {
 
-void Engine::AddNewData(Mesh* m) { 
+	// clear and import new background buffer color 
+	std::cout << "Clear buffer " << std::endl;
+	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	for (auto m : m_vMesh) {
+		
+		m.Draw(m_shader, m_camera);
+	}
+
+	m_pContext->m_pWindow->display();
+};
+
+void Engine::AddNewData(Mesh& m) { 
 	std::cout << "Add Mesh " << std::endl;
 	m_vMesh.push_back(m); 
 
 };
 
 int Engine::RemoveData() { return 1; }
+
+
+void Engine::HandleKeyboard(sf::Event& e, float d) {
+	std::cout << "Handle keyboard" << std::endl;
+	switch (e.key.code)
+	{
+	case sf::Keyboard::A:
+		m_camera.MoveLeft(d);
+		break;
+	case sf::Keyboard::W:
+		m_camera.MoveFront(d);
+		break;
+	case sf::Keyboard::S:
+		m_camera.MoveBack(d);
+		break;
+	case sf::Keyboard::D:
+		m_camera.MoveRight(d);
+		break;
+	default:
+		break;
+	}
+
+};
 

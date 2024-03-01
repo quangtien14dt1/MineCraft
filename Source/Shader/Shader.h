@@ -6,9 +6,12 @@
 #include <glm/ext.hpp>
 #include <string>
 
-class Shader : NonCopyable
+class Shader
 {
 public:
+
+	Shader() : _id(0) {}
+
 	Shader(	const std::string& vert, 
 			const std::string& frag) : _id(ShaderUtil::LoadShader(vert, frag)) {};
 	virtual ~Shader() { glDeleteProgram(_id); };

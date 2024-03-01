@@ -5,6 +5,13 @@
 class BasicShader : public Shader
 {
 public:
+	BasicShader()
+	:	_locationProjectionMatrix(0)
+		, _locationViewMatrix(0)
+		, _locationModelMatrix(0)
+		, _texure(0)
+	{ /* do nothing */}
+
 	BasicShader(const std::string& vert, const std::string& frag)
 		:Shader(vert, frag)
 	{

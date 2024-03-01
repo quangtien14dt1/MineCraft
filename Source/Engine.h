@@ -46,7 +46,7 @@ public:
 	void Draw();
 	
 	int  RemoveData();
-	void AddNewData(Mesh*);
+	void AddNewData(Mesh&);
 	void ErrorMessage(const char*);
 
 private:
@@ -54,11 +54,11 @@ private:
 	Context*		m_pContext;
 	Application*	m_pApplication; 
 
-	Camera*			m_pCamera;	
-	Keyboard*		m_pKeyboard;
-	BasicShader*	m_pShader;
+	Camera			m_camera;	
+	Keyboard		m_keyboard;
+	BasicShader		m_shader;
 
 	//std::vector<Texture> m_vTexs;	// stored value 
-	std::vector<Mesh* > m_vMesh;
+	std::vector<Mesh> m_vMesh;
 };
 
