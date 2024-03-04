@@ -25,13 +25,13 @@ Engine::~Engine() {
 int Engine::InitGame() {
 
 	std::cout << "Init game " << std::endl;
-	Vertex vertices[] =
-	{ //               COORDINATES           /            COLORS          /       TEXTURE COORDINATES    //
-		Vertex{glm::vec3(-1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-		Vertex{glm::vec3(-1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-		Vertex{glm::vec3(1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-		Vertex{glm::vec3(1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-	};
+	//Vertex vertices[] =
+	//{ //               COORDINATES           /            COLORS          /       TEXTURE COORDINATES    //
+	//	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+	//	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+	//	Vertex{glm::vec3(1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+	//	Vertex{glm::vec3(1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
+	//};
 
 	// Indices for vertices order
 	GLuint indices[] =
@@ -48,9 +48,9 @@ int Engine::InitGame() {
 
 
 	// store mesh data in vector 
-	std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+	//std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+	//std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+	//std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 
 	std::cout << "Init Mesh " << std::endl;
 	// create Mesh model

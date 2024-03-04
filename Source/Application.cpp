@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Mesh.h"
 #include <iostream>
 
 
@@ -20,35 +21,30 @@ void Application::RunLoop() {
 	/* Init Game Engine */
 	//m_pEngine->InitGame();
 
-	GLfloat vertices[] =
-	{
-		-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-		0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-		0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
-		-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner left
-		0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner right
-		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
+	float vertices[] = {
+	 0.5f,  0.5f, 0.0f,  // top right
+	 0.5f, -0.5f, 0.0f,  // bottom right
+	-0.5f, -0.5f, 0.0f,  // bottom left
+	-0.5f,  0.5f, 0.0f   // top left 
+	};
+	unsigned int indices[] = {  // note that we start from 0!
+		0, 1, 3,   // first triangle
+		1, 2, 3    // second triangle
 	};
 
-	// Indices for vertices order
-	GLuint indices[] =
-	{
-		0, 3, 5, // Lower left triangle
-		3, 2, 4, // Lower right triangle
-		5, 4, 1 // Upper triangle
-	};
 
-	VAO VAO1;
-	VAO1.Bind();
+	//Vertex vertices[] = {
+	//	Vertex{	glm::vec3(-1.0f, 0.0f,  1.0f) },
+	//	Vertex{	glm::vec3(-1.0f, 0.0f, -1.0f) },
+	//	Vertex{	glm::vec3( 1.0f, 0.0f, -1.0f) },
+	//	Vertex{	glm::vec3( 1.0f, 0.0f,  1.0f) }
+	//};
 
-	VBO VBO1(vertices, sizeof(vertices));
-	EBO EBO1(indices, sizeof(indices));
+	//std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+	////std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
 
-	VAO1.LinkVBO(VBO1, 0);
+	Mesh m = Mesh();
 
-	VAO1.Unbind();
-	VBO1.Unbind();
-	EBO1.Unbind();
 
 	BasicShader s = BasicShader("Default", "Default");
 	
@@ -76,101 +72,13 @@ void Application::RunLoop() {
 		// draw...
 		s.Activate();
 
-		VAO1.Bind();
+		m.Draw();
 
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// end the current frame (internally swaps the front and back buffers)
 		m_pContext->m_pWindow->display();
 
-		////m_pContext->m_pWindow->setActive(true);
-		////
-		////sf::Time time = clock.restart();
-		////float startTime = time.asSeconds();
-
-		//m_pContext->m_pWindow->setVerticalSyncEnabled(true);
-		//m_pContext->m_pWindow->setActive();
-		//
-		//while (m_pContext->m_pWindow->isOpen()) {
-
-		//	//GLfloat vertices[] =
-		//	//{
-		//	//	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-		//	//	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-		//	//	0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
-		//	//	-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner left
-		//	//	0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner right
-		//	//	0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
-		//	//};
-
-		//	//// Indices for vertices order
-		//	//GLuint indices[] =
-		//	//{
-		//	//	0, 3, 5, // Lower left triangle
-		//	//	3, 2, 4, // Lower right triangle
-		//	//	5, 4, 1 // Upper triangle
-		//	//};
-
-		//	//BasicShader s = BasicShader("Default", "Default");
-		//	//Camera c = Camera(m_pContext, 45, 0.1f, 100.0f);
-
-		//	//VAO VAO1;
-		//	//VAO1.Bind();
-
-		//	//VBO VBO1(vertices, sizeof(vertices));
-		//	//EBO EBO1(indices, sizeof(indices));
-
-		//	//VAO1.LinkVBO(VBO1, 0);
-
-		//	//VAO1.Unbind();
-		//	//VBO1.Unbind();
-		//	//EBO1.Unbind();
-
-		//	//if ( ( time.asSeconds() - startTime) >= ( 1/60) ) {
-
-		//	//	/*m_pEngine->UpdateGameLogic(time.asSeconds() - startTime);
-
-		//	//	m_pEngine->Draw();*/
-
-		//	//	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-		//	//	glClear(GL_COLOR_BUFFER_BIT);
-
-		//	//	//m.Draw(s, c);
-
-		//	//	s.Activate();
-
-		//	//	VAO1.Bind();
-
-		//	//	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
-
-		//	//	startTime = time.asSeconds();
-		//	//}
-
-		//	// clear buffer 
-		//	//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-		//	//glClear(GL_COLOR_BUFFER_BIT);
-
-		//	//// draw
-		//	//s.Activate();
-		//	//VAO1.Bind();
-		//	//glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
-
-		//	m_pContext->m_pWindow->clear();
-		//	m_pContext->m_pWindow->draw(shape);
-		//	m_pContext->m_pWindow->display();
-
-		//	// display
-		//	m_pContext->m_pWindow->display();
-
-		//	/* handle event at application level */
-		//	HandleEvents();
-
-		//	//std::cout << 1.f / time.asSeconds() << "\n";
-		//}
-
-		//m_pContext->m_pWindow->close();
-
-		//m_bRunning = false;
 	}
 }
 
