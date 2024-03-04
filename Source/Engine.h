@@ -46,7 +46,7 @@ public:
 	void Draw();
 	
 	int  RemoveData();
-	void AddNewData(Mesh&);
+	//void AddNewData(Mesh&);
 	void ErrorMessage(const char*);
 
 private:
@@ -59,6 +59,6 @@ private:
 	BasicShader		m_shader;
 
 	//std::vector<Texture> m_vTexs;	// stored value 
-	std::vector<Mesh> m_vMesh;
+	//std::vector<Mesh> m_vMesh;
 };
 

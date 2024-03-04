@@ -54,8 +54,8 @@ int Engine::InitGame() {
 
 	std::cout << "Init Mesh " << std::endl;
 	// create Mesh model
-	Mesh m = Mesh(verts, ind);
-	AddNewData( m );
+	//Mesh m = Mesh(verts, ind);
+	//AddNewData( m );
 
 	return 1;
 
@@ -70,32 +70,29 @@ int Engine::UpdateGameLogic(float d) {
 	* from this handle event at engine level 
 	*/
 	sf::Event e;
-	try {
 
-		while (m_pContext->m_pWindow->pollEvent(e)) {
+	while (m_pContext->m_pWindow->pollEvent(e)) {
 
-			switch (e.type) {
+		switch (e.type) {
 
-			case sf::Event::KeyPressed:
-				HandleKeyboard(e, d);
-				break;
+		case sf::Event::KeyPressed:
+			HandleKeyboard(e, d);
+			break;
 
-			case sf::Event::MouseMoved:
-				//HandleMouseMoving(e, d);
-				break;
+		case sf::Event::MouseMoved:
+			//HandleMouseMoving(e, d);
+			break;
 
-			case sf::Event::MouseWheelScrolled:
-				HandleScrolling(e, d);
-				break;
+		case sf::Event::MouseWheelScrolled:
+			HandleScrolling(e, d);
+			break;
 
-			default:
-				break;
-			}
-
+		default:
+			break;
 		}
-	} catch (std::exception& e) {
-		std::cout << "catch exception when handle input engine level " << std::endl;
+
 	}
+
 
 	/* Shader unifitions */
 
@@ -104,50 +101,28 @@ int Engine::UpdateGameLogic(float d) {
 
 };
 
-
-void Engine::HandleMouseMoving( sf::Event& e, float d ) {
-
-	std::cout << "Handle keyboard" << std::endl;
-	// getting delta movement
-	float dx = e.mouseMove.x - m_pContext->m_pWindow->getSize().x;
-	float dy = e.mouseMove.y - m_pContext->m_pWindow->getSize().y;
-
-	// update camera 
-	m_camera.MouseUpdate(dx, dy);
-
-	// reset mouse position to center
-	sf::Mouse::setPosition(
-		sf::Vector2i(
-				m_pContext->m_pWindow->getSize().x/2, 
-				m_pContext->m_pWindow->getSize().y/2 ),
-		*m_pContext->m_pWindow);
-};
-
-void Engine::HandleScrolling(sf::Event& e, float d) {}
-
 void Engine::Draw() {
 
-	// clear and import new background buffer color 
-	std::cout << "Clear buffer " << std::endl;
-	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//// clear and import new background buffer color 
+	//std::cout << "Clear buffer " << std::endl;
+	//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto m : m_vMesh) {
-		
-		m.Draw(m_shader, m_camera);
-	}
+	//for (auto m : m_vMesh) {
+	//	
+	//	m.Draw(m_shader, m_camera);
+	//}
 
-	m_pContext->m_pWindow->display();
+	//m_pContext->m_pWindow->display();
 };
 
-void Engine::AddNewData(Mesh& m) { 
-	std::cout << "Add Mesh " << std::endl;
-	m_vMesh.push_back(m); 
-
-};
+//void Engine::AddNewData(Mesh& m) { 
+//	//std::cout << "Add Mesh " << std::endl;
+//	//m_vMesh.push_back(m); 
+//
+//};
 
 int Engine::RemoveData() { return 1; }
-
 
 void Engine::HandleKeyboard(sf::Event& e, float d) {
 	std::cout << "Handle keyboard" << std::endl;
@@ -171,3 +146,22 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 
 };
 
+void Engine::HandleMouseMoving(sf::Event& e, float d) {
+
+	std::cout << "Handle keyboard" << std::endl;
+	// getting delta movement
+	float dx = e.mouseMove.x - m_pContext->m_pWindow->getSize().x;
+	float dy = e.mouseMove.y - m_pContext->m_pWindow->getSize().y;
+
+	// update camera 
+	m_camera.MouseUpdate(dx, dy);
+
+	// reset mouse position to center
+	sf::Mouse::setPosition(
+		sf::Vector2i(
+			m_pContext->m_pWindow->getSize().x / 2,
+			m_pContext->m_pWindow->getSize().y / 2),
+		*m_pContext->m_pWindow);
+};
+
+void Engine::HandleScrolling(sf::Event& e, float d) {}

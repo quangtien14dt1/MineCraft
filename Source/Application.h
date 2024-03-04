@@ -25,6 +25,5 @@ private:
 
 	Context* m_pContext{nullptr};
 	Engine* m_pEngine{nullptr};
-	bool m_bRunning = false;
 };
 
