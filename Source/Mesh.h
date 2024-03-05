@@ -15,12 +15,13 @@
 class Mesh {
 
 public:
-	Mesh(	
-		//std::vector <Vertex>
-			//std::vector <GLuint>
-			//std::vector <Texture>
-	);
 
+	Mesh();
+	//Mesh(	
+	//	//std::vector <Vertex>
+	//		//std::vector <GLuint>
+	//		//std::vector <Texture>
+	//);
 
 	~Mesh();
 	/*void Draw(BasicShader& , Camera&);*/
@@ -31,11 +32,9 @@ public:
 	/* temple function return default model matrix */
 	glm::mat4 DefaultModel();
 private:
-	//std::vector<Vertex> m_vertices; // vbo , ebo 
-	//std::vector<GLuint> m_indices;
-	//std::vector<Texture> m_textures;
-
-	
+	std::vector<Vertex>  m_vertices; // vbo , ebo 
+	std::vector<GLuint>  m_indices;
+	std::vector<Texture> m_textures;
 
 private:
 	VAO m_vao;

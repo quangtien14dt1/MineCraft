@@ -21,34 +21,12 @@ void Application::RunLoop() {
 	/* Init Game Engine */
 	//m_pEngine->InitGame();
 
-	float vertices[] = {
-	 0.5f,  0.5f, 0.0f,  // top right
-	 0.5f, -0.5f, 0.0f,  // bottom right
-	-0.5f, -0.5f, 0.0f,  // bottom left
-	-0.5f,  0.5f, 0.0f   // top left 
-	};
-	unsigned int indices[] = {  // note that we start from 0!
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
-	};
-
-
-	//Vertex vertices[] = {
-	//	Vertex{	glm::vec3(-1.0f, 0.0f,  1.0f) },
-	//	Vertex{	glm::vec3(-1.0f, 0.0f, -1.0f) },
-	//	Vertex{	glm::vec3( 1.0f, 0.0f, -1.0f) },
-	//	Vertex{	glm::vec3( 1.0f, 0.0f,  1.0f) }
-	//};
-
-	//std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	////std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
-
 	Mesh m = Mesh();
-
 
 	BasicShader s = BasicShader("Default", "Default");
 	
 	bool running = true;
+
 	while (running) {
 		// handle events
 		sf::Event event;
