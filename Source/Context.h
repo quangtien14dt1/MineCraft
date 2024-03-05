@@ -17,8 +17,8 @@ struct Context {
 		settings.minorVersion = 0;
 
 		/* create window and setting  */
-		m_width = 600;
-		m_height = 600;
+		m_width = 1000;
+		m_height = 1000;
 		m_pWindow = new sf::Window(sf::VideoMode(m_width, m_height), "OpenGL", sf::Style::Default, settings);
 		m_pWindow->setVerticalSyncEnabled(true);
 		m_pWindow->setActive(true);

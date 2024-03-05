@@ -21,15 +21,14 @@ public:
 			//std::vector <Texture>
 	);
 
-
 	~Mesh();
-	/*void Draw(BasicShader& , Camera&);*/
-	void Draw(BasicShader& );
-	void DrawMeshIndices();
+
+	void DrawMesh(BasicShader& s,Camera& c );
 	void AsString();
 
 	/* temple function return default model matrix */
 	glm::mat4 DefaultModel();
+
 private:
 	std::vector<Vertex> _vertices;
 	std::vector<GLuint> _indices;

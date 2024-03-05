@@ -51,10 +51,10 @@ int Engine::InitGame() {
 
 
 	Vertex vers[] = {
-		Vertex{ glm::vec3(0.5f,  0.5f, 0.0f)},
-		Vertex{ glm::vec3(0.5f, -0.5f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f, 0.0f)}
+		Vertex{ glm::vec3(0.1f,  0.1f, 0.0f)},
+		Vertex{ glm::vec3(0.1f, -0.1f, 0.0f)},
+		Vertex{ glm::vec3(-0.1f, -0.1f, 0.0f)},
+		Vertex{ glm::vec3(-0.1f,  0.1f, 0.0f)}
 	};
 	GLuint indices[] = { 
 		0, 1, 3,
@@ -91,11 +91,11 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 		break;
 
 	case sf::Event::MouseMoved:
-		//HandleMouseMoving(e, d);
+		// HandleMouseMoving(e, d);
 		break;
 
 	case sf::Event::MouseWheelScrolled:
-		HandleScrolling(e, d);
+		// HandleScrolling(e, d);
 		break;
 
 	default:
@@ -113,7 +113,7 @@ void Engine::Draw() {
 
 	for (auto m : m_vMesh) {
 		
-		m.Draw(m_shader);
+		m.DrawMesh(m_shader, m_camera);
 
 	}
 
@@ -167,7 +167,7 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 
 void Engine::HandleMouseMoving(sf::Event& e, float d) {
 
-	std::cout << "Handle keyboard" << std::endl;
+	std::cout << "Handle Mouse" << std::endl;
 	// getting delta movement
 	float dx = e.mouseMove.x - m_pContext->m_pWindow->getSize().x;
 	float dy = e.mouseMove.y - m_pContext->m_pWindow->getSize().y;
@@ -183,4 +183,6 @@ void Engine::HandleMouseMoving(sf::Event& e, float d) {
 		*m_pContext->m_pWindow);
 };
 
-void Engine::HandleScrolling(sf::Event& e, float d) {}
+void Engine::HandleScrolling(sf::Event& e, float d) {
+	std::cout << "Handle Mouse Scrolling " << std::endl;
+}
