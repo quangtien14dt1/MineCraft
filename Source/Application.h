@@ -20,8 +20,9 @@ public:
 	void TurnOnMouse();
 	void CenteringMousePosition();
 
+	bool _running;
 private:
-	void HandleEvents();
+	void HandleEvents(sf::Event&);
 
 	Context* m_pContext{nullptr};
 	Engine* m_pEngine{nullptr};

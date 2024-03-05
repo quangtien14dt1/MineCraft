@@ -5,12 +5,17 @@
 
 Application::Application() 
 {
+	_running = true;
+
 	if (m_pContext == NULL) { m_pContext = new Context(); }
+
 	if (m_pEngine == NULL) { m_pEngine = new Engine(m_pContext, this ); }
 }
 
 Application::~Application() {
+
 	if (m_pEngine != NULL) { delete m_pEngine;}
+
 	if (m_pContext != NULL) { delete m_pContext;}
 }
 
@@ -19,62 +24,32 @@ void Application::RunLoop() {
 	sf::Clock clock;
 
 	/* Init Game Engine */
-	//m_pEngine->InitGame();
+	m_pEngine->InitGame();
 
-	float vertices[] = {
-	 0.5f,  0.5f, 0.0f,  // top right
-	 0.5f, -0.5f, 0.0f,  // bottom right
-	-0.5f, -0.5f, 0.0f,  // bottom left
-	-0.5f,  0.5f, 0.0f   // top left 
-	};
-	unsigned int indices[] = {  // note that we start from 0!
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
-	};
-
-
-	//Vertex vertices[] = {
-	//	Vertex{	glm::vec3(-1.0f, 0.0f,  1.0f) },
-	//	Vertex{	glm::vec3(-1.0f, 0.0f, -1.0f) },
-	//	Vertex{	glm::vec3( 1.0f, 0.0f, -1.0f) },
-	//	Vertex{	glm::vec3( 1.0f, 0.0f,  1.0f) }
-	//};
-
-	//std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	////std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
-
-	Mesh m = Mesh();
-
-
-	BasicShader s = BasicShader("Default", "Default");
-	
-	bool running = true;
-	while (running) {
-		// handle events
+	while (_running) {
+		
 		sf::Event event;
+
+		sf::Time time = clock.restart();
+
+		float startTime = time.asSeconds();
+
 		while (m_pContext->m_pWindow->pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-			{
-				// end the program
-				running = false;
+			if ((time.asSeconds() - startTime) >= (1 / 60)) {
+
+				HandleEvents( event ); // application event 
+
 			}
-			else if (event.type == sf::Event::Resized)
-			{
-				// adjust the viewport when the window is resized
-				glViewport(0, 0, event.size.width, event.size.height);
-			}
+
 		}
 
 		// clear the buffers
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// draw...
-		s.Activate();
-
-		m.Draw();
-
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//m.Draw(s);
+		m_pEngine->Draw();
 
 		// end the current frame (internally swaps the front and back buffers)
 		m_pContext->m_pWindow->display();
@@ -92,36 +67,47 @@ void Application::CenteringMousePosition() {
 		*m_pContext->m_pWindow);
 }
 
-void Application::HandleEvents() {
-	sf::Event e; /* output event e */
-	// handle event for engine layer
+void Application::HandleEvents(sf::Event& e) {
 
 	/*
-	* handle event at application level 
+	* handle event at application level
 	*/
-	while (m_pContext->m_pWindow->pollEvent(e)) {
-		switch (e.type)
-		{
-		case sf::Event::Closed:
-			m_pContext->m_pWindow->close();
-			break;
-		case sf::Event::KeyPressed:
-			switch (e.key.code )
-			{
-			case sf::Keyboard::Escape:
-				m_pContext->m_pWindow->close();
-				break;
 
-			default:
-				break;
-			}
-		case sf::Event::Resized:
-			// should handle at engine level 
-			// adjust the viewport when the window is resized
-			glViewport(0, 0, e.size.width, e.size.height);
+	switch (e.type)
+	{
+	case sf::Event::Closed:
+
+		m_pContext->m_pWindow->close();
+
+		_running = false;
+
+		break;
+
+	case sf::Event::KeyPressed:
+
+		switch (e.key.code)
+		{
+		case sf::Keyboard::Escape:
+
+			_running = false;
+
+			m_pContext->m_pWindow->close();
+
+			break;
+
 		default:
+
 			break;
 		}
+	case sf::Event::Resized:
+		// should handle at engine level 
+		// adjust the viewport when the window is resized
+		glViewport(0, 0, e.size.width, e.size.height);
+
+	default:
+
+		break;
 	}
 }
+
 

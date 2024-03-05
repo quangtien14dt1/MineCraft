@@ -16,28 +16,26 @@ class Mesh {
 
 public:
 	Mesh(	
-		//std::vector <Vertex>
-			//std::vector <GLuint>
+		std::vector <Vertex>,
+		std::vector <GLuint>
 			//std::vector <Texture>
 	);
 
 
 	~Mesh();
 	/*void Draw(BasicShader& , Camera&);*/
-	void Draw();
+	void Draw(BasicShader& );
 	void DrawMeshIndices();
 	void AsString();
 
 	/* temple function return default model matrix */
 	glm::mat4 DefaultModel();
 private:
-	//std::vector<Vertex> m_vertices; // vbo , ebo 
-	//std::vector<GLuint> m_indices;
+	std::vector<Vertex> _vertices;
+	std::vector<GLuint> _indices;
 	//std::vector<Texture> m_textures;
 
-	
-
 private:
-	VAO m_vao;
-	glm::mat4 m_cameraMatrix;
+	VAO _vao;
+	glm::mat4 _cameraMatrix;
 };
