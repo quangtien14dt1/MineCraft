@@ -39,18 +39,8 @@ public:
 	*/
 	Camera(const Context* ,float,float,float);
 
-	/* state update handle */
-	void Update();
-	void HandleEvent();
-
 	/* make project view model matrix */
-	void SetupCamMatrix();
-	glm::mat4 GetViewMatrix() const ;
-	glm::mat4 GetProjectionViewMatrix() const ;
-	glm::mat4 GetProjectionMatrix() const ;
-
-	void CalViewMatrix();
-	void CalProjectionMatrix();
+	glm::mat4 CamMatrix();
 
 	void MoveUp(float );
 	void MoveDown(float );
@@ -61,25 +51,23 @@ public:
 	void MouseUpdate(const float&, const float&);
 
 private:
-	POVDATA m_sProjectionData;
-	sf::Window* m_pWindow;
+	POVDATA _sProjectionData;
+	sf::Window* _pWindow;
 
 	/* saving matrix */
-	glm::mat4 m_projectionMatrix;
-	glm::mat4 m_viewMatrix;
-	glm::mat4 m_projectionViewMatrix;
+	glm::mat4 _camMatrix = glm::mat4(1.0f);
 
 public:
-	glm::vec3 m_viewDirection;
-	glm::vec3 m_upPositipon;
-	glm::vec3 m_position;
+	glm::vec3 _viewDirection = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 _upPositipon = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 _position;
 
-	float m_rSpeed{ 0.3f };		// yaw pitch roll sensitivity
-	float m_mSpeed{ 0.05f };	// moving sensitivity
-	float m_speed{ 5 };
+	float _rSpeed{ 0.3f };		// yaw pitch roll sensitivity
+	float _mSpeed{ 0.05f };		// moving sensitivity
+	float _speed{ 5 };
 
-	float m_yaw{ 0.0f };		// turn your head left and right
-	float m_pitch{ 0.0f };		// turn your head up and down 
+	float _yaw{ 0.0f };			// turn your head left and right
+	float _pitch{ 0.0f };		// turn your head up and down 
 	//float m_roll;				// not using , rotate your head
 
 };

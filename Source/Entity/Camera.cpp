@@ -2,84 +2,59 @@
 
 
 Camera::Camera() 
-	: m_pWindow(nullptr)
-	, m_projectionMatrix( glm::mat4(1.0f) )
-	, m_viewMatrix( glm::mat4(1.0f) )
-	, m_projectionViewMatrix( glm::mat4(1.0f) )
-	, m_viewDirection( glm::vec3(1.0f) )
-	, m_upPositipon( glm::vec3(1.0f))
-	, m_position( glm::vec3(1.0f))
-	, m_sProjectionData()
+	: _pWindow(nullptr)
+	, _position( glm::vec3(1.0f))
+	, _sProjectionData()
 { /* do nothing */ }
 
 Camera::Camera(const Context* c, float a, float closeP, float farP) {
-	/* camera vector config */
-	glm::vec3 m_viewDirection = { 0.f, 0.f, -1.f };
-	glm::vec3 m_upPositipon = { 0, 1, 0 };
-	glm::vec3 m_position = { 0, 0, 2 };
-
-	/* initilizer matrix  */
-	m_projectionMatrix = glm::mat4(1.0f);
-	m_viewMatrix = glm::mat4(1.0f);
-	m_projectionViewMatrix = glm::mat4(1.0f);
 
 	/* setup parameters */
-	m_sProjectionData.angle = a;
-	m_sProjectionData.width = c->m_width;
-	m_sProjectionData.height = c->m_height;
-	m_sProjectionData.closePlane = closeP;
-	m_sProjectionData.farPlane = farP;
-	m_pWindow = c->m_pWindow;
+	_sProjectionData.angle = a;
+	_sProjectionData.width = c->m_width;
+	_sProjectionData.height = c->m_height;
+	_sProjectionData.closePlane = closeP;
+	_sProjectionData.farPlane = farP;
+	_pWindow = c->m_pWindow;
 
 	/*  */
-	SetupCamMatrix();
+	CamMatrix();
 }
 
-void Camera::SetupCamMatrix() {
-	CalViewMatrix();
-	CalProjectionMatrix();
+glm::mat4 Camera::CamMatrix() {
 
-	// projection view 
-	m_projectionViewMatrix = m_viewMatrix * m_projectionMatrix;
+	glm::mat4 _viewMatrix = glm::lookAt(_position, _position + _viewDirection, _upPositipon);
+
+	glm::mat4 _projectionMatrix = glm::perspective(
+		glm::radians(_sProjectionData.angle),
+		(float)_sProjectionData.width / (float)_sProjectionData.height,
+		_sProjectionData.closePlane,
+		_sProjectionData.farPlane);
+
+	_camMatrix = _viewMatrix * _projectionMatrix;
+
+	return _camMatrix;
+
 }
-
-glm::mat4 Camera::GetViewMatrix() const { return m_viewMatrix; }
-glm::mat4 Camera::GetProjectionMatrix() const { return m_projectionMatrix; }
-glm::mat4 Camera::GetProjectionViewMatrix() const { return m_projectionViewMatrix; } // for later change camera matrix
-
-void Camera::CalViewMatrix() {
-	m_viewMatrix = glm::lookAt(m_position, m_position + m_viewDirection, m_upPositipon);
-};
-void Camera::CalProjectionMatrix() {
-	m_projectionMatrix = glm::perspective(
-		glm::radians(m_sProjectionData.angle),
-		(float)m_sProjectionData.width / (float)m_sProjectionData.height,
-		m_sProjectionData.closePlane,
-		m_sProjectionData.farPlane);
-};
-
-void Camera::Update() {};
-void Camera::HandleEvent() {};
-
-// basiclyy moving base on delta time collect from looping
-// 
-void Camera::MoveUp(float e) { m_position += e * m_mSpeed * m_upPositipon; };
-void Camera::MoveDown(float e) { m_position -= e * m_mSpeed * m_upPositipon; };
-void Camera::MoveLeft(float e) { m_position -= e * m_mSpeed * glm::normalize(glm::cross(m_viewDirection, m_upPositipon)); };
-void Camera::MoveRight(float e) { m_position += e * m_mSpeed * glm::normalize(glm::cross(m_viewDirection, m_upPositipon)); };
-void Camera::MoveFront(float e) { m_position += e * m_mSpeed * m_viewDirection; };
-void Camera::MoveBack(float e) { m_position -= e * m_mSpeed * m_viewDirection; };
 
 void Camera::MouseUpdate(const float& dx,const float& dy ) {
-	m_yaw += dx * m_rSpeed;
-	m_pitch += dy * m_rSpeed;
+	_yaw += dx * _rSpeed;
+	_pitch += dy * _rSpeed;
 
-	if (m_pitch > 89.0f) m_pitch = 89.0f;
-	if (m_pitch > 89.0f) m_pitch = 89.0f;
+	if (_pitch > 89.0f) _pitch = 89.0f;
+	if (_pitch > 89.0f) _pitch = 89.0f;
 
 	glm::vec3 front;
-	front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-	front.y = sin(glm::radians(m_pitch));
-	front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-	m_viewDirection = glm::normalize(front);
+	front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+	front.y = sin(glm::radians(_pitch));
+	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+	_viewDirection = glm::normalize(front);
 };
+
+void Camera::MoveUp(float e) { _position += e * _mSpeed * _upPositipon; };
+void Camera::MoveDown(float e) { _position -= e * _mSpeed * _upPositipon; };
+void Camera::MoveLeft(float e) { _position -= e * _mSpeed * glm::normalize(glm::cross(_viewDirection, _upPositipon)); };
+void Camera::MoveRight(float e) { _position += e * _mSpeed * glm::normalize(glm::cross(_viewDirection, _upPositipon)); };
+void Camera::MoveFront(float e) { _position += e * _mSpeed * _viewDirection; };
+void Camera::MoveBack(float e) { _position -= e * _mSpeed * _viewDirection; };
+

@@ -39,14 +39,14 @@ public:
 	~Engine();
 
 	int  InitGame();
-	int  UpdateGameLogic(float);
+	void UpdateGameLogic(sf::Event&,float);
 	void HandleKeyboard(sf::Event&, float );
 	void HandleMouseMoving(sf::Event&, float);
 	void HandleScrolling(sf::Event&, float);
 	void Draw();
 	
 	int  RemoveData();
-	//void AddNewData(Mesh&);
+	void AddNewData(Mesh);
 	void ErrorMessage(const char*);
 
 private:
@@ -59,6 +59,6 @@ private:
 	BasicShader		m_shader;
 
 	//std::vector<Texture> m_vTexs;	// stored value 
-	//std::vector<Mesh> m_vMesh;
+	std::vector<Mesh> m_vMesh;
 };
 
