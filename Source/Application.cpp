@@ -40,18 +40,23 @@ void Application::RunLoop() {
 
 				HandleEvents( event ); // application event 
 
+				m_pEngine->UpdateGameLogic(
+					event,
+					time.asSeconds() - startTime
+				);
+
+				startTime = time.asSeconds();
+
 			}
 
 		}
-
 		// clear the buffers
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// draw...
-		//m.Draw(s);
+		// draw OpenGL level 
 		m_pEngine->Draw();
 
-		// end the current frame (internally swaps the front and back buffers)
+		// sfml window display buffer
 		m_pContext->m_pWindow->display();
 
 	}

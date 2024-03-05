@@ -5,7 +5,7 @@
 
 glm::mat4 Mesh::DefaultModel() {
 
-	glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, -0.50f);
 	glm::mat4 objectModel = glm::mat4(1.0f);
 	objectModel = glm::translate(objectModel, objectPos);
 	return objectModel;
@@ -28,7 +28,6 @@ Mesh::Mesh(
 	EBO ebo(this->_indices);
 
 	/* know how (VAO) to use buffer  */
-	// vbo, layout , num , type , stride, offset
 	_vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
 	//m_vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
 	//m_vao.LinkAttrib(vbo, 1, 3, GL_FLOAT, sizeof(Vertex), (void*)(3 * sizeof(float)));
@@ -46,10 +45,10 @@ void Mesh::AsString() {
 
 Mesh::~Mesh() { };
 
+void Mesh::DrawMesh(BasicShader& s, Camera& c) {
 
-//void Mesh::Draw(BasicShader& s, Camera& c)
-void Mesh::Draw(BasicShader& s) {
 	s.Activate();
+
 	_vao.Bind();
 
 	//load texture 
@@ -58,7 +57,7 @@ void Mesh::Draw(BasicShader& s) {
 
 	//s.LoadViewMatrix( c.GetViewMatrix() );					// view 
 	//s.LoadProjectionMatrix( c.GetProjectionMatrix() );		// projection
-	//s.LoadModelMatrix(DefaultModel());						// model
+	s.LoadModelMatrix(DefaultModel());						// model
 
 	// indices
 	//DrawMeshIndices();
@@ -69,10 +68,4 @@ void Mesh::Draw(BasicShader& s) {
 
 };
 
-void Mesh::DrawMeshIndices() {
-
-	//GLuint size = GLuint(this->m_indices.size());
-	//glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0);
-
-}
 

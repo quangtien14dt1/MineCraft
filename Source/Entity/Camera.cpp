@@ -3,12 +3,15 @@
 
 Camera::Camera() 
 	: m_pWindow(nullptr)
+
 	, m_projectionMatrix( glm::mat4(1.0f) )
 	, m_viewMatrix( glm::mat4(1.0f) )
 	, m_projectionViewMatrix( glm::mat4(1.0f) )
+
 	, m_viewDirection( glm::vec3(1.0f) )
 	, m_upPositipon( glm::vec3(1.0f))
 	, m_position( glm::vec3(1.0f))
+
 	, m_sProjectionData()
 { /* do nothing */ }
 
@@ -50,6 +53,7 @@ glm::mat4 Camera::GetProjectionViewMatrix() const { return m_projectionViewMatri
 void Camera::CalViewMatrix() {
 	m_viewMatrix = glm::lookAt(m_position, m_position + m_viewDirection, m_upPositipon);
 };
+
 void Camera::CalProjectionMatrix() {
 	m_projectionMatrix = glm::perspective(
 		glm::radians(m_sProjectionData.angle),
