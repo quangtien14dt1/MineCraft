@@ -24,6 +24,7 @@ public:
 	~Mesh();
 
 	void DrawMesh(BasicShader& s,Camera& c );
+
 	void AsString();
 
 	/* temple function return default model matrix */
