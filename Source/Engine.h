@@ -51,14 +51,14 @@ public:
 
 private:
 
-	Context*		m_pContext;
-	Application*	m_pApplication; 
+	Context*		_pContext;
+	Application*	_pApplication; 
 
-	Camera			m_camera;	
-	Keyboard		m_keyboard;
-	BasicShader		m_shader;
+	Camera			_camera;	
+	Keyboard		_keyboard;
+	BasicShader		_shader;
 
 	//std::vector<Texture> m_vTexs;	// stored value 
-	std::vector<Mesh> m_vMesh;
+	std::vector<Mesh> _vMesh;
 };
 

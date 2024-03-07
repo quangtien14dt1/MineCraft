@@ -2,6 +2,7 @@
 
 #include "../glm.h"
 #include "../Context.h"
+#include "../Engine.h"
 
 
 /* POV parameter  */
@@ -37,7 +38,7 @@ public:
 	* closePlane
 	* farPlane
 	*/
-	Camera(const Context* ,float,float,float);
+	Camera(const Context* ,Engine*,float,float,float);
 
 	/* make project view model matrix */
 	glm::mat4 CamMatrix();
@@ -53,6 +54,7 @@ public:
 private:
 	POVDATA _sProjectionData;
 	sf::Window* _pWindow;
+	Engine* _pEngine;
 
 	/* saving matrix */
 	glm::mat4 _camMatrix = glm::mat4(1.0f);

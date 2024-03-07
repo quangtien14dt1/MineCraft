@@ -5,7 +5,7 @@
 #include <memory>
 
 struct Context {
-	~Context() { delete m_pWindow; }
+	~Context() { delete _pWindow; }
 	Context() {
 
 		/* make window context */
@@ -17,26 +17,26 @@ struct Context {
 		settings.minorVersion = 0;
 
 		/* create window and setting  */
-		m_width = 600;
-		m_height = 600;
-		m_pWindow = new sf::Window(sf::VideoMode(m_width, m_height), "OpenGL", sf::Style::Default, settings);
-		m_pWindow->setVerticalSyncEnabled(true);
-		m_pWindow->setActive(true);
-		m_pWindow->setFramerateLimit(60);
+		_width = 600;
+		_height = 600;
+		_pWindow = new sf::Window(sf::VideoMode(_width, _height), "OpenGL", sf::Style::Default, settings);
+		_pWindow->setVerticalSyncEnabled(true);
+		_pWindow->setActive(true);
+		_pWindow->setFramerateLimit(60);
 
 		/* load glad */
 		if (!gladLoadGL()) {
 			exit(-1);
 		}
 
-		glViewport(0, 0, m_pWindow->getSize().x, m_pWindow->getSize().y);
+		glViewport(0, 0, _pWindow->getSize().x, _pWindow->getSize().y);
 		glCullFace(GL_BACK);		/* setting not display faces at the back */
 		glEnable(GL_DEPTH_TEST);	/* enable z-buffer */
 
 	};
 
-	int m_width;
-	int m_height;
-	sf::Window*  m_pWindow;
+	int _width;
+	int _height;
+	sf::Window*  _pWindow;
 };
 

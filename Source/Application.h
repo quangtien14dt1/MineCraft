@@ -24,7 +24,7 @@ public:
 private:
 	void HandleEvents(sf::Event&);
 
-	Context* m_pContext{nullptr};
-	Engine* m_pEngine{nullptr};
+	Context* _pContext{nullptr};
+	Engine* _pEngine{nullptr};
 };
 

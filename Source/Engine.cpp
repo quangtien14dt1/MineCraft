@@ -11,15 +11,15 @@ void Engine::ErrorMessage(const char* c)
 
 Engine::Engine(  Context* ct,  Application* a)
 {
-	m_pContext = ct;
+	_pContext = ct;
 
-	m_pApplication = a;
+	_pApplication = a;
 
-	m_shader = BasicShader("Default", "Default");
+	_shader = BasicShader("Default", "Default");
 
-	m_camera = Camera(ct, 45, 0.1f, 100.0f); 
+	_camera = Camera(ct,this, 45, 0.1f, 100.0f); 
 
-	m_keyboard = Keyboard();
+	_keyboard = Keyboard();
 
 }
 
@@ -28,31 +28,14 @@ Engine::~Engine() {
 
 int Engine::InitGame() {
 
-	//Vertex vertices[] =
-	//{ //               COORDINATES           /            COLORS          /       TEXTURE COORDINATES    //
-	//	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-	//	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-	//	Vertex{glm::vec3(1.0f, 0.0f, -1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-	//	Vertex{glm::vec3(1.0f, 0.0f,  1.0f),  glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-	//};
-
-	// Indices for vertices order
-	//GLuint indices[] =
-	//{
-	//	0, 1, 2,
-	//	0, 2, 3
-	//};
-
-
-
-
-
 	Vertex vers[] = {
+		//			COORDINATE				 //		TEXT COORDIMATES 				
 		Vertex{ glm::vec3(0.5f,  0.5f, 0.0f),	glm::vec2(1.0f, 1.0f)},
 		Vertex{ glm::vec3(0.5f, -0.5f, 0.0f),	glm::vec2(1.0f, 0.0f)},
 		Vertex{ glm::vec3(-0.5f, -0.5f, 0.0f),	glm::vec2(0.0f, 0.0f)},
 		Vertex{ glm::vec3(-0.5f,  0.5f, 0.0f),	glm::vec2(0.0f, 1.0f)}
 	};
+	
 	GLuint indices[] = { 
 		0, 1, 3,
 		1, 2, 3
@@ -113,18 +96,17 @@ void Engine::Draw() {
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto m : m_vMesh) {
+	for (auto m : _vMesh) {
 		
-		m.DrawMesh(m_shader, m_camera);
+		m.DrawMesh(_shader, _camera);
 
 	}
 
-	//m_pContext->m_pWindow->display();
 };
 
 void Engine::AddNewData(Mesh m) { 
 
-	m_vMesh.push_back(m); 
+	_vMesh.push_back(m); 
 
 };
 
@@ -136,25 +118,25 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 	{
 	case sf::Keyboard::A:
 
-		m_camera.MoveLeft(d);
+		_camera.MoveLeft(d);
 
 		break;
 
 	case sf::Keyboard::W:
 
-		m_camera.MoveFront(d);
+		_camera.MoveFront(d);
 
 		break;
 
 	case sf::Keyboard::S:
 
-		m_camera.MoveBack(d);
+		_camera.MoveBack(d);
 
 		break;
 
 	case sf::Keyboard::D:
 
-		m_camera.MoveRight(d);
+		_camera.MoveRight(d);
 
 		break;
 
@@ -167,17 +149,17 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 
 void Engine::HandleMouseMoving(sf::Event& e, float d) {
 
-	float dx = e.mouseMove.x - m_pContext->m_pWindow->getSize().x;
+	float dx = e.mouseMove.x - _pContext->_pWindow->getSize().x;
 
-	float dy = e.mouseMove.y - m_pContext->m_pWindow->getSize().y;
+	float dy = e.mouseMove.y - _pContext->_pWindow->getSize().y;
 
-	m_camera.MouseUpdate(dx, dy);
+	_camera.MouseUpdate(dx, dy);
 
 	sf::Mouse::setPosition(
 		sf::Vector2i(
-			m_pContext->m_pWindow->getSize().x / 2,
-			m_pContext->m_pWindow->getSize().y / 2),
-		*m_pContext->m_pWindow);
+			_pContext->_pWindow->getSize().x / 2,
+			_pContext->_pWindow->getSize().y / 2),
+		*_pContext->_pWindow);
 };
 
 void Engine::HandleScrolling(sf::Event& e, float d) {

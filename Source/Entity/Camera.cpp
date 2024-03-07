@@ -5,17 +5,21 @@ Camera::Camera()
 	: _pWindow(nullptr)
 	, _position( glm::vec3(1.0f))
 	, _sProjectionData()
+	, _pEngine(nullptr)
 { /* do nothing */ }
 
-Camera::Camera(const Context* c, float a, float closeP, float farP) {
+Camera::Camera(const Context* c,Engine* e, float a, float closeP, float farP) {
 
 	/* setup parameters */
 	_sProjectionData.angle = a;
-	_sProjectionData.width = c->m_width;
-	_sProjectionData.height = c->m_height;
+	_sProjectionData.width = c->_width;
+	_sProjectionData.height = c->_height;
 	_sProjectionData.closePlane = closeP;
 	_sProjectionData.farPlane = farP;
-	_pWindow = c->m_pWindow;
+	_pWindow = c->_pWindow;
+
+	/* Engine */
+	_pEngine = e;
 
 	/*  */
 	CamMatrix();

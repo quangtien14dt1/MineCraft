@@ -7,16 +7,16 @@ Application::Application()
 {
 	_running = true;
 
-	if (m_pContext == NULL) { m_pContext = new Context(); }
+	if (_pContext == NULL) { _pContext = new Context(); }
 
-	if (m_pEngine == NULL) { m_pEngine = new Engine(m_pContext, this ); }
+	if (_pEngine == NULL) { _pEngine = new Engine(_pContext, this ); }
 }
 
 Application::~Application() {
 
-	if (m_pEngine != NULL) { delete m_pEngine;}
+	if (_pEngine != NULL) { delete _pEngine;}
 
-	if (m_pContext != NULL) { delete m_pContext;}
+	if (_pContext != NULL) { delete _pContext;}
 }
 
 void Application::RunLoop() {
@@ -24,7 +24,7 @@ void Application::RunLoop() {
 	sf::Clock clock;
 
 	/* Init Game Engine */
-	m_pEngine->InitGame();
+	_pEngine->InitGame();
 
 	while (_running) {
 		
@@ -34,13 +34,13 @@ void Application::RunLoop() {
 
 		float startTime = time.asSeconds();
 
-		while (m_pContext->m_pWindow->pollEvent(event))
+		while (_pContext->_pWindow->pollEvent(event))
 		{
 			if ((time.asSeconds() - startTime) >= (1 / 60)) {
 
 				HandleEvents( event ); // application event 
 
-				m_pEngine->UpdateGameLogic(
+				_pEngine->UpdateGameLogic(
 					event,
 					time.asSeconds() - startTime
 				);
@@ -54,22 +54,22 @@ void Application::RunLoop() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// draw OpenGL level 
-		m_pEngine->Draw();
+		_pEngine->Draw();
 
 		// sfml window display buffer
-		m_pContext->m_pWindow->display();
+		_pContext->_pWindow->display();
 
 	}
 }
 
-void Application::TurnOffMouse() { m_pContext->m_pWindow->setMouseCursorVisible(false); }
+void Application::TurnOffMouse() { _pContext->_pWindow->setMouseCursorVisible(false); }
 
-void Application::TurnOnMouse() { m_pContext->m_pWindow->setMouseCursorVisible(true); }
+void Application::TurnOnMouse() { _pContext->_pWindow->setMouseCursorVisible(true); }
 
 void Application::CenteringMousePosition() {
 	sf::Mouse::setPosition(
-		sf::Vector2i(m_pContext->m_width / 2, m_pContext->m_height / 2),
-		*m_pContext->m_pWindow);
+		sf::Vector2i(_pContext->_width / 2, _pContext->_height / 2),
+		*_pContext->_pWindow);
 }
 
 void Application::HandleEvents(sf::Event& e) {
@@ -82,7 +82,7 @@ void Application::HandleEvents(sf::Event& e) {
 	{
 	case sf::Event::Closed:
 
-		m_pContext->m_pWindow->close();
+		_pContext->_pWindow->close();
 
 		_running = false;
 
@@ -96,7 +96,7 @@ void Application::HandleEvents(sf::Event& e) {
 
 			_running = false;
 
-			m_pContext->m_pWindow->close();
+			_pContext->_pWindow->close();
 
 			break;
 
