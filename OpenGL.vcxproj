@@ -284,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />
+    <Image Include="Resource\textures\container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

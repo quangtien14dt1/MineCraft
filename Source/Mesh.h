@@ -17,8 +17,8 @@ class Mesh {
 public:
 	Mesh(	
 		std::vector <Vertex>,
-		std::vector <GLuint>
-			//std::vector <Texture>
+		std::vector <GLuint>,
+		std::vector <Texture>
 	);
 
 	~Mesh();
@@ -33,7 +33,7 @@ public:
 private:
 	std::vector<Vertex> _vertices;
 	std::vector<GLuint> _indices;
-	//std::vector<Texture> m_textures;
+	std::vector<Texture> _textures;
 
 private:
 	VAO _vao;

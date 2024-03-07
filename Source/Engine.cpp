@@ -43,32 +43,34 @@ int Engine::InitGame() {
 	//	0, 2, 3
 	//};
 
-	//// textures
-	//Texture textures[]
-	//{
-	//	Texture("aiuehara")
-	//};
+
+
 
 
 	Vertex vers[] = {
-		Vertex{ glm::vec3(0.1f,  0.1f, 0.0f)},
-		Vertex{ glm::vec3(0.1f, -0.1f, 0.0f)},
-		Vertex{ glm::vec3(-0.1f, -0.1f, 0.0f)},
-		Vertex{ glm::vec3(-0.1f,  0.1f, 0.0f)}
+		Vertex{ glm::vec3(0.5f,  0.5f, 0.0f),	glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3(0.5f, -0.5f, 0.0f),	glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f, 0.0f),	glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f, 0.0f),	glm::vec2(0.0f, 1.0f)}
 	};
 	GLuint indices[] = { 
 		0, 1, 3,
 		1, 2, 3
 	};
 
+	Texture textures[]
+	{
+		Texture("aiuehara")
+	};
+
 	std::vector <Vertex> verts(vers, vers + sizeof(vers) / sizeof(Vertex));
 
 	std::vector <GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
 
-	//std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 
 
-	Mesh m = Mesh(verts, inds);
+	Mesh m = Mesh(verts, inds, tex);
 
 	AddNewData( m );
 
@@ -130,8 +132,6 @@ int Engine::RemoveData() { return 1; }
 
 void Engine::HandleKeyboard(sf::Event& e, float d) {
 
-	std::cout << "Handle keyboard: " << e.key.code <<  std::endl;
-
 	switch (e.key.code)
 	{
 	case sf::Keyboard::A:
@@ -167,15 +167,12 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 
 void Engine::HandleMouseMoving(sf::Event& e, float d) {
 
-	std::cout << "Handle Mouse" << std::endl;
-	// getting delta movement
 	float dx = e.mouseMove.x - m_pContext->m_pWindow->getSize().x;
+
 	float dy = e.mouseMove.y - m_pContext->m_pWindow->getSize().y;
 
-	// update camera 
 	m_camera.MouseUpdate(dx, dy);
 
-	// reset mouse position to center
 	sf::Mouse::setPosition(
 		sf::Vector2i(
 			m_pContext->m_pWindow->getSize().x / 2,

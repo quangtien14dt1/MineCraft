@@ -32,7 +32,7 @@ protected:
 		_locationProjectionMatrix = glGetUniformLocation(_id, "projection");
 		_locationViewMatrix = glGetUniformLocation(_id, "view");
 		_locationModelMatrix = glGetUniformLocation(_id, "model");
-		_texure = glGetUniformLocation(_id, "texture1");
+		_texure = glGetUniformLocation(_id, "texture");
 	};
 private:
 	GLuint _locationProjectionMatrix;
