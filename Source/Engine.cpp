@@ -1,7 +1,15 @@
-#include "Engine.h"
 #include <SFML/Window.hpp>
 #include <exception>
 #include <iostream>
+
+#include "Engine.h"
+#include "../Entity/Camera.h"
+#include "../KeyBoard.h"
+#include "../Shader/BasicShader.h"
+#include "../ModelLoading.h"
+#include "../Mesh.h"
+#include "../Texture/Texture.h"
+
 
 void Engine::ErrorMessage(const char* c)
 {
@@ -15,15 +23,19 @@ Engine::Engine(  Context* ct,  Application* a)
 
 	_pApplication = a;
 
-	_shader = BasicShader("Default", "Default");
+	_shader = new BasicShader("Default", "Default");
 
-	_camera = Camera(ct,this, 45, 0.1f, 100.0f); 
+	_camera = new  Camera(ct, 45, 0.1f, 100.0f); 
 
-	_keyboard = Keyboard();
 
 }
 
 Engine::~Engine() {
+
+	if (_camera != nullptr) { delete _camera; }
+
+	if (_shader != nullptr) { delete _shader; }
+
 } ;
 
 int Engine::InitGame() {
@@ -98,7 +110,7 @@ void Engine::Draw() {
 
 	for (auto m : _vMesh) {
 		
-		m.DrawMesh(_shader, _camera);
+		m.DrawMesh(*_shader, *_camera);
 
 	}
 
@@ -118,25 +130,25 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 	{
 	case sf::Keyboard::A:
 
-		_camera.MoveLeft(d);
+		_camera->MoveLeft(d);
 
 		break;
 
 	case sf::Keyboard::W:
 
-		_camera.MoveFront(d);
+		_camera->MoveFront(d);
 
 		break;
 
 	case sf::Keyboard::S:
 
-		_camera.MoveBack(d);
+		_camera->MoveBack(d);
 
 		break;
 
 	case sf::Keyboard::D:
 
-		_camera.MoveRight(d);
+		_camera->MoveRight(d);
 
 		break;
 
@@ -149,11 +161,11 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 
 void Engine::HandleMouseMoving(sf::Event& e, float d) {
 
-	float dx = e.mouseMove.x - _pContext->_pWindow->getSize().x;
+	float dx = float(e.mouseMove.x - _pContext->_pWindow->getSize().x);
 
-	float dy = e.mouseMove.y - _pContext->_pWindow->getSize().y;
+	float dy = float(e.mouseMove.y - _pContext->_pWindow->getSize().y);
 
-	_camera.MouseUpdate(dx, dy);
+	_camera->MouseUpdate(dx, dy);
 
 	sf::Mouse::setPosition(
 		sf::Vector2i(

@@ -5,39 +5,30 @@
 class BasicShader : public Shader
 {
 public:
-	BasicShader()
-	:	_locationProjectionMatrix(0)
-		, _locationViewMatrix(0)
-		, _locationModelMatrix(0)
-		, _texure(0)
-	{ /* do nothing */}
+	BasicShader();
 
-	BasicShader(const std::string& vert, const std::string& frag)
-		:Shader(vert, frag)
-	{
-		GetUniforms();
-	};
+	BasicShader(const std::string& vert, const std::string& frag);
 
-	void LoadProjectionMatrix(const glm::mat4& mat) { LoadMatrix4(_locationProjectionMatrix, mat );};
+	void LoadProjectionMatrix(const glm::mat4& mat);
 
-	void LoadModelMatrix(const glm::mat4& mat) { LoadMatrix4(_locationModelMatrix, mat);};
+	void LoadModelMatrix(const glm::mat4& mat);
 
-	void LoadViewMatrix(const glm::mat4& mat) { LoadMatrix4(_locationViewMatrix, mat); }
+	void LoadViewMatrix(const glm::mat4& mat);
 
-	void LoadImageShader( const GLuint value) { LoadInt(_texure, value); }
+	void LoadImageShader(const GLuint value);
+
 protected:
 	/* most important get location for manipulate shader program */
-	virtual void GetUniforms() override {
-		Activate();
-		_locationProjectionMatrix = glGetUniformLocation(_id, "projection");
-		_locationViewMatrix = glGetUniformLocation(_id, "view");
-		_locationModelMatrix = glGetUniformLocation(_id, "model");
-		_texure = glGetUniformLocation(_id, "texture");
-	};
+	virtual void GetUniforms() override;
+
 private:
+
 	GLuint _locationProjectionMatrix;
+
 	GLuint _locationViewMatrix;
+
 	GLuint _locationModelMatrix;
+
 	GLuint _texure;
 };
 

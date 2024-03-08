@@ -2,15 +2,9 @@
 
 
 #include "Context.h"
-#include "EventManager.h"
-#include "KeyBoard.h"
-#include "entity/Camera.h"
-#include "shader/BasicShader.h"
-#include "texture/Texture.h"
-#include "ModelLoading.h"
-#include "Mesh.h"
 #include "Application.h"
 
+#include <SFML/Window.hpp>
 #include <vector>
 
 /*
@@ -32,33 +26,47 @@
 
 class Application;
 
+class Camera;
+
+class Mesh;
+
+class BasicShader;
+
 class Engine
 {
 public:
 	Engine(Context*, Application*);
+
 	~Engine();
 
 	int  InitGame();
+
 	void UpdateGameLogic(sf::Event&,float);
+
 	void HandleKeyboard(sf::Event&, float );
+
 	void HandleMouseMoving(sf::Event&, float);
+
 	void HandleScrolling(sf::Event&, float);
+
 	void Draw();
 	
 	int  RemoveData();
+
 	void AddNewData(Mesh);
+
 	void ErrorMessage(const char*);
 
 private:
 
 	Context*		_pContext;
+
 	Application*	_pApplication; 
 
-	Camera			_camera;	
-	Keyboard		_keyboard;
-	BasicShader		_shader;
+	Camera*			_camera;	
 
-	//std::vector<Texture> m_vTexs;	// stored value 
+	BasicShader*	_shader;
+
 	std::vector<Mesh> _vMesh;
 };
 

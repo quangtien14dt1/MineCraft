@@ -1,15 +1,12 @@
-#include "Mesh.h"
 #include "glm.h"
+#include "Mesh.h"
+#include "Shader/BasicShader.h"
+#include "texture/Texture.h"
+#include "../ModelLoading.h"
+#include "../Entity/Camera.h"
+
 #include <iostream>
 
-
-glm::mat4 Mesh::DefaultModel() {
-
-	glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, -0.50f);
-	glm::mat4 objectModel = glm::mat4(1.0f);
-	objectModel = glm::translate(objectModel, objectPos);
-	return objectModel;
-}
 
 
 Mesh::Mesh( std::vector <Vertex> v,std::vector <GLuint> i, std::vector <Texture> t ) {
@@ -26,9 +23,6 @@ Mesh::Mesh( std::vector <Vertex> v,std::vector <GLuint> i, std::vector <Texture>
 	/* know how (VAO) to use buffer  */
 	_vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
 	_vao.LinkAttrib(vbo, 1, 2, GL_FLOAT, sizeof(Vertex), (void*)(3 * sizeof(float)));
-	//m_vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
-	//m_vao.LinkAttrib(vbo, 1, 3, GL_FLOAT, sizeof(Vertex), (void*)(3 * sizeof(float)));
-	//m_vao.LinkAttrib(vbo, 1, 2, GL_FLOAT, sizeof(Vertex), (void*)(6 * sizeof(float)));
 
 	// Unbind all to prevent accidentally modifying them
 	_vao.Unbind();
@@ -65,11 +59,25 @@ void Mesh::DrawMesh(BasicShader& s, Camera& c) {
 
 	s.LoadModelMatrix(model);
 
-	glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, GLsizei(_indices.size()), GL_UNSIGNED_INT, 0);
 
-	// saving m_cameraMatrix for changing glsl later
-	//m_cameraMatrix = c.GetProjectionViewMatrix();
 
 };
+
+
+glm::mat4 Mesh::DefaultModel() {
+
+	glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, -0.50f);
+
+	glm::mat4 objectModel = glm::mat4(1.0f);
+
+	objectModel = glm::translate(objectModel, objectPos);
+
+	return objectModel;
+}
+
+
+
+
 
 

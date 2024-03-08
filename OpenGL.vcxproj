@@ -271,12 +271,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Entity\Camera.cpp" />
     <ClCompile Include="Source\EventManager.cpp" />
     <ClCompile Include="Source\KeyBoard.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MineCraft.cpp" />
+    <ClCompile Include="Source\Shader\BasicShader.cpp" />
     <ClCompile Include="Source\Shader\ShaderLoader.cpp" />
     <ClCompile Include="Source\Texture\Texture.cpp" />
     <ClCompile Include="Source\Thirdparty\fastnoise.cpp" />

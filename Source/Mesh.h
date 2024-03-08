@@ -1,17 +1,23 @@
 #pragma once
 
-#include <vector>
+
 #include "glm.h"
 #include "ModelLoading.h"
-#include "shader/BasicShader.h"
-#include "texture/Texture.h"
-#include "entity/Camera.h"
+
+#include <vector>
 
 
 /*
 * Mesh only handle 2/3 of matrixs 
 * View * Projection matrixs 
 */
+
+class Camera;
+
+class BasicShader;
+
+class Texture;
+
 class Mesh {
 
 public:
@@ -32,10 +38,13 @@ public:
 
 private:
 	std::vector<Vertex> _vertices;
+
 	std::vector<GLuint> _indices;
+
 	std::vector<Texture> _textures;
 
 private:
 	VAO _vao;
+
 	glm::mat4 _cameraMatrix;
 };

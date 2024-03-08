@@ -1,5 +1,8 @@
 #include "Application.h"
+#include "Context.h"
 #include "Mesh.h"
+
+#include <SFML/Window.hpp>
 #include <iostream>
 
 
