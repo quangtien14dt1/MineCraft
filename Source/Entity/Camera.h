@@ -44,8 +44,10 @@ public:
 	*/
 	Camera(const Context*,float,float,float);
 
-	/* make project view model matrix */
-	glm::mat4 CamMatrix();
+	/* make project view model matrix */;
+	glm::mat4 ViewMatrix();
+
+	glm::mat4 ProjectionMatrix();
 
 	void MoveUp(float );
 
@@ -67,7 +69,9 @@ private:
 
 	sf::Window* _pWindow;
 
-	glm::mat4 _camMatrix = glm::mat4(1.0f);
+	glm::mat4 _viewMatrix = glm::mat4(1.0f);
+
+	glm::mat4 _projectionMatrix = glm::mat4(1.0f);
 
 public:
 	glm::vec3 _viewDirection = glm::vec3(0.0f, 0.0f, -1.0f);

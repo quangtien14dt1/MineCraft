@@ -23,6 +23,7 @@ void BasicShader::LoadViewMatrix(const glm::mat4& mat) { LoadMatrix4(_locationVi
 void BasicShader::LoadImageShader(const GLuint value) { LoadInt(_texure, value); }
 
 void BasicShader::GetUniforms() {
+
 	Activate();
 
 	_locationProjectionMatrix = glGetUniformLocation(_id, "projection");
