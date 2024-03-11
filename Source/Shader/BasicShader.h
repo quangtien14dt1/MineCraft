@@ -7,15 +7,15 @@ class BasicShader : public Shader
 public:
 	BasicShader();
 
-	BasicShader(const std::string& vert, const std::string& frag);
+	BasicShader(const std::string&, const std::string& );
 
-	void LoadProjectionMatrix(const glm::mat4& mat);
 
-	void LoadModelMatrix(const glm::mat4& mat);
+	/* Model View Projection */
+	void LoadProjectionMatrix(const glm::mat4& );
 
-	void LoadViewMatrix(const glm::mat4& mat);
+	void LoadModelMatrix(const glm::mat4& );
 
-	void LoadImageShader(const GLuint value);
+	void LoadViewMatrix(const glm::mat4& );
 
 protected:
 	/* most important get location for manipulate shader program */
@@ -28,7 +28,5 @@ private:
 	GLuint _locationViewMatrix;
 
 	GLuint _locationModelMatrix;
-
-	GLuint _texure;
 };
 

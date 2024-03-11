@@ -3,7 +3,7 @@
 
 void Texture::LoadFromFile(const std::string& name) {
 	sf::Image i;
-	if (!i.loadFromFile("Resource/textures/" + name + ".png")) {
+	if (!i.loadFromFile("Resource/textures/" + name + ".jpg")) {
 		throw std::runtime_error("Unable to load texture: " + name);
 	}
 	/*

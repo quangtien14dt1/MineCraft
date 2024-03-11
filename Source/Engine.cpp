@@ -9,6 +9,7 @@
 #include "../ModelLoading.h"
 #include "../Mesh.h"
 #include "../Texture/Texture.h"
+#include "../KeyBoard.h"
 
 
 void Engine::ErrorMessage(const char* c)
@@ -25,16 +26,16 @@ Engine::Engine(  Context* ct,  Application* a)
 
 	_shader = new BasicShader("Default", "Default");
 
-	_camera = new  Camera(ct, 45, 0.1f, 100.0f); 
+	_camera = new  Camera(ct, 90, 0.1f, 100.0f); 
 
 
 }
 
 Engine::~Engine() {
 
-	if (_camera != nullptr) { delete _camera; }
+	if (_camera != nullptr) { delete _camera; _camera = nullptr; }
 
-	if (_shader != nullptr) { delete _shader; }
+	if (_shader != nullptr) { delete _shader; _shader = nullptr; }
 
 } ;
 
@@ -55,7 +56,7 @@ int Engine::InitGame() {
 
 	Texture textures[]
 	{
-		Texture("aiuehara")
+		Texture("container")
 	};
 
 	std::vector <Vertex> verts(vers, vers + sizeof(vers) / sizeof(Vertex));
@@ -102,11 +103,42 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 	/* Shader unifitions */
 };
 
+void Engine::HandleKeyboard(sf::Event& e, float d) {
+
+	switch (e.key.code)
+	{
+	case sf::Keyboard::A:
+
+		_camera->ProcessKeyboard(Camera_Movement::LEFT, d);
+
+		break;
+
+	case sf::Keyboard::W:
+
+		_camera->ProcessKeyboard(Camera_Movement::FORWARD, d);
+
+		break;
+
+	case sf::Keyboard::S:
+
+		_camera->ProcessKeyboard(Camera_Movement::BACKWARD, d);
+
+		break;
+
+	case sf::Keyboard::D:
+
+		_camera->ProcessKeyboard(Camera_Movement::RIGHT, d);
+
+		break;
+
+	default:
+
+		break;
+	}
+
+};
+
 void Engine::Draw() {
-
-	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (auto m : _vMesh) {
 		
@@ -124,40 +156,7 @@ void Engine::AddNewData(Mesh m) {
 
 int Engine::RemoveData() { return 1; }
 
-void Engine::HandleKeyboard(sf::Event& e, float d) {
 
-	switch (e.key.code)
-	{
-	case sf::Keyboard::A:
-
-		_camera->MoveLeft(d);
-
-		break;
-
-	case sf::Keyboard::W:
-
-		_camera->MoveFront(d);
-
-		break;
-
-	case sf::Keyboard::S:
-
-		_camera->MoveBack(d);
-
-		break;
-
-	case sf::Keyboard::D:
-
-		_camera->MoveRight(d);
-
-		break;
-
-	default:
-
-		break;
-	}
-
-};
 
 void Engine::HandleMouseMoving(sf::Event& e, float d) {
 

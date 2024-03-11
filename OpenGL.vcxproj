@@ -237,6 +237,7 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Context.h" />
+    <ClInclude Include="Source\counted_ptr.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Entity\Camera.h" />
     <ClInclude Include="Source\EventManager.h" />

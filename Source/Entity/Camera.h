@@ -3,6 +3,7 @@
 #include "../glm.h"
 #include "../Context.h"
 #include "../Engine.h"
+#include "../KeyBoard.h"
 
 
 /* POV parameter  */
@@ -27,9 +28,8 @@ struct POVDATA {
 };
 
 
-/*
-* handle *View and *Projection Matrix4
-*/
+class BasicShader;
+
 class Camera
 {
 
@@ -49,17 +49,9 @@ public:
 
 	glm::mat4 ProjectionMatrix();
 
-	void MoveUp(float );
+	void UniformMatrix(BasicShader& );
 
-	void MoveDown(float );
-
-	void MoveLeft(float );
-
-	void MoveRight(float );
-
-	void MoveFront(float );
-
-	void MoveBack(float );
+	void ProcessKeyboard(Camera_Movement , float );
 
 	void MouseUpdate(const float&, const float&);
 
@@ -69,27 +61,29 @@ private:
 
 	sf::Window* _pWindow;
 
+	void UpdateCameraVector();
+
+public:
+
 	glm::mat4 _viewMatrix = glm::mat4(1.0f);
 
 	glm::mat4 _projectionMatrix = glm::mat4(1.0f);
 
-public:
 	glm::vec3 _viewDirection = glm::vec3(0.0f, 0.0f, -1.0f);
 
-	glm::vec3 _upPositipon = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 _upPosition = glm::vec3(0.0f, 1.0f, 0.0f);
 
-	glm::vec3 _position;
+	glm::vec3 _position = glm::vec3(0.0f, 0.0f, 3.0f);
 
-	float _rSpeed{ 0.3f };		// yaw pitch roll sensitivity
+	glm::vec3 _right;
 
-	float _mSpeed{ 0.05f };		// moving sensitivity
+	float _rSpeed{ 0.3f };		// sensitivity 
 
-	float _speed{ 5 };
+	float _speed{ 4.5f };
 
-	float _yaw{ 0.0f };			// turn your head left and right
+	float _yaw{ -90.0f };		// turn your head left and right
 
 	float _pitch{ 0.0f };		// turn your head up and down 
 
-	//float m_roll;				// not using , rotate your head
 
 };

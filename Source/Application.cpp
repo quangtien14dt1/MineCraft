@@ -8,7 +8,6 @@
 
 Application::Application() 
 {
-	_running = true;
 
 	if (_pContext == NULL) { _pContext = new Context(); }
 
@@ -26,34 +25,44 @@ void Application::RunLoop() {
 
 	sf::Clock clock;
 
+	sf::Event event;
+
+	sf::Time holdTime = sf::Time::Zero;
+
+	sf::Time runTime = sf::Time::Zero;
+
+	sf::Time update = sf::seconds(1.f / 60.f);
+
 	/* Init Game Engine */
 	_pEngine->InitGame();
 
-	while (_running) {
-		
-		sf::Event event;
+	while (_pContext->_pWindow->isOpen()) {
 
-		sf::Time time = clock.restart();
+		HandleEvents(event);
 
-		float startTime = time.asSeconds();
+		runTime += clock.restart();
 
-		while (_pContext->_pWindow->pollEvent(event))
-		{
-			if ((time.asSeconds() - startTime) >= (1 / 60)) {
+		float deltaTime = runTime.asSeconds() - holdTime.asSeconds();
 
-				HandleEvents( event ); // application event 
+		if ( deltaTime > update.asSeconds()) {
+
+			std::cout << "time: " << deltaTime << std::endl;
+
+			while (_pContext->_pWindow->pollEvent(event))
+			{
 
 				_pEngine->UpdateGameLogic(
 					event,
-					time.asSeconds() - startTime
+					deltaTime
 				);
-
-				startTime = time.asSeconds();
 
 			}
 
 		}
+
 		// clear the buffers
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// draw OpenGL level 
@@ -61,6 +70,8 @@ void Application::RunLoop() {
 
 		// sfml window display buffer
 		_pContext->_pWindow->display();
+
+		holdTime = runTime;
 
 	}
 }
@@ -87,8 +98,6 @@ void Application::HandleEvents(sf::Event& e) {
 
 		_pContext->_pWindow->close();
 
-		_running = false;
-
 		break;
 
 	case sf::Event::KeyPressed:
@@ -96,8 +105,6 @@ void Application::HandleEvents(sf::Event& e) {
 		switch (e.key.code)
 		{
 		case sf::Keyboard::Escape:
-
-			_running = false;
 
 			_pContext->_pWindow->close();
 

@@ -21,11 +21,7 @@ class Texture;
 class Mesh {
 
 public:
-	Mesh(	
-		std::vector <Vertex>,
-		std::vector <GLuint>,
-		std::vector <Texture>
-	);
+	Mesh( std::vector <Vertex>, std::vector <GLuint>, std::vector <Texture> );
 
 	~Mesh();
 

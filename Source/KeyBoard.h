@@ -4,6 +4,14 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <array>
 
+enum Camera_Movement {
+	FORWARD,
+	BACKWARD,
+	LEFT,
+	RIGHT
+};
+
+
 class Keyboard {
 public:
 	Keyboard();

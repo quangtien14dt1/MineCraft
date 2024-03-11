@@ -25,9 +25,9 @@ Context::Context() {
 		settings.minorVersion = 0;
 
 		/* create window and setting  */
-		_width = 600;
+		_width = 1000;
 
-		_height = 600;
+		_height = 1000;
 
 		_pWindow = new sf::Window(sf::VideoMode(_width, _height), "OpenGL", sf::Style::Default, settings);
 

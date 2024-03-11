@@ -28,8 +28,6 @@ public:
 
 	void CenteringMousePosition();
 
-	bool _running;
-
 private:
 	void HandleEvents(sf::Event&);
 

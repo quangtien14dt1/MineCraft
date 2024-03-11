@@ -4,6 +4,7 @@
 #include "texture/Texture.h"
 #include "../ModelLoading.h"
 #include "../Entity/Camera.h"
+#include "../KeyBoard.h"
 
 #include <iostream>
 
@@ -12,7 +13,9 @@
 Mesh::Mesh( std::vector <Vertex> v,std::vector <GLuint> i, std::vector <Texture> t ) {
 
 	this->_vertices = v;
+
 	this->_indices  = i;
+
 	this->_textures = t;
 
 	_vao.Bind();
@@ -50,15 +53,11 @@ void Mesh::DrawMesh(BasicShader& s, Camera& c) {
 
 	_textures[0].BindTexture();
 
-	glm::mat4 model = glm::mat4(1.0f); 
+	glm::mat4 model = glm::mat4(1.0f);
 
-	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	s.LoadModelMatrix(model);
 
-	s.LoadViewMatrix( c.ViewMatrix() );
-
-	s.LoadProjectionMatrix(c.ProjectionMatrix());
-
-	s.LoadModelMatrix( DefaultModel());
+	c.UniformMatrix(s);
 
 	glDrawElements(GL_TRIANGLES, GLsizei(_indices.size()), GL_UNSIGNED_INT, 0);
 
