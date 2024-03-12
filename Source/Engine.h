@@ -47,7 +47,7 @@ public:
 
 	void HandleMouseMoving(sf::Event&, float);
 
-	void HandleScrolling(sf::Event&, float);
+	void HandleScrolling(sf::Event&);
 
 	void Draw();
 	

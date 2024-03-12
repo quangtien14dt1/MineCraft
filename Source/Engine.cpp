@@ -33,9 +33,8 @@ Engine::Engine(  Context* ct,  Application* a)
 
 Engine::~Engine() {
 
-	if (_camera != nullptr) { delete _camera; _camera = nullptr; }
-
-	if (_shader != nullptr) { delete _shader; _shader = nullptr; }
+	 delete _camera; _camera = nullptr; 
+	 delete _shader; _shader = nullptr; 
 
 } ;
 
@@ -93,7 +92,7 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 		break;
 
 	case sf::Event::MouseWheelScrolled:
-		// HandleScrolling(e, d);
+		 HandleScrolling(e);
 		break;
 
 	default:
@@ -138,6 +137,27 @@ void Engine::HandleKeyboard(sf::Event& e, float d) {
 
 };
 
+void Engine::HandleMouseMoving(sf::Event& e, float d) {
+
+	float dx = float(e.mouseMove.x - _pContext->_pWindow->getSize().x);
+
+	float dy = float(e.mouseMove.y - _pContext->_pWindow->getSize().y);
+
+	_camera->MouseUpdate(dx, dy);
+
+	sf::Mouse::setPosition(
+		sf::Vector2i(
+			_pContext->_pWindow->getSize().x / 2,
+			_pContext->_pWindow->getSize().y / 2),
+		*_pContext->_pWindow);
+};
+
+void Engine::HandleScrolling(sf::Event& e) {
+
+	_camera->ProcessMouseScrolling(e);
+
+}
+
 void Engine::Draw() {
 
 	for (auto m : _vMesh) {
@@ -158,21 +178,4 @@ int Engine::RemoveData() { return 1; }
 
 
 
-void Engine::HandleMouseMoving(sf::Event& e, float d) {
 
-	float dx = float(e.mouseMove.x - _pContext->_pWindow->getSize().x);
-
-	float dy = float(e.mouseMove.y - _pContext->_pWindow->getSize().y);
-
-	_camera->MouseUpdate(dx, dy);
-
-	sf::Mouse::setPosition(
-		sf::Vector2i(
-			_pContext->_pWindow->getSize().x / 2,
-			_pContext->_pWindow->getSize().y / 2),
-		*_pContext->_pWindow);
-};
-
-void Engine::HandleScrolling(sf::Event& e, float d) {
-	std::cout << "Handle Mouse Scrolling " << std::endl;
-}

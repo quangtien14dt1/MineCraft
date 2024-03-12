@@ -375,6 +375,12 @@
     <ClInclude Include="Source\counted_ptr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\smart_ptr\autocreate_ptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\smart_ptr\counted_ptr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

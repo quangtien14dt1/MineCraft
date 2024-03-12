@@ -48,29 +48,22 @@ void Camera::ProcessKeyboard( Camera_Movement direction, float delta ) {
 
 	float velocity = _speed * delta;
 
-	if (direction == Camera_Movement::LEFT) {
-
-		_position -= _right * velocity;
-
-		std::cout << "position: " << glm::to_string(_position) << std::endl;
-	}
-	if (direction == Camera_Movement::RIGHT) {
-
-		_position += _right * velocity;
-
-		std::cout << "position: " << glm::to_string(_position) << std::endl;
-	}
-	if (direction == Camera_Movement::BACKWARD) {
-
-		_position -= _viewDirection * velocity;
-
-		std::cout << "position: " << glm::to_string(_position) << std::endl;
-	}
-	if (direction == Camera_Movement::FORWARD) {
-
+	switch (direction)
+	{
+	case FORWARD:
 		_position += _viewDirection * velocity;
-
-		std::cout << "position: " << glm::to_string(_position) << std::endl;
+		break;
+	case BACKWARD:
+		_position -= _viewDirection * velocity;
+		break;
+	case LEFT:
+		_position -= _right * velocity;
+		break;
+	case RIGHT:
+		_position += _right * velocity;
+		break;
+	default:
+		break;
 	}
 
 	ViewMatrix();
@@ -137,4 +130,15 @@ void Camera::UpdateCameraVector() {
 	_upPosition = glm::normalize(glm::cross(_right, _viewDirection));
 }
 
+void Camera::ProcessMouseScrolling(sf::Event& e) {
+
+	if (e.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+		if (e.mouseWheelScroll.delta > 0) {
+			// scroll up
+		}
+		else if (e.mouseWheelScroll.delta < 0) {
+			// scroll down 
+		}
+	}
+};
 

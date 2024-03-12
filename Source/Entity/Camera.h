@@ -55,6 +55,8 @@ public:
 
 	void MouseUpdate(const float&, const float&);
 
+	void ProcessMouseScrolling(sf::Event&);
+
 private:
 
 	POVDATA _sProjectionData;

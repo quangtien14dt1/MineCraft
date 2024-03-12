@@ -249,6 +249,8 @@
     <ClInclude Include="Source\Shader\BasicShader.h" />
     <ClInclude Include="Source\Shader\Shader.h" />
     <ClInclude Include="Source\Shader\ShaderLoader.h" />
+    <ClInclude Include="Source\smart_ptr\autocreate_ptr.h" />
+    <ClInclude Include="Source\smart_ptr\counted_ptr.h" />
     <ClInclude Include="Source\Texture\Texture.h" />
     <ClInclude Include="Source\Thirdparty\fastnoise.hpp" />
     <ClInclude Include="Source\Thirdparty\stb_image.hpp" />
