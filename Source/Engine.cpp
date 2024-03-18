@@ -162,17 +162,3 @@ void Engine::Notify(sf::Event& e, float del) {
 		++iterator;
 	}
 };
-
-
-	_camera->MouseUpdate(dx, dy);
-
-	sf::Mouse::setPosition(
-		sf::Vector2i(
-			_pContext->_pWindow->getSize().x / 2,
-			_pContext->_pWindow->getSize().y / 2),
-		*_pContext->_pWindow);
-};
-
-void Engine::HandleScrolling(sf::Event& e, float d) {
-	std::cout << "Handle Mouse Scrolling " << std::endl;
-}
