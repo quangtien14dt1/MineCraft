@@ -79,17 +79,6 @@ void Camera::UpdateCameraVector() {
 	_upPosition = glm::normalize(glm::cross(_right, _viewDirection));
 }
 
-void Camera::ProcessMouseScrolling(sf::Event& e) {
-
-	if (e.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
-		if (e.mouseWheelScroll.delta > 0) {
-			// scroll up
-		}
-		else if (e.mouseWheelScroll.delta < 0) {
-			// scroll down 
-		}
-	}
-};
 
 void Camera::ProcessKeyboard(sf::Event& e, float d) {
 	float velocity = _speed * d;
