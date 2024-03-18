@@ -49,7 +49,7 @@ void Mesh::DrawMesh(BasicShader& s, Camera& c) {
 
 	_vao.Bind();
 
-	_textures[0].TextureUnit(s, "texture", 0);
+	_textures[0].TextureUnit(s, "texture1", 0);
 
 	_textures[0].BindTexture();
 

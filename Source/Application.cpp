@@ -1,58 +1,45 @@
 #include "Application.h"
 #include "Context.h"
 #include "Mesh.h"
-
+#include "Engine.h"
 #include <SFML/Window.hpp>
 #include <iostream>
 
 
-Application::Application() 
-{
-
-	if (_pContext == NULL) { _pContext = new Context(); }
-
-	if (_pEngine == NULL) { _pEngine = new Engine(_pContext, this ); }
+Application::Application() {
+	SetupConfig(_config);
+	SetupWindowContext(_config, _context);
+	_pEngine = new Engine(_config, this ); 
 }
 
-Application::~Application() {
-
-	if (_pEngine != NULL) { delete _pEngine;}
-
-	if (_pContext != NULL) { delete _pContext;}
-}
+Application::~Application() { if (_pEngine != NULL) { delete _pEngine;} }
 
 void Application::RunLoop() {
 
-	sf::Clock clock;
-
-	sf::Event event;
-
 	sf::Time holdTime = sf::Time::Zero;
-
 	sf::Time runTime = sf::Time::Zero;
-
 	sf::Time update = sf::seconds(1.f / 60.f);
 
 	/* Init Game Engine */
 	_pEngine->InitGame();
+	sf::Event e;
+	while (_context._pWindow->isOpen()) {
 
-	while (_pContext->_pWindow->isOpen()) {
+		HandleEvents(e);
 
-		HandleEvents(event);
-
-		runTime += clock.restart();
+		runTime += _clock.restart();
 
 		float deltaTime = runTime.asSeconds() - holdTime.asSeconds();
 
 		if ( deltaTime > update.asSeconds()) {
 
-			std::cout << "time: " << deltaTime << std::endl;
+			// std::cout << "time: " << deltaTime << std::endl;
 
-			while (_pContext->_pWindow->pollEvent(event))
+			while (_context._pWindow->pollEvent(e))
 			{
 
 				_pEngine->UpdateGameLogic(
-					event,
+					e,
 					deltaTime
 				);
 
@@ -69,21 +56,21 @@ void Application::RunLoop() {
 		_pEngine->Draw();
 
 		// sfml window display buffer
-		_pContext->_pWindow->display();
+		_context._pWindow->display();
 
 		holdTime = runTime;
 
 	}
 }
 
-void Application::TurnOffMouse() { _pContext->_pWindow->setMouseCursorVisible(false); }
+void Application::TurnOffMouse() { _context._pWindow->setMouseCursorVisible(false); }
 
-void Application::TurnOnMouse() { _pContext->_pWindow->setMouseCursorVisible(true); }
+void Application::TurnOnMouse() { _context._pWindow->setMouseCursorVisible(true); }
 
 void Application::CenteringMousePosition() {
 	sf::Mouse::setPosition(
-		sf::Vector2i(_pContext->_width / 2, _pContext->_height / 2),
-		*_pContext->_pWindow);
+		sf::Vector2i(_context._width / 2, _context._height / 2),
+		*_context._pWindow);
 }
 
 void Application::HandleEvents(sf::Event& e) {
@@ -96,7 +83,7 @@ void Application::HandleEvents(sf::Event& e) {
 	{
 	case sf::Event::Closed:
 
-		_pContext->_pWindow->close();
+		_context._pWindow->close();
 
 		break;
 
@@ -106,7 +93,7 @@ void Application::HandleEvents(sf::Event& e) {
 		{
 		case sf::Keyboard::Escape:
 
-			_pContext->_pWindow->close();
+			_context._pWindow->close();
 
 			break;
 

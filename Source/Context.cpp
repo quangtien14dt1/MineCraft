@@ -1,53 +1,41 @@
 
 #include <glad/glad.h>
 #include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
-
 #include "Context.h"
 
 
-Context::~Context() { delete _pWindow; }
+void SetupConfig(Config& cf) {
+	cf._width = 600;
+	cf._height = 600;
+	cf._angle = 90.0f;
+	cf._close = 0.1f;
+	cf._far = 100.0f;
+};
 
-Context::Context() {
+void SetupWindowContext(Config& cf, Context& c) {
 
-		/* make window context */
+	/* make window context */
+	sf::ContextSettings settings;
+	settings.depthBits = 24;
+	settings.stencilBits = 8;
+	settings.antialiasingLevel = 4;
+	settings.majorVersion = 3;
+	settings.minorVersion = 0;
 
-		sf::ContextSettings settings;
+	/* create window and setting  */
+	c._width = 600;
+	c._height = 600;
+	c._pWindow = new sf::Window(
+		sf::VideoMode(c._width, c._height), "OpenGL", sf::Style::Default, settings);
+	c._pWindow->setVerticalSyncEnabled(true);
+	c._pWindow->setActive(true);
+	c._pWindow->setFramerateLimit(60);
 
-		settings.depthBits = 24;
+	if (!gladLoadGL()) {exit(-1);}
 
-		settings.stencilBits = 8;
-
-		settings.antialiasingLevel = 4;
-
-		settings.majorVersion = 3;
-
-		settings.minorVersion = 0;
-
-		/* create window and setting  */
-		_width = 1000;
-
-		_height = 1000;
-
-		_pWindow = new sf::Window(sf::VideoMode(_width, _height), "OpenGL", sf::Style::Default, settings);
-
-		_pWindow->setVerticalSyncEnabled(true);
-
-		_pWindow->setActive(true);
-
-		_pWindow->setFramerateLimit(60);
-
-		if (!gladLoadGL()) {
-
-			exit(-1);
-		}
-
-		glViewport(0, 0, _pWindow->getSize().x, _pWindow->getSize().y);
-
-		glCullFace(GL_BACK);		/* setting not display faces at the back */
-
-		glEnable(GL_DEPTH_TEST);	/* enable z-buffer */
-
-	};
+	glViewport(0, 0, c._pWindow->getSize().x, c._pWindow->getSize().y);
+	glCullFace(GL_BACK);		/* setting not display faces at the back */
+	glEnable(GL_DEPTH_TEST);	/* enable z-buffer */
+};
 
 

@@ -1,9 +1,8 @@
 #pragma once
 
-
 #include "Context.h"
 #include "Application.h"
-
+#include "ObserverPatter.h"
 #include <SFML/Window.hpp>
 #include <vector>
 
@@ -25,48 +24,40 @@
 */
 
 class Application;
-
 class Camera;
-
 class Mesh;
-
 class BasicShader;
 
-class Engine
+class Engine : public ISubject
 {
 public:
-	Engine(Context*, Application*);
+	Engine(Config&, Application*);
 
 	~Engine();
 
 	int  InitGame();
 
+	/* Logic Handle for Event level */
 	void UpdateGameLogic(sf::Event&,float);
 
-	void HandleKeyboard(sf::Event&, float );
-
-	void HandleMouseMoving(sf::Event&, float);
-
-	void HandleScrolling(sf::Event&);
-
-	void Draw();
-	
+	void Draw(); // draw function 
 	int  RemoveData();
-
 	void AddNewData(Mesh);
-
 	void ErrorMessage(const char*);
+
+	/* Handle ISubject */
+	void Attach(IObserver* observer) override;
+	void Detach(IObserver* observer) override;
+	void Notify(sf::Event&, float ) override;
 
 private:
 
-	Context*		_pContext;
-
+	Config		_config;
+	Context		_context;
 	Application*	_pApplication; 
-
 	Camera*			_camera;	
-
 	BasicShader*	_shader;
-
 	std::vector<Mesh> _vMesh;
+	std::list<IObserver*> _observer;
 };
 

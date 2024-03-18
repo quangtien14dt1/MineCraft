@@ -18,25 +18,19 @@ void Engine::ErrorMessage(const char* c)
 }
 
 
-Engine::Engine(  Context* ct,  Application* a)
+Engine::Engine(  Config& cf,  Application* a)
 {
-	_pContext = ct;
-
+	_config = cf;
 	_pApplication = a;
-
 	_shader = new BasicShader("Default", "Default");
-
-	_camera = new  Camera(ct, 90, 0.1f, 100.0f); 
-
-
+	_camera = new Camera( _config );
+	Attach(_camera);
 }
 
 Engine::~Engine() {
-
-	 delete _camera; _camera = nullptr; 
-	 delete _shader; _shader = nullptr; 
-
-} ;
+	if (_shader != NULL ) { delete _shader; _shader = nullptr; }
+	if (_camera != NULL)  { delete _camera; _camera = nullptr; }
+};
 
 int Engine::InitGame() {
 
@@ -59,9 +53,7 @@ int Engine::InitGame() {
 	};
 
 	std::vector <Vertex> verts(vers, vers + sizeof(vers) / sizeof(Vertex));
-
 	std::vector <GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
-
 	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 
 
@@ -73,90 +65,68 @@ int Engine::InitGame() {
 
 };
 
-
 void Engine::UpdateGameLogic(sf::Event& e,float d) {
 
 	/* 
 	* Handle Event from engine level 
-	* we can apply a different keyboard and mouse controller later 
-	* from this handle event at engine level 
+	* Notify for all Observer intance 
+	* to update and handle event
 	*/
-	switch (e.type) {
-
-	case sf::Event::KeyPressed:
-		HandleKeyboard(e, d);
-		break;
-
-	case sf::Event::MouseMoved:
-		// HandleMouseMoving(e, d);
-		break;
-
-	case sf::Event::MouseWheelScrolled:
-		 HandleScrolling(e);
-		break;
-
-	default:
-		break;
-	}
-
+	
+	Notify(e, d);
 	/* Shader unifitions */
 };
 
-void Engine::HandleKeyboard(sf::Event& e, float d) {
-
-	switch (e.key.code)
-	{
-	case sf::Keyboard::A:
-
-		_camera->ProcessKeyboard(Camera_Movement::LEFT, d);
-
-		break;
-
-	case sf::Keyboard::W:
-
-		_camera->ProcessKeyboard(Camera_Movement::FORWARD, d);
-
-		break;
-
-	case sf::Keyboard::S:
-
-		_camera->ProcessKeyboard(Camera_Movement::BACKWARD, d);
-
-		break;
-
-	case sf::Keyboard::D:
-
-		_camera->ProcessKeyboard(Camera_Movement::RIGHT, d);
-
-		break;
-
-	default:
-
-		break;
-	}
-
-};
-
-void Engine::HandleMouseMoving(sf::Event& e, float d) {
-
-	float dx = float(e.mouseMove.x - _pContext->_pWindow->getSize().x);
-
-	float dy = float(e.mouseMove.y - _pContext->_pWindow->getSize().y);
-
-	_camera->MouseUpdate(dx, dy);
-
-	sf::Mouse::setPosition(
-		sf::Vector2i(
-			_pContext->_pWindow->getSize().x / 2,
-			_pContext->_pWindow->getSize().y / 2),
-		*_pContext->_pWindow);
-};
-
-void Engine::HandleScrolling(sf::Event& e) {
-
-	_camera->ProcessMouseScrolling(e);
-
-}
+//void Engine::HandleKeyboard(sf::Event& e, float d) {
+//
+//	switch (e.key.code)
+//	{
+//	case sf::Keyboard::A:
+//
+//		_camera->ProcessKeyboard(Camera_Movement::LEFT, d);
+//
+//		break;
+//
+//	case sf::Keyboard::W:
+//
+//		_camera->ProcessKeyboard(Camera_Movement::FORWARD, d);
+//
+//		break;
+//
+//	case sf::Keyboard::S:
+//
+//		_camera->ProcessKeyboard(Camera_Movement::BACKWARD, d);
+//
+//		break;
+//
+//	case sf::Keyboard::D:
+//
+//		_camera->ProcessKeyboard(Camera_Movement::RIGHT, d);
+//
+//		break;
+//
+//	default:
+//
+//		break;
+//	}
+//
+//};
+//
+//void Engine::HandleMouseMoving(sf::Event& e, float d) {
+//
+//	float dx = float(e.mouseMove.x - _context._pWindow->getSize().x);
+//	float dy = float(e.mouseMove.y - _context._pWindow->getSize().y);
+//
+//	_camera->MouseUpdate(dx, dy);
+//
+//	sf::Mouse::setPosition(
+//		sf::Vector2i(
+//			_context._pWindow->getSize().x / 2,
+//			_context._pWindow->getSize().y / 2),
+//		*_context._pWindow);
+//};
+//
+//void Engine::HandleScrolling(sf::Event& e) { _camera->ProcessMouseScrolling(e);}
 
 void Engine::Draw() {
 
@@ -175,6 +145,23 @@ void Engine::AddNewData(Mesh m) {
 };
 
 int Engine::RemoveData() { return 1; }
+
+void Engine::Attach(IObserver* observer) {
+	_observer.push_back(observer);
+};
+
+void Engine::Detach(IObserver* observer) {
+	_observer.remove(observer);
+};
+
+void Engine::Notify(sf::Event& e, float del) {
+	std::list<IObserver*>::iterator iterator = _observer.begin();
+	std::cout << "There are " << _observer.size() << "observers in the list.\n" << std::endl;
+	while (iterator != _observer.end()) {
+		(*iterator)->Update(e, del);
+		++iterator;
+	}
+};
 
 
 
