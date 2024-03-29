@@ -31,7 +31,7 @@ class BasicShader;
 class Engine : public ISubject
 {
 public:
-	Engine(Config&, Application*);
+	Engine(Config*, Application*, Context*);
 
 	~Engine();
 
@@ -52,8 +52,8 @@ public:
 
 private:
 
-	Config		_config;
-	Context		_context;
+	Config*		_pConfig;
+	Context*		_pContext;
 	Application*	_pApplication; 
 	Camera*			_camera;	
 	BasicShader*	_shader;

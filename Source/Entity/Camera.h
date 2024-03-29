@@ -21,7 +21,7 @@ class BasicShader;
 class Camera : public IObserver {
 
 public:
-	Camera(const Config);
+	Camera(Config*, Context*);
 	~Camera();
 	/* make project view model matrix */;
 	glm::mat4 ViewMatrix();
@@ -31,13 +31,17 @@ public:
 
 	void Update(sf::Event& e, float ) override;
 	void ProcessKeyboard(sf::Event& e, float d);
-	void ProcessMoveMoving(const float&, const float&);
+	void ProcessMoveMoving(sf::Event& );
+	void UpdateDragging(bool);
 	void ProcessMouseScrolling(sf::Event&);
 private:
 	POVDATA _sProjectionData;
 
-	sf::Window* _pWindow{nullptr};
-
+	Application* _pApplication{ nullptr };
+	Context* _pContext{nullptr};
+	Config* _pConfig{ nullptr };
+	bool _dragging;
+	sf::Vector2i _previousMousePosition;
 	void UpdateCameraVector();
 public:
 	glm::mat4 _viewMatrix = glm::mat4(1.0f);

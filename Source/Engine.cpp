@@ -18,12 +18,13 @@ void Engine::ErrorMessage(const char* c)
 }
 
 
-Engine::Engine(  Config& cf,  Application* a)
+Engine::Engine(  Config* cf,  Application* a, Context* ct)
 {
-	_config = cf;
+	_pConfig = cf;
+	_pContext = ct;
 	_pApplication = a;
 	_shader = new BasicShader("Default", "Default");
-	_camera = new Camera( _config );
+	_camera = new Camera( _pConfig, _pContext );
 	Attach(_camera);
 }
 
@@ -72,7 +73,6 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 	* Notify for all Observer intance 
 	* to update and handle event
 	*/
-	
 	Notify(e, d);
 	/* Shader unifitions */
 };
@@ -139,9 +139,7 @@ void Engine::Draw() {
 };
 
 void Engine::AddNewData(Mesh m) { 
-
 	_vMesh.push_back(m); 
-
 };
 
 int Engine::RemoveData() { return 1; }
@@ -156,7 +154,7 @@ void Engine::Detach(IObserver* observer) {
 
 void Engine::Notify(sf::Event& e, float del) {
 	std::list<IObserver*>::iterator iterator = _observer.begin();
-	std::cout << "There are " << _observer.size() << "observers in the list.\n" << std::endl;
+	// std::cout << "There are " << _observer.size() << "observers in the list.\n" << std::endl;
 	while (iterator != _observer.end()) {
 		(*iterator)->Update(e, del);
 		++iterator;

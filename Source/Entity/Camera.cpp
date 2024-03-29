@@ -6,18 +6,21 @@
 #include <iostream>
 
 
-Camera::~Camera() {
-	if (_pWindow != NULL) delete _pWindow; _pWindow = nullptr;
-}
+Camera::~Camera() { }
+	//if (_pContext != NULL) delete _pContext; _pContext = nullptr;
+	//if (_pConfig != NULL) delete _pConfig; _pConfig = nullptr;
 
-Camera::Camera(const Config cf) {
+
+Camera::Camera(Config* cf, Context* ct) {
 
 	/* setup parameters */
-	_sProjectionData.angle = cf._angle;
-	_sProjectionData.width = cf._width;
-	_sProjectionData.height = cf._height;
-	_sProjectionData.closePlane = cf._close;
-	_sProjectionData.farPlane = cf._far;
+	_pContext = ct;
+	_pConfig = cf;
+	_sProjectionData.angle = cf->_angle;
+	_sProjectionData.width = cf->_width;
+	_sProjectionData.height = cf->_height;
+	_sProjectionData.closePlane = cf->_close;
+	_sProjectionData.farPlane = cf->_far;
 
 	ProjectionMatrix();
 	ViewMatrix();
@@ -25,14 +28,9 @@ Camera::Camera(const Config cf) {
 }
 
 glm::mat4 Camera::ViewMatrix() { 
-
 	_viewMatrix = glm::lookAt(_position, _position + _viewDirection, _upPosition);
-
 	return _viewMatrix;
-
 }
-
-
 
 void Camera::UniformMatrix(BasicShader& s ) {
 	s.LoadProjectionMatrix(_projectionMatrix);
@@ -51,19 +49,33 @@ glm::mat4 Camera::ProjectionMatrix() {
 
 }
 
-void Camera::ProcessMoveMoving(const float& dx,const float& dy ) {
+void Camera::UpdateDragging(bool d) {
+	/* should not be dragging option*/
+	_dragging = d;
+}
 
-	_yaw += dx * _rSpeed;
-	_pitch += dy * _rSpeed;
+void Camera::ProcessMoveMoving(sf::Event& e ) {
 
-	if (_pitch > 89.0f) _pitch = 89.0f;
-	if (_pitch > 89.0f) _pitch = 89.0f;
+	if (_dragging) {
+		float dx = float(e.mouseMove.x - _pContext->_pWindow->getSize().x);
+		float dy = float(e.mouseMove.y - _pContext->_pWindow->getSize().y);
 
-	glm::vec3 front;
-	front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-	front.y = sin(glm::radians(_pitch));
-	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-	_viewDirection = glm::normalize(front);
+		_yaw += dx * _rSpeed;
+		_pitch += dy * _rSpeed;
+
+		if (_pitch > 89.0f) _pitch = 89.0f;
+		if (_pitch > 89.0f) _pitch = 89.0f;
+
+		/* normalize view vector direction */
+		glm::vec3 front;
+		front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+		front.y = sin(glm::radians(_pitch));
+		front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
+		_viewDirection = glm::normalize(front);
+	}
+
+	ViewMatrix();
+	UpdateCameraVector();
 };
 
 void Camera::UpdateCameraVector() {
@@ -78,7 +90,6 @@ void Camera::UpdateCameraVector() {
 	_right = glm::normalize(glm::cross(_viewDirection, _upPosition));
 	_upPosition = glm::normalize(glm::cross(_right, _viewDirection));
 }
-
 
 void Camera::ProcessKeyboard(sf::Event& e, float d) {
 	float velocity = _speed * d;
@@ -104,15 +115,20 @@ void Camera::ProcessKeyboard(sf::Event& e, float d) {
 }
 
 void Camera::Update(sf::Event& e, float delta ) {
-
-	std::cout << "Update camera" << std::endl;
 	switch (e.type)
 	{
 	case sf::Event::KeyPressed:
 		ProcessKeyboard(e, delta);
 		break;
-	case sf::Event::MouseMoved:
-		// ProcessMoveMoving();
+
+	case (sf::Event::MouseButtonPressed):
+		UpdateDragging(true);
+		break;
+	case (sf::Event::MouseButtonReleased):
+		UpdateDragging(false);
+		break;
+	case (sf::Event::MouseMoved):
+		ProcessMoveMoving(e);
 		break;
 	case sf::Event::MouseWheelScrolled:
 		// ProcessMouseScrolling(e);
