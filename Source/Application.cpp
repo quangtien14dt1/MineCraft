@@ -20,7 +20,7 @@ void Application::RunLoop() {
 
 	sf::Time holdTime = sf::Time::Zero;
 	sf::Time runTime = sf::Time::Zero;
-	sf::Time update = sf::seconds(1.f / 60.f);
+	sf::Time update = sf::seconds(0.01f / 60.f);
 
 	/* Init Game Engine */
 	_pEngine->InitGame();
@@ -30,7 +30,7 @@ void Application::RunLoop() {
 
 			runTime += _clock.restart();
 			float deltaTime = runTime.asSeconds() - holdTime.asSeconds();
-			if (deltaTime > update.asSeconds()) {
+			if (deltaTime = update.asSeconds()) {
 
 
 				/*
@@ -46,8 +46,10 @@ void Application::RunLoop() {
 					);
 
 				}
-				HandleEvents(e);
+				
 			}
+
+			HandleEvents(e);
 
 			// clear the buffers
 			glClearColor(0.07f, 0.13f, 0.17f, 1.0f);

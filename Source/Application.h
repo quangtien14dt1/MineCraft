@@ -4,6 +4,7 @@
 #include "Singleton.h"
 
 class Engine;
+class Camera;
 
 class Application : public SingleTon
 {

@@ -390,6 +390,9 @@
     <ClInclude Include="Source\Singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Entity\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -424,6 +427,15 @@
     </None>
     <None Include="Resource\shaders\Default.frag" />
     <None Include="Resource\shaders\Default.vert" />
+    <None Include="CMakeSettings.json" />
+    <None Include="CMake\Default.cmake" />
+    <None Include="CMake\DefaultCXX.cmake" />
+    <None Include="CMake\DefaultFortran.cmake" />
+    <None Include="CMake\Utils.cmake" />
+    <None Include=".vscode\tasks.json" />
+    <None Include=".vscode\settings.json" />
+    <None Include=".vscode\launch.json" />
+    <None Include=".vscode\.easycpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Entity\Camera.cpp">
@@ -473,5 +485,8 @@
     <Image Include="Resource\textures\container.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

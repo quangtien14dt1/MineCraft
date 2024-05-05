@@ -2,14 +2,10 @@
 #include "../glm.h"
 #include "../Shader/BasicShader.h"
 #include "../EventManager.h"
-
 #include <iostream>
 
 
 Camera::~Camera() { }
-	//if (_pContext != NULL) delete _pContext; _pContext = nullptr;
-	//if (_pConfig != NULL) delete _pConfig; _pConfig = nullptr;
-
 
 Camera::Camera(Config* cf, Context* ct) {
 
@@ -22,60 +18,69 @@ Camera::Camera(Config* cf, Context* ct) {
 	_sProjectionData.closePlane = cf->_close;
 	_sProjectionData.farPlane = cf->_far;
 
-	ProjectionMatrix();
-	ViewMatrix();
-	UpdateCameraVector();
+	InitProjectionMatrix();
+	//UpdateCameraVector(); // calculate right vector
 }
 
-glm::mat4 Camera::ViewMatrix() { 
+void Camera::CalculateViewMatrix() { 
+	_viewMatrix = glm::lookAt(_position, _position + _viewDirection, _upPosition);  
+};
+
+glm::mat4 Camera::GetViewMatrix() {
 	_viewMatrix = glm::lookAt(_position, _position + _viewDirection, _upPosition);
 	return _viewMatrix;
 }
 
-void Camera::UniformMatrix(BasicShader& s ) {
-	s.LoadProjectionMatrix(_projectionMatrix);
-	s.LoadViewMatrix(_viewMatrix);
-};
+glm::mat4 Camera::GetProjectionMatrix() { return _projectionMatrix; }
 
-glm::mat4 Camera::ProjectionMatrix() {
-
+void Camera::InitProjectionMatrix() {
 	_projectionMatrix = glm::perspective(
 		glm::radians(_sProjectionData.angle),
 		_sProjectionData.width / _sProjectionData.height,
 		_sProjectionData.closePlane,
 		_sProjectionData.farPlane);
 
-	return _projectionMatrix;
-
-}
+};
 
 void Camera::UpdateDragging(bool d) {
 	/* should not be dragging option*/
 	_dragging = d;
 }
 
-void Camera::ProcessMoveMoving(sf::Event& e ) {
+void Camera::Update(sf::Event& e, float delta) {
 
-	if (_dragging) {
-		float dx = float(e.mouseMove.x - _pContext->_pWindow->getSize().x);
-		float dy = float(e.mouseMove.y - _pContext->_pWindow->getSize().y);
+	// thinking about checking poll event 
+	switch (e.type)
+	{
+	case sf::Event::KeyPressed:
+		if (e.key.code == sf::Keyboard::A) { MoveLeft(); break; };
+		if (e.key.code == sf::Keyboard::S) { MoveBackWard();  break; };
+		if (e.key.code == sf::Keyboard::D) { MoveRight(); break; };
+		if (e.key.code == sf::Keyboard::W) { MoveForWard(); break;};
 
-		_yaw += dx * _rSpeed;
-		_pitch += dy * _rSpeed;
+		/* this for development phase camera rotating */
+		if (e.key.code == sf::Keyboard::L) { TurnLeft_Right(1); break; };
+		if (e.key.code == sf::Keyboard::H) { TurnLeft_Right(-1); break; };
+		if (e.key.code == sf::Keyboard::K) { TurnUp_Down(1); break; };
+		if (e.key.code == sf::Keyboard::J) { TurnUp_Down(-1); break; };
 
-		if (_pitch > 89.0f) _pitch = 89.0f;
-		if (_pitch > 89.0f) _pitch = 89.0f;
-
-		/* normalize view vector direction */
-		glm::vec3 front;
-		front.x = cos(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		front.y = sin(glm::radians(_pitch));
-		front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
-		_viewDirection = glm::normalize(front);
+	case (sf::Event::MouseButtonPressed):
+		UpdateDragging(true);
+		break;
+	case (sf::Event::MouseButtonReleased):
+		UpdateDragging(false);
+		break;
+		/*case (sf::Event::MouseMoved):
+			ProcessMoveMoving(e);
+			break;*/
+	case sf::Event::MouseWheelScrolled:
+		// ProcessMouseScrolling(e);
+		break;
+	default:
+		break;
 	}
 
-	ViewMatrix();
-	UpdateCameraVector();
+	
 };
 
 void Camera::UpdateCameraVector() {
@@ -89,52 +94,40 @@ void Camera::UpdateCameraVector() {
 	_viewDirection = glm::normalize(front);
 	_right = glm::normalize(glm::cross(_viewDirection, _upPosition));
 	_upPosition = glm::normalize(glm::cross(_right, _viewDirection));
+
+	CalculateViewMatrix();
 }
 
-void Camera::ProcessKeyboard(sf::Event& e, float d) {
-	float velocity = _speed * d;
-	switch (e.key.code)
-	{
-	case sf::Keyboard::W:
-		_position += _viewDirection * velocity;
-		break;
-	case sf::Keyboard::S:
-		_position -= _viewDirection * velocity;
-		break;
-	case sf::Keyboard::A:
-		_position -= _right * velocity;
-		break;
-	case sf::Keyboard::D:
-		_position += _right * velocity;
-		break;
-	default:
-		break;
-	}
-	ViewMatrix();
-	UpdateCameraVector();
-}
+/* moving  */
+void Camera::MoveBackWard() { _position -= _viewDirection * _speed; ToString();};
+void Camera::MoveForWard() { _position += _viewDirection * _speed; ToString(); };
+void Camera::MoveLeft() { _position -= _right * _speed; ToString();};
+void Camera::MoveRight() { _position += _right * _speed; ToString(); };
 
-void Camera::Update(sf::Event& e, float delta ) {
-	switch (e.type)
-	{
-	case sf::Event::KeyPressed:
-		ProcessKeyboard(e, delta);
-		break;
+/* rotating */
+void Camera::TurnUp_Down(int d) {
 
-	case (sf::Event::MouseButtonPressed):
-		UpdateDragging(true);
-		break;
-	case (sf::Event::MouseButtonReleased):
-		UpdateDragging(false);
-		break;
-	case (sf::Event::MouseMoved):
-		ProcessMoveMoving(e);
-		break;
-	case sf::Event::MouseWheelScrolled:
-		// ProcessMouseScrolling(e);
-		break;
-	default:
-		break;
-	}
+	_pitch += d * _rSpeed;
+	
+	if (_pitch > 89.0f) { _pitch = 89.0f; }
+	if (_pitch < -89.0f) { _pitch = -89.0f; }
 
+	ToString();
 };
+
+void Camera::TurnLeft_Right(int d) {
+	/* handle for yaw */
+	_yaw += d * _rSpeed;
+	ToString();
+};
+
+
+void Camera::ToString() {
+	std::cout << "View    : " << glm::to_string(_viewDirection) << std::endl;
+	std::cout << "Right   : " << glm::to_string(_right) << std::endl;
+	std::cout << "Up      : " << glm::to_string(_upPosition) << std::endl;
+	std::cout << "Position: " << glm::to_string(_position) << std::endl;
+	std::cout << "-----------------------------------------------------" << std::endl;
+};
+
+void Camera::ZoomInOut(sf::Event&) {};

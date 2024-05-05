@@ -5,8 +5,8 @@
 
 
 void SetupConfig(Config& cf) {
-	cf._width = 600;
-	cf._height = 600;
+	cf._width = 900;
+	cf._height = 700;
 	cf._angle = 90.0f;
 	cf._close = 0.1f;
 	cf._far = 100.0f;
@@ -23,8 +23,8 @@ void SetupWindowContext(Config& cf, Context& c) {
 	settings.minorVersion = 0;
 
 	/* create window and setting  */
-	c._width = 600;
-	c._height = 600;
+	c._width = cf._width;
+	c._height = cf._height;
 	c._pWindow = new sf::Window(
 		sf::VideoMode(c._width, c._height), "OpenGL", sf::Style::Default, settings);
 	c._pWindow->setVerticalSyncEnabled(true);

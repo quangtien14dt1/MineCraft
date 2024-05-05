@@ -49,6 +49,7 @@ public:
 	void Attach(IObserver* observer) override;
 	void Detach(IObserver* observer) override;
 	void Notify(sf::Event&, float ) override;
+	Camera* GetCamera();
 
 private:
 

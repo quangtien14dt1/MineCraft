@@ -12,6 +12,10 @@
 #include "../KeyBoard.h"
 
 
+/*
+	model -> view -> projection -> viewport transform
+*/
+
 void Engine::ErrorMessage(const char* c)
 {
 	/*MessageBoxA(NULL, c, "error", MB_ICONERROR);*/
@@ -37,16 +41,58 @@ int Engine::InitGame() {
 
 	Vertex vers[] = {
 		//			COORDINATE				 //		TEXT COORDIMATES 				
-		Vertex{ glm::vec3(0.5f,  0.5f, 0.0f),	glm::vec2(1.0f, 1.0f)},
+		/*Vertex{ glm::vec3(0.5f,  0.5f, 0.0f),	glm::vec2(1.0f, 1.0f)},
 		Vertex{ glm::vec3(0.5f, -0.5f, 0.0f),	glm::vec2(1.0f, 0.0f)},
 		Vertex{ glm::vec3(-0.5f, -0.5f, 0.0f),	glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f, 0.0f),	glm::vec2(0.0f, 1.0f)}
+		Vertex{ glm::vec3(-0.5f,  0.5f, 0.0f),	glm::vec2(0.0f, 1.0f)},
+	};*/
+		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3( 0.5f, -0.5f, -0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 0.0f)},
+
+		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3( 0.5f, -0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
+
+		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+
+		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec2( 1.0f, 0.0f)},
+		Vertex{ glm::vec3(0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3(0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3(0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3(0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3(0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+
+		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3( 0.5f, -0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3( 0.5f, -0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3( 0.5f, -0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+
+		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
+		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)}
 	};
 	
-	GLuint indices[] = { 
-		0, 1, 3,
-		1, 2, 3
-	};
+	//GLuint indices[] = { 
+	//	0, 1, 3,
+	//	1, 2, 3
+	//};
 
 	Texture textures[]
 	{
@@ -54,11 +100,15 @@ int Engine::InitGame() {
 	};
 
 	std::vector <Vertex> verts(vers, vers + sizeof(vers) / sizeof(Vertex));
-	std::vector <GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
+	//std::vector <GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
 	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 
 
-	Mesh m = Mesh(verts, inds, tex);
+	Mesh m = Mesh(
+			verts, 
+			//inds, 
+			tex
+	);
 
 	AddNewData( m );
 
@@ -130,6 +180,8 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 
 void Engine::Draw() {
 
+	
+
 	for (auto m : _vMesh) {
 		
 		m.DrawMesh(*_shader, *_camera);
@@ -138,23 +190,19 @@ void Engine::Draw() {
 
 };
 
-void Engine::AddNewData(Mesh m) { 
-	_vMesh.push_back(m); 
-};
+Camera* Engine::GetCamera() { return _camera; };
+
+void Engine::AddNewData(Mesh m) {  _vMesh.push_back(m);  };
 
 int Engine::RemoveData() { return 1; }
 
-void Engine::Attach(IObserver* observer) {
-	_observer.push_back(observer);
-};
+void Engine::Attach(IObserver* observer) { _observer.push_back(observer); };
 
-void Engine::Detach(IObserver* observer) {
-	_observer.remove(observer);
-};
+void Engine::Detach(IObserver* observer) { _observer.remove(observer); };
 
 void Engine::Notify(sf::Event& e, float del) {
 	std::list<IObserver*>::iterator iterator = _observer.begin();
-	// std::cout << "There are " << _observer.size() << "observers in the list.\n" << std::endl;
+	
 	while (iterator != _observer.end()) {
 		(*iterator)->Update(e, del);
 		++iterator;

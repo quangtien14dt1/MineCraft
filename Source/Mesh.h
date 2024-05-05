@@ -18,11 +18,11 @@ class Mesh {
 
 public:
 	Mesh(	std::vector <Vertex>, 
-			std::vector <GLuint>, 
+			//std::vector <GLuint>, 
 			std::vector <Texture> );
 	~Mesh();
 
-	void DrawMesh(BasicShader& s,Camera& c );
+	void DrawMesh(BasicShader& s,Camera& c);
 	void AsString();
 
 	/* temple function return default model matrix */
@@ -35,4 +35,7 @@ private:
 private:
 	VAO _vao;
 	glm::mat4 _cameraMatrix;
+
+	// default poisiton
+	glm::mat4 _defPosition = glm::mat4(1.0f);
 };
