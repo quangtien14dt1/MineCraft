@@ -42,10 +42,6 @@ void Camera::InitProjectionMatrix() {
 
 };
 
-void Camera::UpdateDragging(bool d) {
-	/* should not be dragging option*/
-	_dragging = d;
-}
 
 void Camera::Update(sf::Event& e, float delta) {
 
@@ -65,22 +61,63 @@ void Camera::Update(sf::Event& e, float delta) {
 		if (e.key.code == sf::Keyboard::J) { TurnUp_Down(-1); break; };
 
 	case (sf::Event::MouseButtonPressed):
-		UpdateDragging(true);
+
+		if(e.mouseButton.button == 0 ) _dragging = true;
+
+		_previousMousePosition = sf::Vector2i(
+			sf::Mouse::getPosition(*(_pContext->_pWindow))
+		);
 		break;
+
 	case (sf::Event::MouseButtonReleased):
-		UpdateDragging(false);
+		_dragging = false;
 		break;
-		/*case (sf::Event::MouseMoved):
-			ProcessMoveMoving(e);
-			break;*/
+
 	case sf::Event::MouseWheelScrolled:
-		// ProcessMouseScrolling(e);
+		ProcessMouseScrolling(e);
 		break;
+
+	case sf::Event::MouseMoved:
+		if (!_dragging) break;
+		HandleMouseMoving(e);
+		break;
+
 	default:
 		break;
 	}
 
 	
+};
+
+void Camera::ProcessMouseScrolling(sf::Event& e) {
+	// so basiclly zoom in out equal to change the FOV camera
+	// =>  changing angle FOV
+	auto delta = e.mouseWheel.delta;
+	if (delta) {
+		_sProjectionData.angle += delta * 2;
+		InitProjectionMatrix();
+	}
+
+	ToString();
+};
+
+void Camera::HandleMouseMoving(sf::Event& e) {
+
+	auto currentMousePosition = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
+	const sf::Vector2i del = _previousMousePosition - currentMousePosition;
+
+	/* like the real FPS gam e, should only handle X axis */
+	/*_pitch -= del.y * _rSpeed ;
+
+	if (_constrainPitch) {
+		if (_pitch > 89.0f) { _pitch = 89.0f; }
+		if (_pitch < -89.0f) { _pitch = -89.0f; }
+	}*/
+	
+	_yaw += del.x * _rSpeed;
+
+	_previousMousePosition = currentMousePosition;
+	ToString();
 };
 
 void Camera::UpdateCameraVector() {

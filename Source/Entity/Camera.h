@@ -37,9 +37,14 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
-	/* development phase for camera rolling */
+	/*  development phase for camera rolling 
+		using for single direction 
+
+	*/
 	void TurnUp_Down(int);
 	void TurnLeft_Right(int);
+
+	void HandleMouseMoving(sf::Event&);
 
 	/* mouse event */
 	void ZoomInOut(sf::Event&);
@@ -48,7 +53,6 @@ public:
 	void UpdateSensitivity(float);
 	void UpdateSpeed(float);
 
-	void UpdateDragging(bool);
 	void ProcessMouseScrolling(sf::Event&);
 
 	void ToString();
@@ -60,10 +64,6 @@ private:
 	Application* _pApplication{ nullptr };
 	Context* _pContext{nullptr};
 	Config* _pConfig{ nullptr };
-	bool _dragging;
-	sf::Vector2i _previousMousePosition;
-
-	
 
 	
 public:
@@ -81,5 +81,9 @@ public:
 
 	/* yaw = 0 equal to direction vector pointing to the right */
 	float _yaw{ -90.0f }; 
-	float _pitch{ 0.0f };		
+	float _pitch{ 0.0f };
+
+	bool _dragging;
+	sf::Vector2i _previousMousePosition;
+	bool _constrainPitch = true;
 };
