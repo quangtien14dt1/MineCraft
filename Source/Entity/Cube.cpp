@@ -28,7 +28,7 @@ void Cube::InitModel() {
 
 	Vertex cubeVertices[] =
 	{
-		//   Coordinates						
+		//   Coordinates
 		Vertex{ glm::vec3(-1.0f, -1.0f,  1.0f)}, //        7--------6	| Y
 		Vertex{ glm::vec3( 1.0f, -1.0f,  1.0f)}, //       /|       /|	| |
 		Vertex{ glm::vec3( 1.0f, -1.0f, -1.0f)}, //      4--------5 |	| |_________
