@@ -19,7 +19,6 @@ Camera::Camera(Config* cf, Context* ct) {
 	_sProjectionData.farPlane = cf->_far;
 
 	InitProjectionMatrix();
-	//UpdateCameraVector(); // calculate right vector
 }
 
 void Camera::CalculateViewMatrix() { 
@@ -107,12 +106,12 @@ void Camera::HandleMouseMoving(sf::Event& e) {
 	const sf::Vector2i del = _previousMousePosition - currentMousePosition;
 
 	/* like the real FPS gam e, should only handle X axis */
-	/*_pitch -= del.y * _rSpeed ;
+	_pitch -= del.y * _rSpeed ;
 
 	if (_constrainPitch) {
 		if (_pitch > 89.0f) { _pitch = 89.0f; }
 		if (_pitch < -89.0f) { _pitch = -89.0f; }
-	}*/
+	}
 	
 	_yaw += del.x * _rSpeed;
 

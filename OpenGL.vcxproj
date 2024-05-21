@@ -241,6 +241,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Entity\BasicCube.h" />
     <ClInclude Include="Source\Entity\Camera.h" />
+    <ClInclude Include="Source\Entity\Cube.h" />
     <ClInclude Include="Source\Entity\Model.h" />
     <ClInclude Include="Source\EventManager.h" />
     <ClInclude Include="Source\Event_Queue.h" />
@@ -283,6 +284,8 @@
     <None Include="Dependencies\include\SFML\System\Vector3.inl" />
     <None Include="LICENSE" />
     <None Include="README.md" />
+    <None Include="Resource\shaders\Cube.frag" />
+    <None Include="Resource\shaders\Cube.vert" />
     <None Include="Resource\shaders\Default.frag" />
     <None Include="Resource\shaders\Default.vert" />
   </ItemGroup>
@@ -291,6 +294,7 @@
     <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Entity\Camera.cpp" />
+    <ClCompile Include="Source\Entity\Cube.cpp" />
     <ClCompile Include="Source\EventManager.cpp" />
     <ClCompile Include="Source\KeyBoard.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />

@@ -17,9 +17,13 @@ class Texture;
 class Mesh {
 
 public:
-	Mesh(	std::vector <Vertex>, 
-			//std::vector <GLuint>, 
-			std::vector <Texture> );
+	Mesh() {};
+
+	void MeshInit(	
+			std::vector <Vertex> 
+			,std::vector <GLuint>
+			//,std::vector <Texture> 
+	);
 	~Mesh();
 
 	void DrawMesh(BasicShader& s,Camera& c);
@@ -30,7 +34,7 @@ public:
 private:
 	std::vector<Vertex> _vertices;
 	std::vector<GLuint> _indices;
-	std::vector<Texture> _textures;
+	//std::vector<Texture> _textures;
 
 private:
 	VAO _vao;

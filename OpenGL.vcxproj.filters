@@ -393,6 +393,12 @@
     <ClInclude Include="Source\Entity\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Entity\BasicCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -436,6 +442,8 @@
     <None Include=".vscode\settings.json" />
     <None Include=".vscode\launch.json" />
     <None Include=".vscode\.easycpp" />
+    <None Include="Resource\shaders\Cube.vert" />
+    <None Include="Resource\shaders\Cube.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Entity\Camera.cpp">
@@ -475,6 +483,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shader\BasicShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
