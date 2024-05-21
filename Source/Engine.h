@@ -5,6 +5,7 @@
 #include "ObserverPatter.h"
 #include <SFML/Window.hpp>
 #include <vector>
+#include <memory>
 
 /*
 	Explain
@@ -27,6 +28,7 @@ class Application;
 class Camera;
 class Mesh;
 class BasicShader;
+class Model;
 
 class Engine : public ISubject
 {
@@ -42,7 +44,7 @@ public:
 
 	void Draw(); // draw function 
 	int  RemoveData();
-	void AddNewData(Mesh);
+	void AddNewData(  const std::shared_ptr<Model> );
 	void ErrorMessage(const char*);
 
 	/* Handle ISubject */
@@ -58,7 +60,7 @@ private:
 	Application*	_pApplication; 
 	Camera*			_camera;	
 	BasicShader*	_shader;
-	std::vector<Mesh> _vMesh;
+	std::vector< std::shared_ptr< Model> > _vModel;
 	std::list<IObserver*> _observer;
 };
 

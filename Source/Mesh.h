@@ -17,9 +17,13 @@ class Texture;
 class Mesh {
 
 public:
-	Mesh(	std::vector <Vertex>, 
-			//std::vector <GLuint>, 
-			std::vector <Texture> );
+	Mesh() {};
+
+	void MeshInit(	
+			std::vector <Vertex>, 
+			std::vector <GLuint>, 
+			std::vector <Texture> 
+	);
 	~Mesh();
 
 	void DrawMesh(BasicShader& s,Camera& c);

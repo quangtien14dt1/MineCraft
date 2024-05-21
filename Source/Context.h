@@ -9,8 +9,8 @@ struct Context {
 };
 
 struct Config {
-	float _width;
-	float _height;
+	int _width;
+	int _height;
 	float _angle;
 	float _close;
 	float _far;

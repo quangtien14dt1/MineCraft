@@ -10,6 +10,9 @@
 #include "../Mesh.h"
 #include "../Texture/Texture.h"
 #include "../KeyBoard.h"
+#include "../Entity/Model.h"
+#include "../Entity/Cube.h"
+#include <memory.h>
 
 
 /*
@@ -27,7 +30,7 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 	_pConfig = cf;
 	_pContext = ct;
 	_pApplication = a;
-	_shader = new BasicShader("Default", "Default");
+	_shader = new BasicShader("Cube", "Cube");
 	_camera = new Camera( _pConfig, _pContext );
 	Attach(_camera);
 }
@@ -39,78 +42,10 @@ Engine::~Engine() {
 
 int Engine::InitGame() {
 
-	Vertex vers[] = {
-		//			COORDINATE				 //		TEXT COORDIMATES 				
-		/*Vertex{ glm::vec3(0.5f,  0.5f, 0.0f),	glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3(0.5f, -0.5f, 0.0f),	glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f, 0.0f),	glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f, 0.0f),	glm::vec2(0.0f, 1.0f)},
-	};*/
-		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3( 0.5f, -0.5f, -0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 0.0f)},
-
-		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3( 0.5f, -0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
-
-		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-
-		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f), glm::vec2( 1.0f, 0.0f)},
-		Vertex{ glm::vec3(0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3(0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3(0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3(0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3(0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-
-		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3( 0.5f, -0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3( 0.5f, -0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3( 0.5f, -0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f, -0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-
-		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f, -0.5f),  glm::vec2(1.0f, 1.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3( 0.5f,  0.5f,  0.5f),  glm::vec2(1.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f,  0.5f),  glm::vec2(0.0f, 0.0f)},
-		Vertex{ glm::vec3(-0.5f,  0.5f, -0.5f),  glm::vec2(0.0f, 1.0f)}
-	};
-	
-	//GLuint indices[] = { 
-	//	0, 1, 3,
-	//	1, 2, 3
-	//};
-
-	Texture textures[]
-	{
-		Texture("container")
-	};
-
-	std::vector <Vertex> verts(vers, vers + sizeof(vers) / sizeof(Vertex));
-	//std::vector <GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-
-
-	Mesh m = Mesh(
-			verts, 
-			//inds, 
-			tex
-	);
-
-	AddNewData( m );
+	//AddNewData( m );
+	auto ptr = std::make_shared<Cube>();
+	ptr->InitModel();
+	AddNewData(ptr);
 
 	return 1;
 
@@ -127,72 +62,16 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 	/* Shader unifitions */
 };
 
-//void Engine::HandleKeyboard(sf::Event& e, float d) {
-//
-//	switch (e.key.code)
-//	{
-//	case sf::Keyboard::A:
-//
-//		_camera->ProcessKeyboard(Camera_Movement::LEFT, d);
-//
-//		break;
-//
-//	case sf::Keyboard::W:
-//
-//		_camera->ProcessKeyboard(Camera_Movement::FORWARD, d);
-//
-//		break;
-//
-//	case sf::Keyboard::S:
-//
-//		_camera->ProcessKeyboard(Camera_Movement::BACKWARD, d);
-//
-//		break;
-//
-//	case sf::Keyboard::D:
-//
-//		_camera->ProcessKeyboard(Camera_Movement::RIGHT, d);
-//
-//		break;
-//
-//	default:
-//
-//		break;
-//	}
-//
-//};
-//
-//void Engine::HandleMouseMoving(sf::Event& e, float d) {
-//
-//	float dx = float(e.mouseMove.x - _context._pWindow->getSize().x);
-//	float dy = float(e.mouseMove.y - _context._pWindow->getSize().y);
-//
-//	_camera->MouseUpdate(dx, dy);
-//
-//	sf::Mouse::setPosition(
-//		sf::Vector2i(
-//			_context._pWindow->getSize().x / 2,
-//			_context._pWindow->getSize().y / 2),
-//		*_context._pWindow);
-//};
-//
-//void Engine::HandleScrolling(sf::Event& e) { _camera->ProcessMouseScrolling(e);}
-
 void Engine::Draw() {
 
-	
-
-	for (auto m : _vMesh) {
-		
-		m.DrawMesh(*_shader, *_camera);
-
-	}
-
+	std::for_each(_vModel.begin(), _vModel.end(), [this](std::shared_ptr<Model>& p) {
+		p->DrawModel(*_shader, *_camera);
+	});
 };
 
 Camera* Engine::GetCamera() { return _camera; };
 
-void Engine::AddNewData(Mesh m) {  _vMesh.push_back(m);  };
+void Engine::AddNewData( const std::shared_ptr< Model > m ) {  _vModel.push_back(m);  };
 
 int Engine::RemoveData() { return 1; }
 
