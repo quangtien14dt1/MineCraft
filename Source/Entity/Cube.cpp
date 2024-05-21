@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "../glm.h"
 
 /* default cube init */
 void Cube::InitModel() {
@@ -27,24 +28,15 @@ void Cube::InitModel() {
 
 	Vertex cubeVertices[] =
 	{
-		//   Coordinates
-		Vertex{ glm::vec3(-1.0f, -1.0f,  1.0f),  glm::vec2(0.0f,0.0f)},//  
-		Vertex{ glm::vec3( 1.0f, -1.0f,  1.0f),  glm::vec2(1.0f,0.0f)},//  
-		Vertex{ glm::vec3( 1.0f, -1.0f, -1.0f),  glm::vec2(1.0f,1.0f)},//  
-		Vertex{ glm::vec3(-1.0f, -1.0f, -1.0f),  glm::vec2(0.0f,1.0f)},//  
-		Vertex{ glm::vec3(-1.0f,  1.0f,  1.0f),  glm::vec2(0.0f,0.0f)},//  
-		Vertex{ glm::vec3( 1.0f,  1.0f,  1.0f),  glm::vec2(1.0f,0.0f)},//  
-		Vertex{ glm::vec3( 1.0f,  1.0f, -1.0f),  glm::vec2(1.0f,1.0f)},//  
-		Vertex{ glm::vec3(-1.0f,  1.0f, -1.0f),  glm::vec2(0.0f,1.0f)} // 
-
-		//        7--------6	| Y
-		//       /|       /|	| |
-		//      4--------5 |	| |_________
-		//      | |      | |	| |			|
-		//	    | 3------|-2	| |			| 
-		//      |/       |/		| |			|
-		//      0--------1		| |_________|_______X
-
+		//   Coordinates						
+		Vertex{ glm::vec3(-1.0f, -1.0f,  1.0f)}, //        7--------6	| Y
+		Vertex{ glm::vec3( 1.0f, -1.0f,  1.0f)}, //       /|       /|	| |
+		Vertex{ glm::vec3( 1.0f, -1.0f, -1.0f)}, //      4--------5 |	| |_________
+		Vertex{ glm::vec3(-1.0f, -1.0f, -1.0f)}, //      | |      | |	| |			|
+		Vertex{ glm::vec3(-1.0f,  1.0f,  1.0f)}, //	     | 3------|-2	| |			| 
+		Vertex{ glm::vec3( 1.0f,  1.0f,  1.0f)}, //      |/       |/	| |			|
+		Vertex{ glm::vec3( 1.0f,  1.0f, -1.0f)}, //      0--------1		| |_________|_______X
+		Vertex{ glm::vec3(-1.0f,  1.0f, -1.0f)} //
 	};
 
 	/*Texture textures[]
@@ -52,30 +44,28 @@ void Cube::InitModel() {
 		Texture("container")
 	};*/
 
-	_verts = std::vector<Vertex>(
-			cubeVertices, cubeVertices + sizeof(cubeVertices) / sizeof(Vertex)
-	);
-
-	_inds = std::vector<GLuint>(
-		cubeIndices, cubeIndices + sizeof(cubeIndices) / sizeof(GLuint)
-	);
-
 	/*_tex = std::vector<Texture>(
 		textures, textures + sizeof(textures) / sizeof(Texture)
 	);*/
 	//_tex.push_back(Texture("container"));
 
-	_mesh.MeshInit(
-		_verts, _inds
+	_mesh = Mesh(
+		std::vector<Vertex>(cubeVertices, cubeVertices + sizeof(cubeVertices) / sizeof(Vertex)),
+		std::vector<GLuint>(cubeIndices, cubeIndices + sizeof(cubeIndices) / sizeof(GLuint) ),
+		this
 	);
 }
 
-void Cube::SetModelPosition(glm::vec3 v) {
-	_position = v;
-};
+void Cube::SetModelLocation(glm::vec3 v) { _position = v; };
 
-void Cube::DrawModel(BasicShader& s, Camera& c) { 
-	_mesh.DrawMesh(s, c); 
-};
+glm::vec3 Cube::GetModelLocation() { return _position; };
 
-void Cube::SetDefaultPosition() { }; // default position 0
+void Cube::SetDefaultLocation() { }; // default position 0
+
+glm::mat4 Cube::GetModelMatrix() { return _defModel; };
+
+void Cube::TranslateModel() { _defModel = glm::translate(_defModel, _position); };
+
+void Cube::RotateModel(float a) { _defModel = glm::rotate(_defModel, glm::radians(a), _position); };
+
+void Cube::DrawModel(BasicShader& s, Camera& c) { _mesh.DrawMesh(s, c); };

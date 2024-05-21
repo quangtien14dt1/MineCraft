@@ -13,33 +13,31 @@
 class Camera;
 class BasicShader;
 class Texture;
+class Model;
 
 class Mesh {
 
 public:
-	Mesh() {};
+	Mesh() {}
 
-	void MeshInit(	
-			std::vector <Vertex> 
-			,std::vector <GLuint>
-			//,std::vector <Texture> 
-	);
+	Mesh( std::vector <Vertex> ,std::vector <GLuint>, Model*  );
 	~Mesh();
 
 	void DrawMesh(BasicShader& s,Camera& c);
+
+	//void TranslateModel(glm::vec3);
+	//void RoateModel(glm::vec3, float);
 	void AsString();
 
 	/* temple function return default model matrix */
 	glm::mat4 DefaultModel();
+
+	/* convert to uisng texture by cube map */
 private:
 	std::vector<Vertex> _vertices;
 	std::vector<GLuint> _indices;
-	//std::vector<Texture> _textures;
-
-private:
 	VAO _vao;
 	glm::mat4 _cameraMatrix;
+	Model* _model;
 
-	// default poisiton
-	glm::mat4 _defPosition = glm::mat4(1.0f);
 };

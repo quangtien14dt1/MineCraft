@@ -7,15 +7,27 @@
 
 
 class Cube : public Model {
+
 public:
+
+	/* abstrct functions */
 	void InitModel();
-	void SetModelPosition(glm::vec3);
-	void SetDefaultPosition(); // default position 0
-	void DrawModel(BasicShader& , Camera& );
+	void SetModelLocation(glm::vec3);
+	void DrawModel(BasicShader&, Camera&);
+	glm::mat4 GetModelMatrix();
+
+	glm::vec3 GetModelLocation();
+	void SetDefaultLocation(); 
+
+	/* manipulate with model itself */
+	void TranslateModel();
+	void RotateModel(float);
+	
+	glm::vec3 _position;
+	glm::mat4 _defModel = glm::mat4(1.0f);
 
 private:
-	Mesh _mesh;
-	std::vector <Vertex> _verts;
-	std::vector <GLuint> _inds;
-	//std::vector <Texture> _tex;
+
+	Mesh _mesh;			// Mesh data
+
 };

@@ -1,6 +1,7 @@
 #include <SFML/Window.hpp>
 #include <exception>
 #include <iostream>
+#include <memory.h>
 
 #include "Engine.h"
 #include "../Entity/Camera.h"
@@ -12,7 +13,7 @@
 #include "../KeyBoard.h"
 #include "../Entity/Model.h"
 #include "../Entity/Cube.h"
-#include <memory.h>
+
 
 
 /*
