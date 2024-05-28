@@ -363,10 +363,10 @@
     <ClInclude Include="Source\KeyBoard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
+    <ClInclude Include="Source\Entity\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ModelLoading.h">
+    <ClInclude Include="Source\Entity\ModelLoading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\NonCopyable.h">
@@ -397,6 +397,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Texture\CubeTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -473,7 +476,7 @@
     <ClCompile Include="Source\KeyBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
+    <ClCompile Include="Source\Entity\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\MineCraft.cpp">
@@ -488,12 +491,21 @@
     <ClCompile Include="Source\Entity\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Texture\CubeTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resource\textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\textures\DefaultPack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\textures\DefaultPack2.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -1,11 +1,12 @@
-#include "glm.h"
+#include "../glm.h"
 #include "Mesh.h"
-#include "Shader/BasicShader.h"
-#include "texture/Texture.h"
-#include "../ModelLoading.h"
+#include "ModelLoading.h"
+#include "../Shader/BasicShader.h"
+#include "../texture/Texture.h"
 #include "../Entity/Camera.h"
 #include "../KeyBoard.h"
 #include "../Entity/Cube.h"
+#include "../Entity/Model.h"
 
 #include <iostream>
 

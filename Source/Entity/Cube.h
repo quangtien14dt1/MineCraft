@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../ModelLoading.h"
+#include "ModelLoading.h"
 #include "../Texture/Texture.h"
-#include "../Mesh.h"
+#include "Mesh.h"
 #include "Model.h"
 
 

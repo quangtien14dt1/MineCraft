@@ -1,5 +1,6 @@
 #include "Texture.h"
 
+Texture::Texture(const std::string& name) { LoadFromFile(name); };
 
 void Texture::LoadFromFile(const std::string& name) {
 	sf::Image i;
@@ -33,3 +34,20 @@ void Texture::LoadFromImage(const sf::Image& i) {
 
 	glBindTexture(GL_TEXTURE_2D, 0); /* unbind OpenGL for safe accidentally */
 }
+
+void Texture::BindTexture() const { glBindTexture(GL_TEXTURE_2D, _id); };
+
+void Texture::UnbindTexture() const { glBindTexture(GL_TEXTURE_2D, 0); };
+
+void Texture::DeleteTexture() const { glDeleteTextures(1, &_id); };
+
+void Texture::TextureUnit(BasicShader& s, const char* l, GLuint i) {
+
+	GLuint location = glGetUniformLocation(s.GetShaderId(), l);
+
+	s.Activate();
+
+	s.LoadInt(location, 0);
+}
+
+GLuint Texture::GetTextureId() const { return _id; }

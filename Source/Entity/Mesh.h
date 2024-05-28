@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm.h"
+#include "../glm.h"
 #include "ModelLoading.h"
 
 #include <vector>
@@ -18,7 +18,7 @@ class Model;
 class Mesh {
 
 public:
-	Mesh() {}
+	Mesh() = default;
 
 	Mesh( std::vector <Vertex> ,std::vector <GLuint>, Model*  );
 	~Mesh();

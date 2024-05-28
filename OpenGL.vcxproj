@@ -247,8 +247,8 @@
     <ClInclude Include="Source\Event_Queue.h" />
     <ClInclude Include="Source\glm.h" />
     <ClInclude Include="Source\KeyBoard.h" />
-    <ClInclude Include="Source\Mesh.h" />
-    <ClInclude Include="Source\ModelLoading.h" />
+    <ClInclude Include="Source\Entity\Mesh.h" />
+    <ClInclude Include="Source\Entity\ModelLoading.h" />
     <ClInclude Include="Source\NonCopyable.h" />
     <ClInclude Include="Source\ObserverPatter.h" />
     <ClInclude Include="Source\Shader\BasicShader.h" />
@@ -257,6 +257,7 @@
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\smart_ptr\autocreate_ptr.h" />
     <ClInclude Include="Source\smart_ptr\counted_ptr.h" />
+    <ClInclude Include="Source\Texture\CubeTexture.h" />
     <ClInclude Include="Source\Texture\Texture.h" />
     <ClInclude Include="Source\Thirdparty\fastnoise.hpp" />
     <ClInclude Include="Source\Thirdparty\stb_image.hpp" />
@@ -297,10 +298,11 @@
     <ClCompile Include="Source\Entity\Cube.cpp" />
     <ClCompile Include="Source\EventManager.cpp" />
     <ClCompile Include="Source\KeyBoard.cpp" />
-    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\Entity\Mesh.cpp" />
     <ClCompile Include="Source\MineCraft.cpp" />
     <ClCompile Include="Source\Shader\BasicShader.cpp" />
     <ClCompile Include="Source\Shader\ShaderLoader.cpp" />
+    <ClCompile Include="Source\Texture\CubeTexture.cpp" />
     <ClCompile Include="Source\Texture\Texture.cpp" />
     <ClCompile Include="Source\Thirdparty\fastnoise.cpp" />
     <ClCompile Include="Source\Thirdparty\glad.c" />
@@ -308,6 +310,8 @@
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />
     <Image Include="Resource\textures\container.jpg" />
+    <Image Include="Resource\textures\DefaultPack.png" />
+    <Image Include="Resource\textures\DefaultPack2.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

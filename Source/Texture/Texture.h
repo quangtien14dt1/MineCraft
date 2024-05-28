@@ -10,28 +10,20 @@ class Texture
 {
 public:
 	Texture() = default;
-	Texture(const std::string& name) { LoadFromFile(name); };
+	Texture(const std::string& name); 
+	~Texture();
 
+	/* handle load file */
 	void LoadFromFile(const std::string&);
-
 	void LoadFromImage(const sf::Image&);
 
-	void BindTexture() const { glBindTexture(GL_TEXTURE_2D, _id); };
+	/* shader binding */
+	void BindTexture() const;
+	void UnbindTexture() const ;
+	void DeleteTexture() const ;
+	void TextureUnit(BasicShader& s, const char* l, GLuint i);
 
-	void UnbindTexture() const { glBindTexture(GL_TEXTURE_2D, 0); };
-
-	void DeleteTexture() const { glDeleteTextures(1, &_id); };
-
-	void TextureUnit(BasicShader& s, const char* l, GLuint i) {
-
-		GLuint location = glGetUniformLocation( s.GetShaderId(), l );
-
-		s.Activate();
-
-		s.LoadInt(location, 0);
-	}
-
-	GLuint GetTextureId() const { return _id; }
+	GLuint GetTextureId() const;
 
 private:
 	GLuint _id;
