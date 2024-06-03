@@ -42,12 +42,12 @@ public:
 	/* Logic Handle for Event level */
 	void UpdateGameLogic(sf::Event&,float);
 
-	void Draw(); // draw function 
+	void Draw(); 
 	int  RemoveData();
 	void AddNewData(  const std::shared_ptr<Model> );
 	void ErrorMessage(const char*);
 
-	/* Handle ISubject */
+	/* Handle ISubject Camera */
 	void Attach(IObserver* observer) override;
 	void Detach(IObserver* observer) override;
 	void Notify(sf::Event&, float ) override;

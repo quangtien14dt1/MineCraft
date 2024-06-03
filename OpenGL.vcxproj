@@ -241,8 +241,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\Entity\BasicCube.h" />
     <ClInclude Include="Source\Entity\Camera.h" />
-    <ClInclude Include="Source\Entity\Cube.h" />
-    <ClInclude Include="Source\Entity\Model.h" />
+    <ClInclude Include="Source\Entity\CubeModel.h" />
     <ClInclude Include="Source\EventManager.h" />
     <ClInclude Include="Source\Event_Queue.h" />
     <ClInclude Include="Source\glm.h" />
@@ -251,6 +250,7 @@
     <ClInclude Include="Source\Entity\ModelLoading.h" />
     <ClInclude Include="Source\NonCopyable.h" />
     <ClInclude Include="Source\ObserverPatter.h" />
+    <ClInclude Include="Source\Renderer\CubeRenderer.h" />
     <ClInclude Include="Source\Shader\BasicShader.h" />
     <ClInclude Include="Source\Shader\Shader.h" />
     <ClInclude Include="Source\Shader\ShaderLoader.h" />
@@ -295,11 +295,12 @@
     <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Entity\Camera.cpp" />
-    <ClCompile Include="Source\Entity\Cube.cpp" />
+    <ClCompile Include="Source\Entity\CubeModel.cpp" />
     <ClCompile Include="Source\EventManager.cpp" />
     <ClCompile Include="Source\KeyBoard.cpp" />
     <ClCompile Include="Source\Entity\Mesh.cpp" />
     <ClCompile Include="Source\MineCraft.cpp" />
+    <ClCompile Include="Source\Renderer\CubeRenderer.cpp" />
     <ClCompile Include="Source\Shader\BasicShader.cpp" />
     <ClCompile Include="Source\Shader\ShaderLoader.cpp" />
     <ClCompile Include="Source\Texture\CubeTexture.cpp" />
