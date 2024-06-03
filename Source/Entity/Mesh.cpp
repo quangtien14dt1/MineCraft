@@ -11,6 +11,9 @@
 #include <iostream>
 
 
+std::vector<Vertex> _vertices;
+std::vector<GLuint> _indices;
+
 // Using passing by value 
 Mesh::Mesh( std::vector <Vertex> v,std::vector <GLuint> i ,Model* p) 
 	: _vertices(v), _indices(i), _model(p)

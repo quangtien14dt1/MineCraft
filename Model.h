@@ -4,10 +4,9 @@
 
 class Mesh;
 
-class Model {
+class BaseModel {
 public:
 
-	Model() = default;
 	/* abstrct functions */
 	virtual void InitModel() = 0;
 	virtual void addData(const Mesh& mesh) = 0;
@@ -17,3 +16,5 @@ public:
 	virtual void addEBO(const std::vector<GLuint>& indices) = 0;
 
 };
+
+

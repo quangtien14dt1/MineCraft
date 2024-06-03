@@ -4,15 +4,15 @@
 #include <memory.h>
 
 #include "Engine.h"
-#include "../Entity/Camera.h"
-#include "../KeyBoard.h"
-#include "../Shader/BasicShader.h"
+#include "Entity/Camera.h"
 #include "Entity/ModelLoading.h"
 #include "Entity/Mesh.h"
+#include "Entity/Model.h"
 #include "../Texture/Texture.h"
 #include "../KeyBoard.h"
-#include "../Entity/Model.h"
-#include "../Entity/Cube.h"
+#include "../KeyBoard.h"
+#include "../Shader/BasicShader.h"
+
 
 
 
@@ -31,13 +31,11 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 	_pConfig = cf;
 	_pContext = ct;
 	_pApplication = a;
-	_shader = new BasicShader("Cube", "Cube");
 	_camera = new Camera( _pConfig, _pContext );
 	Attach(_camera);
 }
 
 Engine::~Engine() {
-	if (_shader != NULL ) { delete _shader; _shader = nullptr; }
 	if (_camera != NULL)  { delete _camera; _camera = nullptr; }
 };
 
@@ -64,9 +62,9 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 
 void Engine::Draw() {
 
-	std::for_each(_vModel.begin(), _vModel.end(), [this](std::shared_ptr<Model>& p) {
-		p->DrawModel(*_shader, *_camera);
-	});
+	//std::for_each(_vModel.begin(), _vModel.end(), [this](std::shared_ptr<Model>& p) {
+	//	p->DrawModel(*_shader, *_camera);
+	//});
 };
 
 Camera* Engine::GetCamera() { return _camera; };

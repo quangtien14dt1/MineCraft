@@ -6,60 +6,73 @@
 
 struct Vertex {
 	glm::vec3 Position;
-	//glm::vec3 Normal;
-	//glm::vec2 TexCoords;
+	glm::vec2 TexCoords;
 };
 
 class VBO {
 
 public:
 
-	void Bind() { glBindBuffer(GL_ARRAY_BUFFER, _vboId); };
+	void bind() { glBindBuffer(GL_ARRAY_BUFFER, _vboId); };
 
-	void Unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); };
+	void unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); };
 
-	void Delete() const { glDeleteBuffers(1, &_vboId); };
+	void delete_() const { glDeleteBuffers(1, &_vboId); };
 
-	VBO(std::vector<Vertex>& v ) {
+	GLuint getVboId() { return _vboId; }
+
+	VBO(const std::vector<GLfloat>& d ) {
 
 		glGenBuffers(1,&_vboId);
 
 		glBindBuffer(GL_ARRAY_BUFFER, _vboId);
 
-		glBufferData(GL_ARRAY_BUFFER, v.size() * sizeof(v), v.data(), GL_STATIC_DRAW);
+		glBufferData(	GL_ARRAY_BUFFER, 
+						d.size() * sizeof(GLfloat), 
+						d.data(), 
+						GL_STATIC_DRAW);
 	};
 
-	GLuint _vboId;
+	GLuint _vboId{0};
 };
 
 class VAO {
 public:
 
-	VAO() { glGenVertexArrays(1, &_vaoId); };
-
-	void LinkAttrib(VBO& vbo, 
-					GLuint layout, 
-					GLuint num, 
-					GLenum type, 
-					GLsizei stride, 
-					void* offset) 
-	{
-		vbo.Bind();
-
-		glVertexAttribPointer(layout, num, type, GL_FALSE, stride, offset);
-
-		glEnableVertexAttribArray(layout);
-
-		vbo.Unbind();
+	VAO() { 
+		glGenVertexArrays(1, &_vaoId); 
 	};
 
-	void Bind() { glBindVertexArray(_vaoId); };
+	void linkAttrib(VBO& vbo, 
+					GLuint& m_vboCount,
+					GLuint size, 
+					GLenum type, 
+					//GLsizei stride, let opengl determine 
+					void* offset) 
+	{
+		vbo.bind();
 
-	void Unbind() { glBindVertexArray(0); };
+		glVertexAttribPointer(  m_vboCount, 
+							    size, 
+								type, 
+								GL_FALSE, 
+								0, 
+								offset );
 
-	void Delete() const { glDeleteVertexArrays(1, &_vaoId); };
+		glEnableVertexAttribArray(m_vboCount++);
 
-	GLuint _vaoId;
+		vbo.unbind();
+	};
+
+	GLuint getVaoId() { return _vaoId; }
+
+	void bind() { glBindVertexArray(_vaoId); };
+
+	void unbind() { glBindVertexArray(0); };
+
+	void delete_() const { glDeleteVertexArrays(1, &_vaoId); };
+
+	GLuint _vaoId{0};
 };
 
 class EBO {
@@ -73,11 +86,11 @@ public:
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, i.size() * sizeof(GLuint), i.data(), GL_STATIC_DRAW);
 	};
 
-	void Bind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _eboId); };
+	void bind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _eboId); };
 
-	void Unbind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); };
+	void unbind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); };
 
-	void Delete() const { glDeleteBuffers(1, &_eboId); };
+	void delete_() const { glDeleteBuffers(1, &_eboId); };
 
 	GLuint _eboId{0};
 };
