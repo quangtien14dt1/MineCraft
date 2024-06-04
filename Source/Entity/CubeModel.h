@@ -9,8 +9,6 @@
 
 class CubeModel : public Model {
 
-class CubeModel {
-
 public:
 
 	/* abstrct functions */
