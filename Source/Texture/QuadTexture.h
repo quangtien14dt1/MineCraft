@@ -6,12 +6,12 @@
 #include "../NonCopyable.h"
 #include "../shader/BasicShader.h"
 
-class Texture 
+class QuadTexture
 {
 public:
-	Texture() = default;
-	Texture(const std::string& name); 
-	~Texture();
+	QuadTexture() = default;
+	QuadTexture(const std::string& name);
+	~QuadTexture();
 
 	/* handle load file */
 	void LoadFromFile(const std::string&);

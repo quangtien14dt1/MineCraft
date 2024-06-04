@@ -21,7 +21,7 @@ public:
     std::vector<GLfloat>  GetTexture(const sf::Vector2f& coords);
 
 private:
-    int _imageSize;
-    int _individualTextureSize;
+    int m_imageSize;
+    int m_individualTextureSize;
 
 };
