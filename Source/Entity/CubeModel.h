@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ModelLoading.h"
 #include "../Texture/Texture.h"
 #include "../glm.h"
 #include "Mesh.h"
@@ -7,6 +8,8 @@
 #include "ModelLoading.h"
 
 class CubeModel : public Model {
+
+class CubeModel {
 
 public:
 
@@ -20,6 +23,8 @@ public:
 	void addVBO(int dimensions, const std::vector<GLfloat>& data);
 
 	void bindVAO() ;
+
+	void SetDefaultLocation(); 
 
 	/* manipulate with model itself */
 	void TranslateModel();

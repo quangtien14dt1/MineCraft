@@ -235,6 +235,9 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="Source\Entity\Mesh.h" />
+    <ClInclude Include="Source\Entity\Model.h" />
+    <ClInclude Include="Source\Renderer\QuadRenderer.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Context.h" />
     <ClInclude Include="Source\counted_ptr.h" />
@@ -246,7 +249,6 @@
     <ClInclude Include="Source\Event_Queue.h" />
     <ClInclude Include="Source\glm.h" />
     <ClInclude Include="Source\KeyBoard.h" />
-    <ClInclude Include="Source\Entity\Mesh.h" />
     <ClInclude Include="Source\Entity\ModelLoading.h" />
     <ClInclude Include="Source\NonCopyable.h" />
     <ClInclude Include="Source\ObserverPatter.h" />
@@ -262,6 +264,7 @@
     <ClInclude Include="Source\Thirdparty\fastnoise.hpp" />
     <ClInclude Include="Source\Thirdparty\stb_image.hpp" />
     <ClInclude Include="Source\Thirdparty\stb_image_write.hpp" />
+    <ClInclude Include="Source\Utils\Matrix.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -291,6 +294,7 @@
     <None Include="Resource\shaders\Default.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Renderer\QuadRenderer.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
@@ -307,6 +311,7 @@
     <ClCompile Include="Source\Texture\Texture.cpp" />
     <ClCompile Include="Source\Thirdparty\fastnoise.cpp" />
     <ClCompile Include="Source\Thirdparty\glad.c" />
+    <ClCompile Include="Source\Utils\Matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />
