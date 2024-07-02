@@ -32,10 +32,10 @@ public:
 	void Update(sf::Event& e, float ) override;
 
 	/*  camera update state functions */
-	void MoveBackWard();
-	void MoveForWard();
-	void MoveLeft();
-	void MoveRight();
+	void MoveBackWard(float);
+	void MoveForWard(float);
+	void MoveLeft(float);
+	void MoveRight(float);
 
 	/*  development phase for camera rolling 
 		using for single direction 
@@ -44,7 +44,7 @@ public:
 	void TurnUp_Down(int);
 	void TurnLeft_Right(int);
 
-	void HandleMouseMoving(sf::Event&);
+	void HandleMouseMoving(sf::Event&, float );
 
 	/* mouse event */
 	void ZoomInOut(sf::Event&);
@@ -76,9 +76,6 @@ public:
 	glm::vec3 _upPosition = glm::vec3(0.0f, 1.0f, 0.0f);
 	glm::vec3 _right;
 
-	float _rSpeed{ 0.5f };	// ( sensitivity ) 
-	float _speed{ 0.5f };	// moving speed 
-
 	/* yaw = 0 equal to direction vector pointing to the right */
 	float _yaw{ -90.0f }; 
 	float _pitch{ 0.0f };
@@ -86,4 +83,5 @@ public:
 	bool _dragging;
 	sf::Vector2i _previousMousePosition;
 	bool _constrainPitch = true;
+	float _sensitivity = 5;
 };
