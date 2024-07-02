@@ -235,16 +235,16 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="Source\Renderer\Render.h" />
+    <ClInclude Include="Source\Entity\Entity.h" />
     <ClInclude Include="Source\Entity\Mesh.h" />
-    <ClInclude Include="Source\Entity\Model.h" />
     <ClInclude Include="Source\Renderer\QuadRenderer.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Context.h" />
     <ClInclude Include="Source\counted_ptr.h" />
     <ClInclude Include="Source\Engine.h" />
-    <ClInclude Include="Source\Entity\BasicCube.h" />
     <ClInclude Include="Source\Entity\Camera.h" />
-    <ClInclude Include="Source\Entity\CubeModel.h" />
+    <ClInclude Include="Source\Entity\Model.h" />
     <ClInclude Include="Source\EventManager.h" />
     <ClInclude Include="Source\Event_Queue.h" />
     <ClInclude Include="Source\glm.h" />
@@ -292,14 +292,17 @@
     <None Include="Resource\shaders\Cube.vert" />
     <None Include="Resource\shaders\Default.frag" />
     <None Include="Resource\shaders\Default.vert" />
+    <None Include="Resource\shaders\Quad.frag" />
+    <None Include="Resource\shaders\Quad.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Renderer\Render.cpp" />
     <ClCompile Include="Source\Renderer\QuadRenderer.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\Entity\Camera.cpp" />
-    <ClCompile Include="Source\Entity\CubeModel.cpp" />
+    <ClCompile Include="Source\Entity\Model.cpp" />
     <ClCompile Include="Source\EventManager.cpp" />
     <ClCompile Include="Source\KeyBoard.cpp" />
     <ClCompile Include="Source\MineCraft.cpp" />
@@ -317,6 +320,7 @@
     <Image Include="Resource\textures\container.jpg" />
     <Image Include="Resource\textures\DefaultPack.png" />
     <Image Include="Resource\textures\DefaultPack2.png" />
+    <Image Include="Resource\textures\test.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

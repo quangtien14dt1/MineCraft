@@ -2,6 +2,8 @@
 
 QuadTexture::QuadTexture(const std::string& name) { LoadFromFile(name); };
 
+QuadTexture::~QuadTexture() { glDeleteTextures(1,&_id); }
+
 void QuadTexture::LoadFromFile(const std::string& name) {
 	sf::Image i;
 	if (!i.loadFromFile("Resource/textures/" + name + ".png")) {
@@ -35,9 +37,9 @@ void QuadTexture::LoadFromImage(const sf::Image& i) {
 	glBindTexture(GL_TEXTURE_2D, 0); /* unbind OpenGL for safe accidentally */
 }
 
-void QuadTexture::BindTexture() const { glBindTexture(GL_TEXTURE_2D, _id); };
+void QuadTexture::bind() const { glBindTexture(GL_TEXTURE_2D, _id); };
 
-void QuadTexture::UnbindTexture() const { glBindTexture(GL_TEXTURE_2D, 0); };
+void QuadTexture::unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
 
 void QuadTexture::DeleteTexture() const { glDeleteTextures(1, &_id); };
 
@@ -47,7 +49,7 @@ void QuadTexture::TextureUnit(BasicShader& s, const char* l, GLuint i) {
 
 	s.Activate();
 
-	s.LoadInt(location, 0);
+	s.LoadInt(location, i);
 }
 
 GLuint QuadTexture::GetTextureId() const { return _id; }

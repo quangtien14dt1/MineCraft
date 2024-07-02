@@ -39,38 +39,42 @@ public:
 class VAO {
 public:
 
-	VAO() { 
-		glGenVertexArrays(1, &_vaoId); 
+	VAO() {
+		//glGenVertexArrays(1, &_vaoId);
 	};
 
-	void linkAttrib(VBO& vbo, 
+	void linkAttrib(VBO& vbo, // buffer
 					GLuint& m_vboCount,
-					GLuint size, 
-					GLenum type, 
-					//GLsizei stride, let opengl determine 
-					void* offset) 
+					GLuint dimension,
+					GLenum type,
+					void* offset)
 	{
 		vbo.bind();
 
-		glVertexAttribPointer(  m_vboCount, 
-							    size, 
-								type, 
-								GL_FALSE, 
-								0, 
-								offset );
+		glVertexAttribPointer(  
+			m_vboCount, 
+			dimension,
+			type,
+			GL_FALSE,
+			0,
+			offset);
 
 		glEnableVertexAttribArray(m_vboCount++);
 
 		vbo.unbind();
 	};
 
-	GLuint getVaoId() { return _vaoId; }
+	GLuint getVaoId() const { return _vaoId; }
 
 	void bind() { glBindVertexArray(_vaoId); };
 
+	void generateVao() { 
+		glGenVertexArrays(1, &_vaoId); 
+	};
+
 	void unbind() { glBindVertexArray(0); };
 
-	void delete_() const { glDeleteVertexArrays(1, &_vaoId); };
+	void deleteVao() const { glDeleteVertexArrays(1, &_vaoId); };
 
 	GLuint _vaoId{0};
 };

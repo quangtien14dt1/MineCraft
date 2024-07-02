@@ -333,9 +333,6 @@
     <ClInclude Include="Source\Shader\ShaderLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Texture\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Thirdparty\fastnoise.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -390,16 +387,28 @@
     <ClInclude Include="Source\Singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Texture\CubeTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\QuadRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Entity\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity\BasicCube.h">
+    <ClInclude Include="Source\Renderer\CubeRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity\Cube.h">
+    <ClInclude Include="Source\Texture\QuadTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Texture\CubeTexture.h">
+    <ClInclude Include="Source\Utils\Matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer\Render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -447,15 +456,14 @@
     <None Include=".vscode\.easycpp" />
     <None Include="Resource\shaders\Cube.vert" />
     <None Include="Resource\shaders\Cube.frag" />
+    <None Include="Resource\shaders\Quad.vert" />
+    <None Include="Resource\shaders\Quad.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Entity\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Shader\ShaderLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Texture\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Thirdparty\fastnoise.cpp">
@@ -476,9 +484,6 @@
     <ClCompile Include="Source\KeyBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MineCraft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -488,10 +493,25 @@
     <ClCompile Include="Source\Shader\BasicShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Entity\Cube.cpp">
+    <ClCompile Include="Source\Texture\CubeTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Texture\CubeTexture.cpp">
+    <ClCompile Include="Source\Renderer\QuadRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\CubeRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture\QuadTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Renderer\Render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -506,6 +526,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resource\textures\DefaultPack2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource\textures\test.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

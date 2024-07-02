@@ -1,19 +1,33 @@
 #pragma once
 
+#include "ModelLoading.h"
 #include "../glm.h"
-
-class Mesh;
+#include "Mesh.h"
+#include "ModelLoading.h"
 
 class Model {
+
 public:
 
-	Model() = default;
 	/* abstrct functions */
-	virtual void InitModel() = 0;
-	virtual void addData(const Mesh& mesh) = 0;
-	virtual void deleteData() = 0;
-	virtual void addVBO(int dimensions, const std::vector<GLfloat>& data) = 0;
-	virtual void bindVAO() = 0;
-	virtual void addEBO(const std::vector<GLuint>& indices) = 0;
+	void InitModel();
+	void addData(const Mesh& mesh);
+	void deleteData();
+	void addVBO(GLuint dimensions, const std::vector<GLfloat>& data);
+	void addEBO(const std::vector<GLuint>& indices);
+	VAO getVao() ;
+
+	/* manipulate with model itself */
+	glm::mat4 modelMatrix(glm::vec3, glm::vec3);
+	GLuint getIndiceCount() const;
+
+private:
+	
+	/* 1 Model has 1 vao and add on many mesh */
+	VAO m_vao;
+	Mesh m_mesh;
+	GLuint m_vboCount = 0; // buffer location
+	GLuint m_indicesCount = 0;
+	std::vector<VBO> m_buffers;
 
 };

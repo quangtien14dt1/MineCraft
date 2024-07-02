@@ -13,8 +13,8 @@ Camera::Camera(Config* cf, Context* ct) {
 	_pContext = ct;
 	_pConfig = cf;
 	_sProjectionData.angle = cf->_angle;
-	_sProjectionData.width = cf->_width;
-	_sProjectionData.height = cf->_height;
+	_sProjectionData.width = (float)cf->_width;
+	_sProjectionData.height = (float)cf->_height;
 	_sProjectionData.closePlane = cf->_close;
 	_sProjectionData.farPlane = cf->_far;
 

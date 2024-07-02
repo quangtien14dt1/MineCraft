@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Texture.h"
+#include "CubeTexture.h"
+#include "QuadTexture.h"
 
-class CubeTexture : public Texture {
+class CubeTexture  : public QuadTexture {
 public:
 
     CubeTexture(const std::string& );
-
-    ~CubeTexture();
 
     /**
         MUST BE IN THIS ORDER:
@@ -21,7 +20,7 @@ public:
     std::vector<GLfloat>  GetTexture(const sf::Vector2f& coords);
 
 private:
-    int m_imageSize;
-    int m_individualTextureSize;
+    GLfloat m_imageSize;
+    GLfloat m_individualTextureSize;
 
 };

@@ -26,9 +26,9 @@
 
 class Application;
 class Camera;
-class Mesh;
 class BasicShader;
 class Model;
+class Render;
 
 class Engine : public ISubject
 {
@@ -37,12 +37,12 @@ public:
 
 	~Engine();
 
-	int  InitGame();
+	//int  InitGame();
 
 	/* Logic Handle for Event level */
 	void UpdateGameLogic(sf::Event&,float);
 
-	void Draw(); 
+	void Invoke();
 	int  RemoveData();
 	void AddNewData(  const std::shared_ptr<Model> );
 	void ErrorMessage(const char*);
@@ -59,7 +59,7 @@ private:
 	Context*		_pContext;
 	Application*	_pApplication; 
 	Camera*			_camera;	
-	//BasicShader*	_shader;
+	Render*	_renderMaster;
 	std::vector< std::shared_ptr< Model> > _vModel;
 	std::list<IObserver*> _observer;
 };

@@ -18,8 +18,8 @@ public:
 	void LoadFromImage(const sf::Image&);
 
 	/* shader binding */
-	void BindTexture() const;
-	void UnbindTexture() const ;
+	void bind() const;
+	void unbind() const ;
 	void DeleteTexture() const ;
 	void TextureUnit(BasicShader& s, const char* l, GLuint i);
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../glm.h"
-#include "../Entity/CubeModel.h"
+#include "../Entity/Model.h"
 #include "../Shader/Shader.h"
 #include "../Texture/CubeTexture.h"
 #include <vector>
@@ -11,18 +11,18 @@ class Camera;
 class CubeRenderer
 {
 public:
-	CubeRenderer() = default;
+	CubeRenderer();
 
 	void add(const glm::vec3& postion);
 
-	void render(const Camera& camera);
+	void render( Camera* camera);
 
 private:
 
 	std::vector<glm::vec3> m_cubes;
 
-	CubeModel		m_cubeModel;
-	BasicShader m_basicShader;
+	Model		m_cubeModel;
+	BasicShader m_cubeShader;
 	CubeTexture m_cubeTexture;
 
 };

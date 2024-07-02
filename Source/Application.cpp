@@ -24,7 +24,8 @@ void Application::RunLoop() {
 	sf::Time update = sf::seconds(0.01f / 60.f);
 
 	/* Init Game Engine */
-	_pEngine->InitGame();
+	/*_pEngine->InitGame();*/
+
 	sf::Event e;
 	try{
 		while (_context._pWindow->isOpen()) {
@@ -32,8 +33,6 @@ void Application::RunLoop() {
 			runTime += _clock.restart();
 			float deltaTime = runTime.asSeconds() - holdTime.asSeconds();
 			if (deltaTime = update.asSeconds()) {
-
-
 				/*
 				* Centerlizing mouse cursor
 				* Polling Event handle from SFML
@@ -54,11 +53,11 @@ void Application::RunLoop() {
 
 			// clear the buffers
 			glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_DEPTH_TEST);
 
 			// draw OpenGL level 
-			_pEngine->Draw();
+			_pEngine->Invoke();
 
 			// sfml window display buffer
 			_context._pWindow->display();

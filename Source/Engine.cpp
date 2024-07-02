@@ -1,6 +1,7 @@
 #include <SFML/Window.hpp>
 #include <exception>
 #include <iostream>
+#include <glad/glad.h>
 #include <memory.h>
 
 #include "Engine.h"
@@ -8,8 +9,7 @@
 #include "Entity/ModelLoading.h"
 #include "Entity/Mesh.h"
 #include "Entity/Model.h"
-#include "../Texture/Texture.h"
-#include "../KeyBoard.h"
+#include "Renderer/Render.h"
 #include "../KeyBoard.h"
 #include "../Shader/BasicShader.h"
 
@@ -31,23 +31,29 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 	_pConfig = cf;
 	_pContext = ct;
 	_pApplication = a;
+
+	/* with block instance camera and Rendermaster */
+	std::cout << "Init camera..." << std::endl;
 	_camera = new Camera( _pConfig, _pContext );
+
+	std::cout << "Init render master..." << std::endl;
+	_renderMaster = new Render();
+
+	/* attach intance that receive event queue  */
 	Attach(_camera);
+
 }
 
 Engine::~Engine() {
-	if (_camera != NULL)  { delete _camera; _camera = nullptr; }
+	if (_camera != NULL)  { 
+		delete _camera; _camera = nullptr; 
+	}
+
+	if (_renderMaster != NULL) { 
+		delete _renderMaster; _renderMaster = nullptr; 
+	}
 };
 
-int Engine::InitGame() {
-
-	auto ptr = std::make_shared<Cube>();
-	ptr->InitModel();
-	AddNewData(ptr);
-
-	return 1;
-
-};
 
 void Engine::UpdateGameLogic(sf::Event& e,float d) {
 
@@ -60,11 +66,11 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 	/* Shader unifitions */
 };
 
-void Engine::Draw() {
+void Engine::Invoke() {
 
-	//std::for_each(_vModel.begin(), _vModel.end(), [this](std::shared_ptr<Model>& p) {
-	//	p->DrawModel(*_shader, *_camera);
-	//});
+
+	_renderMaster->render(_camera);
+
 };
 
 Camera* Engine::GetCamera() { return _camera; };
