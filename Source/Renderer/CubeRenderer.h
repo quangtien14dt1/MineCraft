@@ -12,6 +12,7 @@ class CubeRenderer
 {
 public:
 	CubeRenderer();
+	~CubeRenderer();
 
 	void add(const glm::vec3& postion);
 
@@ -23,7 +24,7 @@ private:
 
 	Model		m_cubeModel;
 	BasicShader m_cubeShader;
-	CubeTexture m_cubeTexture;
+	CubeTexture* _cubeTexture;
 
 };
 

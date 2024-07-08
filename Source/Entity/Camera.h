@@ -42,7 +42,8 @@ public:
 
 	*/
 	void TurnUp_Down(int);
-	void TurnLeft_Right(int);
+	void RotateLeft(float);
+	void RotateRight(float);
 
 	void HandleMouseMoving(sf::Event&, float );
 

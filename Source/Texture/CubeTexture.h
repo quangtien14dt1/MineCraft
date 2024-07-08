@@ -6,7 +6,8 @@
 class CubeTexture  : public QuadTexture {
 public:
 
-    CubeTexture(const std::string& );
+    CubeTexture() = default;
+    void SetupCubeImage( std::string );
 
     /**
         MUST BE IN THIS ORDER:

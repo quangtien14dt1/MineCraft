@@ -42,7 +42,6 @@ void QuadRenderer::render(Camera* camera) {
 	m_shader.Activate();
 	m_quadModel.getVao().bind();
 	m_texture.bind();
-	m_texture.TextureUnit(m_shader,"quadTexture", 0);
 
 	/* binding shader */
 	camera->UpdateCameraVector();
@@ -56,5 +55,6 @@ void QuadRenderer::render(Camera* camera) {
 		// draw using indices 
 		glDrawElements(GL_TRIANGLES, GLsizei(m_quadModel.getIndiceCount()), GL_UNSIGNED_INT, 0);
 	}
+	m_texture.unbind();
 	
 };

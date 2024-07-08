@@ -1,9 +1,11 @@
 #include "CubeTexture.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 
-CubeTexture::CubeTexture(const std::string& file) {
+void CubeTexture::SetupCubeImage(std::string file) {
 	sf::Image i;
+	std::cout << "Does this enter load cube texture" << std::endl;
 	if (!i.loadFromFile("Resource/textures/" + file + ".png"))
 	{
 		throw std::runtime_error("Unable to open image: " + file);
@@ -18,15 +20,17 @@ CubeTexture::CubeTexture(const std::string& file) {
 std::vector<GLfloat>  
 CubeTexture::GetTexture(const sf::Vector2f& coords) {
 
-	static const GLfloat TEX_PER_ROW	= (GLfloat)m_imageSize / (GLfloat)m_individualTextureSize;
-	static const GLfloat INDV_TEX_SIZE  = 1.0f / TEX_PER_ROW;
-	static const GLfloat PIXEL_SIZE		= 1.0f / (float)m_imageSize;
+	GLfloat TEX_PER_ROW	= (GLfloat)m_imageSize / (GLfloat)m_individualTextureSize;
+	GLfloat INDV_TEX_SIZE  = 1.0f / TEX_PER_ROW;
+	GLfloat PIXEL_SIZE		= 1.0f / (float)m_imageSize;
 
-	GLfloat xMin = (coords.x * INDV_TEX_SIZE) + (GLfloat)(0.5 * PIXEL_SIZE);
-	GLfloat yMin = (coords.y * INDV_TEX_SIZE) + (GLfloat)(0.5 * PIXEL_SIZE);
+	GLfloat xMin = (coords.x * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
+	GLfloat yMin = (coords.y * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
 
-	GLfloat xMax = (xMin + INDV_TEX_SIZE) - (GLfloat)(0.5 * PIXEL_SIZE);
-	GLfloat yMax = (yMin + INDV_TEX_SIZE) - (GLfloat)(0.5 * PIXEL_SIZE);
+	GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
+	GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
+
+	std::cout << xMax << yMax << xMin << yMin << std::endl;
 
 	return {
 		xMax, yMax,

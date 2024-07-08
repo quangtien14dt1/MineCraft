@@ -14,15 +14,16 @@ void Render::render(Camera* c)
 {
 	_quadRenderer->render(c);
 
-	//_cubeRenderer->render(c);
+	_cubeRenderer->render(c);
 };
 
 Render::Render()
 { 
 	_quadRenderer = new QuadRenderer();
-	//_cubeRenderer = new CubeRenderer();
+	_cubeRenderer = new CubeRenderer();
 
 	addQuad({0,0,0});
+	addCube({0,0,0});
 };
 
 Render::~Render() { 

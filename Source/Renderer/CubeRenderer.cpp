@@ -4,9 +4,19 @@
 #include <iostream>
 
 
-CubeRenderer::CubeRenderer() : m_cubeTexture("DefaultPack") {
+CubeRenderer::CubeRenderer( ) {
 
 	std::cout << "Init Cube Renderer..." << std::endl;
+
+	std::cout << "Init cube shader program..." << std::endl;
+	m_cubeShader = BasicShader("Cube", "Cube");
+
+	std::cout << "Create cube image ..." << std::endl;
+	_cubeTexture = new CubeTexture();
+
+	_cubeTexture->SetupCubeImage("DefaultPack");
+
+
 	std::vector<GLuint> indices
 	{
 
@@ -81,12 +91,12 @@ CubeRenderer::CubeRenderer() : m_cubeTexture("DefaultPack") {
 		0, 0, 0, //20
 		1, 0, 0, //21
 		1, 0, 1, //22
-		0, 0, 1. //23
+		0, 0, 1 //23
 	};
 
-	auto top = m_cubeTexture.GetTexture({0,0});
-	auto side = m_cubeTexture.GetTexture({1,0});
-	auto bottom = m_cubeTexture.GetTexture({2,0});
+	auto top = _cubeTexture->GetTexture({0,0});
+	auto side = _cubeTexture->GetTexture({1,0});
+	auto bottom = _cubeTexture->GetTexture({2,0});
 
 	std::vector<GLfloat> texCoords;
 	texCoords.insert(texCoords.end(), side.begin(), side.end());
@@ -97,7 +107,13 @@ CubeRenderer::CubeRenderer() : m_cubeTexture("DefaultPack") {
 	texCoords.insert(texCoords.end(), bottom.begin(), bottom.end());
 
 	m_cubeModel.addData({ vertexCoords, texCoords, indices });
+
+	
+
+	
 };
+CubeRenderer::~CubeRenderer() { delete _cubeTexture; };
+
 
 void CubeRenderer::add(const glm::vec3& position) { 
 	m_cubes.push_back(position);
@@ -108,7 +124,7 @@ void CubeRenderer::render( Camera* camera ) {
 	/* activate sahder , vao and texture */
 	m_cubeShader.Activate();
 	m_cubeModel.getVao().bind();
-	m_cubeTexture.bind();
+	_cubeTexture->bind();
 
 	/* binding shader */
 	camera->UpdateCameraVector();

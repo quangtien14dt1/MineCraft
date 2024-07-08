@@ -50,6 +50,8 @@ void Camera::Update(sf::Event& e, float delta) {
 		if (e.key.code == sf::Keyboard::S) { MoveBackWard(delta);  break; }
 		if (e.key.code == sf::Keyboard::D) { MoveRight(delta); break; }
 		if (e.key.code == sf::Keyboard::W) { MoveForWard(delta); break; }
+		if (e.key.code == sf::Keyboard::R) { RotateLeft(delta); break; };
+		if (e.key.code == sf::Keyboard::T) { RotateRight(delta); break; };
 		break;
 
 	case sf::Event::MouseButtonPressed:
@@ -77,6 +79,19 @@ void Camera::Update(sf::Event& e, float delta) {
 	}
 }
 
+void Camera::RotateLeft(float del) {
+	float scale = _sensitivity * del;
+	_yaw -= _sensitivity * scale;
+
+}
+
+void Camera::RotateRight(float del) {
+	float scale = _sensitivity * del;
+	_yaw += _sensitivity * del;
+
+}
+
+
 void Camera::ProcessMouseScrolling(sf::Event& e) {
 	auto delta = e.mouseWheel.delta;
 	if (delta) {
@@ -93,7 +108,10 @@ void Camera::HandleMouseMoving(sf::Event& e, float delta) {
 	// Move the camera based on the mouse movement
 	float scale = _sensitivity * delta ;
 
-	_position += _right * (float)del.x * scale;
+	_yaw -= (float)del.x * scale;
+	_pitch -= (float)del.y * scale;
+
+	_position -= _right * (float)del.x * scale;
 	_position -= _upPosition * (float)del.y * scale;
 
 	_previousMousePosition = currentMousePosition;
@@ -115,19 +133,19 @@ void Camera::UpdateCameraVector() {
 
 /* moving */
 void Camera::MoveBackWard(float delta) { 
-		_position -= _viewDirection * _sensitivity * delta * 10; 
+		_position -= _viewDirection * _sensitivity * delta * 50; 
 }
 
 void Camera::MoveForWard(float delta) { 
-	_position += _viewDirection * _sensitivity * delta * 10 ; 
+	_position += _viewDirection * _sensitivity * delta * 50 ; 
 }
 
 void Camera::MoveLeft(float delta) { 
-	_position -= _right * _sensitivity * delta * 10 ; 
+	_position -= _right * _sensitivity * delta * 50 ; 
 }
 
 void Camera::MoveRight(float delta) { 
-	_position += _right * _sensitivity * delta * 10; 
+	_position += _right * _sensitivity * delta * 50; 
 }
 
 void Camera::ToString() {
