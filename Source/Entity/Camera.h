@@ -3,8 +3,8 @@
 #include "../glm.h"
 #include "../Context.h"
 #include "../Engine.h"
-#include "../KeyBoard.h"
-#include "../ObserverPatter.h"
+#include "../Utils/Patterns/ObserverPatter.h"
+#include "../Utils/Patterns/SingleTon.h"
 
 
 /* POV parameter  */
@@ -18,7 +18,7 @@ struct POVDATA {
 
 class BasicShader;
 
-class Camera : public IObserver {
+class Camera : public IObserver, public SingleTon {
 
 public:
 	Camera(Config*, Context*);

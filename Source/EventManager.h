@@ -19,7 +19,4 @@ enum class EventType {
 	GUI_Click, GUI_Release, GUI_Hover, GUI_Leave
 };
 
-class EventManager
-{
-};
 

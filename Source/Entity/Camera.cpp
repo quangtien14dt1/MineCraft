@@ -43,6 +43,9 @@ void Camera::InitProjectionMatrix() {
 }
 
 void Camera::Update(sf::Event& e, float delta) {
+	//_previousMousePosition = sf::Vector2i(
+	//	sf::Mouse::getPosition(*(_pContext->_pWindow))
+	//);
 	switch (e.type)
 	{
 	case sf::Event::KeyPressed:
@@ -55,7 +58,7 @@ void Camera::Update(sf::Event& e, float delta) {
 		break;
 
 	case sf::Event::MouseButtonPressed:
-		if (e.mouseButton.button == 0) _dragging = true;
+		if (e.mouseButton.button == 1) _dragging = true;
 		_previousMousePosition = sf::Vector2i(
 			sf::Mouse::getPosition(*(_pContext->_pWindow))
 		);
@@ -70,7 +73,6 @@ void Camera::Update(sf::Event& e, float delta) {
 		break;
 
 	case sf::Event::MouseMoved:
-		if (!_dragging) break;
 		HandleMouseMoving(e, delta);
 		break;
 
@@ -98,7 +100,7 @@ void Camera::ProcessMouseScrolling(sf::Event& e) {
 		_sProjectionData.angle += delta * 2;
 		InitProjectionMatrix();
 	}
-	ToString();
+	//ToString();
 }
 
 void Camera::HandleMouseMoving(sf::Event& e, float delta) {
@@ -108,14 +110,14 @@ void Camera::HandleMouseMoving(sf::Event& e, float delta) {
 	// Move the camera based on the mouse movement
 	float scale = _sensitivity * delta ;
 
-	_yaw -= (float)del.x * scale;
-	_pitch -= (float)del.y * scale;
+	_yaw -= (float)del.x * scale * 50;
+	_pitch -= (float)del.y * scale * 50;
 
-	_position -= _right * (float)del.x * scale;
-	_position -= _upPosition * (float)del.y * scale;
+	if (_pitch > 89.0f) _pitch = 89.0f;
+	if (_pitch < -89.0f) _pitch = -89.0f;
 
 	_previousMousePosition = currentMousePosition;
-	ToString();
+	UpdateCameraVector();
 }
 
 void Camera::UpdateCameraVector() {
@@ -124,8 +126,9 @@ void Camera::UpdateCameraVector() {
 	front.y = sin(glm::radians(_pitch));
 	front.z = sin(glm::radians(_yaw)) * cos(glm::radians(_pitch));
 
+	// make sure upPosition vector alway is {0,1,0}
 	_viewDirection = glm::normalize(front);
-	_right = glm::normalize(glm::cross(_viewDirection, _upPosition));
+	_right = glm::normalize(glm::cross(_viewDirection, glm::vec3(0.0f, 1.0f, 0.0f)));
 	_upPosition = glm::normalize(glm::cross(_right, _viewDirection));
 
 	CalculateViewMatrix();

@@ -5,7 +5,6 @@
 
 void CubeTexture::SetupCubeImage(std::string file) {
 	sf::Image i;
-	std::cout << "Does this enter load cube texture" << std::endl;
 	if (!i.loadFromFile("Resource/textures/" + file + ".png"))
 	{
 		throw std::runtime_error("Unable to open image: " + file);
@@ -30,7 +29,7 @@ CubeTexture::GetTexture(const sf::Vector2f& coords) {
 	GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
 	GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
 
-	std::cout << xMax << yMax << xMin << yMin << std::endl;
+	//std::cout << xMax << yMax << xMin << yMin << std::endl;
 
 	return {
 		xMax, yMax,

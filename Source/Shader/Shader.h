@@ -1,6 +1,6 @@
 #pragma once
-#include "../NonCopyable.h"
-#include "ShaderLoader.h"
+
+#include "../Utils/ShaderLoader.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>

@@ -7,24 +7,26 @@
 #include <iostream>
 
 
-Application::Application() {
+Application::Application(std::string applicationName) {
 	SetupConfig(_config);
 	SetupWindowContext(_config, _context);
 	_pEngine = new Engine(&_config, this , &_context); 
+
+	_context._pWindow->setTitle(applicationName);
+	_context._pWindow->setMouseCursorVisible(false);
+
+	cursorDisplay = false;
+	windowFocus = true;
+	
 }
 
 Application::~Application() { if (_pEngine != NULL) { delete _pEngine;} }
 
 void Application::RunLoop() {
 
-	// TurnOffMouse();
-
 	sf::Time holdTime = sf::Time::Zero;
 	sf::Time runTime = sf::Time::Zero;
 	sf::Time update = sf::seconds(0.01f / 60.f);
-
-	/* Init Game Engine */
-	/*_pEngine->InitGame();*/
 
 	sf::Event e;
 	try{
@@ -51,15 +53,12 @@ void Application::RunLoop() {
 
 			HandleEvents(e);
 
-			// clear the buffers
-			glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glEnable(GL_DEPTH_TEST);
+			//LockMouseInsideWindow();
 
-			// draw OpenGL level 
+			cleanBuffer();
+
 			_pEngine->Invoke();
 
-			// sfml window display buffer
 			_context._pWindow->display();
 
 			holdTime = runTime;
@@ -72,15 +71,60 @@ void Application::RunLoop() {
 	
 }
 
-void Application::TurnOffMouse() { _context._pWindow->setMouseCursorVisible(false); }
-
-void Application::TurnOnMouse() { _context._pWindow->setMouseCursorVisible(true); }
+void Application::cleanBuffer()
+{
+	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
 
 void Application::CenteringMousePosition() {
 	sf::Mouse::setPosition(
 		sf::Vector2i(_context._width / 2, _context._height / 2),
 		*_context._pWindow);
 }
+
+void Application::CursorFocusWindow(bool f) {
+	_context._pWindow->setMouseCursorVisible(f);
+}
+
+bool Application::LockMouseInsideWindow() {
+
+	if (windowFocus) {
+
+		sf::Vector2i cursorPos = sf::Mouse::getPosition(*_context._pWindow);
+		sf::Vector2u windowSize = _context._pWindow->getSize();
+		/* out of x direction */
+		if (cursorPos.x < 0) {
+			sf::Mouse::setPosition(
+				sf::Vector2i(0, cursorPos.y), *_context._pWindow
+			);
+		}
+		else if (cursorPos.x >= static_cast<int>(windowSize.x)) {
+
+			sf::Mouse::setPosition(
+				sf::Vector2i(windowSize.x - 1, cursorPos.y), *_context._pWindow);
+		}
+
+		/* out of y direction */
+		if (cursorPos.y < 0) {
+			sf::Mouse::setPosition(
+				sf::Vector2i(cursorPos.x, 0), *_context._pWindow
+			);
+		}
+		else if (cursorPos.y >= static_cast<int>(windowSize.y)) {
+			sf::Mouse::setPosition(sf::Vector2i(
+				cursorPos.x, windowSize.y - 1), *_context._pWindow
+			);
+		}
+	}
+	
+	
+
+	return 1;
+		
+}
+
+
 
 void Application::HandleEvents(sf::Event& e) {
 
@@ -101,9 +145,16 @@ void Application::HandleEvents(sf::Event& e) {
 		{
 		case sf::Keyboard::Escape:
 
-			_context._pWindow->close();
+			/*_context._pWindow->close();*/
+			windowFocus = false;
+			_context._pWindow->setMouseCursorVisible(true);
 
 			break;
+
+		case sf::Event::GainedFocus:
+			_context._pWindow->setMouseCursorVisible(false);
+			break;
+
 
 		default:
 

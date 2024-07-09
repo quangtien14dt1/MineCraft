@@ -10,7 +10,6 @@
 #include "Entity/Mesh.h"
 #include "Entity/Model.h"
 #include "Renderer/Render.h"
-#include "../KeyBoard.h"
 #include "../Shader/BasicShader.h"
 
 
@@ -25,6 +24,15 @@ void Engine::ErrorMessage(const char* c)
 	/*MessageBoxA(NULL, c, "error", MB_ICONERROR);*/
 }
 
+Engine* Engine::_pEngine = nullptr;;
+
+Engine* Engine::GetInstance(
+	Config* cf, Application* a, Context* ct) {
+	if (_pEngine == nullptr) {
+		_pEngine = new Engine(cf,a,ct);
+	}
+	return _pEngine;
+};
 
 Engine::Engine(  Config* cf,  Application* a, Context* ct)
 {

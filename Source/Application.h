@@ -1,30 +1,36 @@
 #pragma once
 #include "Engine.h"
 #include "Context.h"
-#include "Singleton.h"
+#include "Utils/Patterns/NonCopyable.h"
 
 class Engine;
 class Camera;
 
-class Application : public SingleTon
+class Application : public NonCopyable
 {
 public:
-	Application();
+	Application( std::string applicationName );
 	~Application();
 
 	/* looping handle event */
 	void CenteringMousePosition();
 	void RunLoop();
-	void TurnOffMouse();
-	void TurnOnMouse();
-	
+
+	bool LockMouseInsideWindow();
+	void CursorFocusWindow(bool);
+
 private:
 	void HandleEvents(sf::Event&);
+	void cleanBuffer();
 private:
 	Context _context;
 	Config _config;
 	Engine* _pEngine{nullptr};
 	sf::Clock _clock;
+
+	bool cursorDisplay ;
+	bool windowFocus;
+	
 };
 
 /*

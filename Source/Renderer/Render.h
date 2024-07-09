@@ -2,7 +2,6 @@
 #include "../glm.h"
 #include "QuadRenderer.h"
 #include "CubeRenderer.h"
-#include "../NonCopyable.h"
 
 class Camera;
 

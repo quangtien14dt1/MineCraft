@@ -2,7 +2,8 @@
 
 #include "Context.h"
 #include "Application.h"
-#include "ObserverPatter.h"
+#include "Utils/Patterns/ObserverPatter.h"
+#include "Utils/Patterns/SingleTon.h"
 #include <SFML/Window.hpp>
 #include <vector>
 #include <memory>
@@ -30,13 +31,13 @@ class BasicShader;
 class Model;
 class Render;
 
-class Engine : public ISubject
+class Engine : public ISubject, public SingleTon
 {
 public:
 	Engine(Config*, Application*, Context*);
 
 	~Engine();
-
+	static Engine* GetInstance(Config*, Application*, Context*);
 	//int  InitGame();
 
 	/* Logic Handle for Event level */
@@ -54,6 +55,7 @@ public:
 	Camera* GetCamera();
 
 private:
+	static Engine* _pEngine;
 
 	Config*		_pConfig;
 	Context*		_pContext;

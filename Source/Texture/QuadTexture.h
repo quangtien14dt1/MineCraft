@@ -3,7 +3,6 @@
 #include <string>
 #include <glad/glad.h>
 #include <SFML/Graphics.hpp>
-#include "../NonCopyable.h"
 #include "../shader/BasicShader.h"
 
 class QuadTexture

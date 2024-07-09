@@ -330,7 +330,7 @@
     <ClInclude Include="Source\Shader\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Shader\ShaderLoader.h">
+    <ClInclude Include="Source\Utils\ShaderLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Thirdparty\fastnoise.hpp">
@@ -357,16 +357,13 @@
     <ClInclude Include="Source\glm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\KeyBoard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Entity\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Entity\ModelLoading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\NonCopyable.h">
+    <ClInclude Include="Source\Utils\Patterns\NonCopyable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\counted_ptr.h">
@@ -378,13 +375,7 @@
     <ClInclude Include="Source\smart_ptr\counted_ptr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Event_Queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ObserverPatter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Singleton.h">
+    <ClInclude Include="Source\Utils\Patterns\ObserverPatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Texture\CubeTexture.h">
@@ -409,6 +400,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Renderer\Render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World\Block\BlockId.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Patterns\NonMovable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Patterns\SingleTon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -463,7 +463,7 @@
     <ClCompile Include="Source\Entity\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Shader\ShaderLoader.cpp">
+    <ClCompile Include="Source\Utils\ShaderLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Thirdparty\fastnoise.cpp">
@@ -476,12 +476,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EventManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\KeyBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\MineCraft.cpp">
