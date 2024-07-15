@@ -1,25 +1,36 @@
 #include "Render.h"
+#include "../World/Block/BlockDatabase.h"
+#include <iostream>
 
 
 void Render::render(Camera* c)  {
-	_quadRenderer->render(c);
+
+	//_quadRenderer->render(c);
 	_cubeRenderer->render(c);
+
+};
+
+void Render::DatabaseBinding(BlockDatabase* p) {
 };
 
 Render::Render()
 { 
+	std::cout << "Init Quad renderer..." << std::endl;
 	_quadRenderer = new QuadRenderer();
+
+	std::cout << "Init Cube renderer..." << std::endl;
 	_cubeRenderer = new CubeRenderer();
 
-	//addQuad({0,0,0});
-	addCube({0,0,0});
 };
 
 Render::~Render() { 
-	delete _quadRenderer; 
-	delete _cubeRenderer;
+
+	if (_quadRenderer != NULL) {
+		delete _quadRenderer; _quadRenderer = nullptr;
+	}
+
+	if (_cubeRenderer != NULL) {
+		delete _cubeRenderer; _cubeRenderer = nullptr;
+	}
 };
 
-void Render::addQuad(const glm::vec3& pos) { _quadRenderer->add(pos); };
-
-void Render::addCube(const glm::vec3& pos) { _cubeRenderer->add(pos); };

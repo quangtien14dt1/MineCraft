@@ -30,6 +30,8 @@ class Camera;
 class BasicShader;
 class Model;
 class Render;
+class BlockDatabase;
+class BlockFactory;
 
 class Engine : public ISubject, public SingleTon
 {
@@ -53,10 +55,15 @@ public:
 	void Detach(IObserver* observer) override;
 	void Notify(sf::Event&, float ) override;
 	Camera* GetCamera();
+	
+	/* load data */
+	void LoadMap();
+
 
 private:
 	static Engine* _pEngine;
-
+	//BlockDatabase* _blockDatabase;
+	BlockFactory* _blockFactory;
 	Config*		_pConfig;
 	Context*		_pContext;
 	Application*	_pApplication; 

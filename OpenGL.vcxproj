@@ -264,7 +264,9 @@
     <ClInclude Include="Source\Utils\Matrix.h" />
     <ClInclude Include="Source\Utils\Patterns\NonMovable.h" />
     <ClInclude Include="Source\Utils\Patterns\SingleTon.h" />
-    <ClInclude Include="Source\World\Block\BlockId.h" />
+    <ClInclude Include="Source\World\Block\BlockDatabase.h" />
+    <ClInclude Include="Source\World\Block\BlockContribute.h" />
+    <ClInclude Include="Source\World\Block\BlockFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -312,6 +314,8 @@
     <ClCompile Include="Source\Thirdparty\fastnoise.cpp" />
     <ClCompile Include="Source\Thirdparty\glad.c" />
     <ClCompile Include="Source\Utils\Matrix.cpp" />
+    <ClCompile Include="Source\World\Block\BlockDatabase.cpp" />
+    <ClCompile Include="Source\World\Block\BlockFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />

@@ -4,21 +4,21 @@
 #include "CubeRenderer.h"
 
 class Camera;
+class BlockDatabase;
 
 class Render 
 {
 public:
 
-	Render();
-	~Render();
+	Render( );
 
-	void addQuad(const glm::vec3& pos);
-	void addCube(const glm::vec3& pos);
+	void DatabaseBinding(BlockDatabase * p );
 
 	void render(Camera* );
-private:
-	QuadRenderer* _quadRenderer{nullptr};
-	CubeRenderer* _cubeRenderer{nullptr};
+	~Render();
 
+private:
+	QuadRenderer* _quadRenderer;
+	CubeRenderer* _cubeRenderer;
 };
 

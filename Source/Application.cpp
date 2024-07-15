@@ -29,6 +29,9 @@ void Application::RunLoop() {
 	sf::Time update = sf::seconds(0.01f / 60.f);
 
 	sf::Event e;
+
+	_pEngine->LoadMap();
+
 	try{
 		while (_context._pWindow->isOpen()) {
 

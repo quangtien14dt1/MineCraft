@@ -11,6 +11,8 @@
 #include "Entity/Model.h"
 #include "Renderer/Render.h"
 #include "../Shader/BasicShader.h"
+#include "../World/Block/BlockDatabase.h"
+#include "../World/Block/BlockFactory.h"
 
 
 
@@ -24,7 +26,7 @@ void Engine::ErrorMessage(const char* c)
 	/*MessageBoxA(NULL, c, "error", MB_ICONERROR);*/
 }
 
-Engine* Engine::_pEngine = nullptr;;
+Engine* Engine::_pEngine = nullptr;
 
 Engine* Engine::GetInstance(
 	Config* cf, Application* a, Context* ct) {
@@ -47,6 +49,15 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 	std::cout << "Init render master..." << std::endl;
 	_renderMaster = new Render();
 
+	//std::cout << "Init block database..." << std::endl;
+	//_blockDatabase = new BlockDatabase();
+
+	//std::cout << "Init block factory..." << std::endl;
+	//_blockFactory = BlockFactory::GetInstance();
+
+	//std::cout << "Binding database to renderer..." << std::endl;
+	//_renderMaster->DatabaseBinding(_blockDatabase);
+
 	/* attach intance that receive event queue  */
 	Attach(_camera);
 
@@ -60,6 +71,10 @@ Engine::~Engine() {
 	if (_renderMaster != NULL) { 
 		delete _renderMaster; _renderMaster = nullptr; 
 	}
+
+	//if (_blockDatabase != NULL) {
+	//	delete _blockDatabase; _blockDatabase = nullptr;
+	//}
 };
 
 
@@ -72,6 +87,17 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 	*/
 	Notify(e, d);
 	/* Shader unifitions */
+};
+
+/**/
+void Engine::LoadMap() {
+	// try 1 
+	Block * block = _blockFactory->GetInstance()->CreateBlock(
+		BlockId::Grass, glm::vec3{0,0,0}
+	);
+
+	BlockDatabase::GetInstance()->AddBlock(block);
+	
 };
 
 void Engine::Invoke() {

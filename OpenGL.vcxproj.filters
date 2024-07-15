@@ -402,13 +402,19 @@
     <ClInclude Include="Source\Renderer\Render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\World\Block\BlockId.h">
+    <ClInclude Include="Source\World\Block\BlockContribute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utils\Patterns\NonMovable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utils\Patterns\SingleTon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World\Block\BlockDatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World\Block\BlockFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -506,6 +512,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Renderer\Render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World\Block\BlockDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World\Block\BlockFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
