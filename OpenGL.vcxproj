@@ -102,7 +102,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);LAB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\include;$(SolutionDir)\Source\Thirdparty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -267,6 +267,7 @@
     <ClInclude Include="Source\World\Block\BlockDatabase.h" />
     <ClInclude Include="Source\World\Block\BlockContribute.h" />
     <ClInclude Include="Source\World\Block\BlockFactory.h" />
+    <ClInclude Include="Source\World\WorldContant.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

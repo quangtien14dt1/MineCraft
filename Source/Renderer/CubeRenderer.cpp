@@ -50,8 +50,24 @@ void CubeRenderer::render( Camera* camera ) {
 			pair.second->modelMatrix( pair.first->cubeLocation, pair.first->cubeRotation )
 		);
 
+		
+		
+#ifdef LAB
+		/* draw line only */
+		glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+
+		/* draw by strip triangle */
+		//glDrawElements(GL_TRIANGLE_STRIP, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+
+#else
 		/* draw using indices */
-		glDrawElements( GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+
+#endif // LAB
+
+		
+
+		
 
 	}
 

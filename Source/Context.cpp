@@ -36,6 +36,7 @@ void SetupWindowContext(Config& cf, Context& c) {
 	glViewport(0, 0, c._pWindow->getSize().x, c._pWindow->getSize().y);
 	glCullFace(GL_BACK);		/* setting not display faces at the back */
 	glEnable(GL_DEPTH_TEST);	/* enable z-buffer */
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); /* this enable context draw line mode */
 };
 
 
