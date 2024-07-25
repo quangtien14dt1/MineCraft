@@ -14,6 +14,7 @@ public:
 	void addData(const Mesh& mesh);
 	void deleteData();
 	void addVBO(GLuint dimensions, const std::vector<GLfloat>& data);
+	void updateVBOTextureCoord(std::vector<GLfloat>& );
 	void addEBO(const std::vector<GLuint>& indices);
 	VAO getVao() ;
 
@@ -24,10 +25,10 @@ public:
 private:
 	
 	/* 1 Model has 1 vao and add on many mesh */
-	VAO m_vao;
-	Mesh m_mesh;
-	GLuint m_vboCount = 0; // buffer location
-	GLuint m_indicesCount = 0;
+	VAO		m_vao;
+	Mesh	m_mesh;
+	GLuint	m_vboCount = 0; // buffer location
+	GLuint	m_indicesCount = 0;
 	std::vector<VBO> m_buffers;
 
 };

@@ -18,21 +18,25 @@ public:
 	
 	~BlockDatabase();
 
-	const Block& GetBlock(BlockId id) const;
+	const Block& GetBlock(BlockType id) const;
 
-	const Block& GetBlockId(BlockId id) const;
+	const Block& GetBlockId(BlockType id) const;
 
 	void AddBlock( Block* );
+
+	void CleanDatabase();
+
+	void CreateDefaultCubeModel();
 
 	void RemoveBlock( const glm::vec3 );
 
 	std::vector<Block*, Model*> 
-		GetAllBlockById(const BlockId) const;
+		GetAllBlockById(const BlockType) const;
 
 
 	Block* FindBlockByLocation( const glm::vec3 ) const;
 
-	std::vector< std::pair<Block*, Model*> > GetAllBlocks() const;
+	std::vector< Block* > GetAllBlocks() const;
 
 	void RemoveBlockByLocation(const glm::vec3&);
 
@@ -41,16 +45,18 @@ public:
 	BlockDatabase();
 
 	CubeTexture* GetTexture();
+
+	Model* GetModel();
+
+	int CheckingSize();
 	
 private:
 
-	
-
 	static BlockDatabase* _pBlockDatabase;
+	CubeTexture*	_cubeTexture;
+	Model*			_cubeModel;
 
-	CubeTexture* _cubeTexture;
-
-	std::vector< std::pair<Block*, Model*> > _blockStore;
+	std::vector< Block* > _blockStore;
 
 	
 };

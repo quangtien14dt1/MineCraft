@@ -1,6 +1,16 @@
 #include "Model.h"
 #include <algorithm>
 
+static const int ZERO = 0;
+
+static const int POSITION = 0;
+
+static const int TEXTURE_COORD = 1;
+
+static const int POSITION_BUFFER_SIZE = 3;
+
+static const int TEXTURE_BUFFER_SIZE = 2;
+
 /* default Model init */
 void Model::InitModel() {}
 
@@ -17,8 +27,8 @@ void Model::addData(const Mesh& mesh) {
 	// regenerate and bind data
 	m_vao.generateVao();
 	m_vao.bind();
-	addVBO(3, mesh.vertexPositions);
-	addVBO(2, mesh.textureCoords);
+	addVBO(POSITION_BUFFER_SIZE, mesh.vertexPositions);
+	addVBO(TEXTURE_BUFFER_SIZE, mesh.textureCoords);
 	addEBO(mesh.indices);
 	
 };
@@ -31,8 +41,8 @@ void Model::deleteData() {
 
 	m_buffers.clear();
 
-	m_vboCount		= 0;
-	m_indicesCount = 0;
+	m_vboCount		= ZERO;
+	m_indicesCount  = ZERO;
 
 };
 
@@ -50,6 +60,21 @@ void Model::addVBO(
 
 	m_buffers.push_back(vbo);
 
+};
+
+void Model::updateVBOTextureCoord(std::vector<GLfloat>& newTexCoord) {
+	m_vao.bind();
+	m_buffers[TEXTURE_COORD].bind();
+
+	glBufferSubData(
+		GL_ARRAY_BUFFER,
+		0,
+		newTexCoord.size() * sizeof(GLfloat),
+		newTexCoord.data()
+	);
+
+	m_buffers[TEXTURE_COORD].unbind();
+	m_vao.unbind();
 };
 
 void Model::addEBO(const std::vector<GLuint>& indices) {

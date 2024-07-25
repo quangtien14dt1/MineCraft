@@ -18,19 +18,27 @@ BlockDatabase::BlockDatabase() {
 }
 
 BlockDatabase::~BlockDatabase() {
-	delete _cubeTexture;
-
-	for (auto& pair : _blockStore) {
-		delete pair.first;  
-		delete pair.second; 
+	if (_cubeTexture) {
+		delete _cubeTexture;
+		_cubeTexture = nullptr;
 	}
-
+	
+	for (auto& block : _blockStore) {
+		if (block) {
+			delete block;
+			block = nullptr;
+		}
+	}
 
 	if (_pBlockDatabase != nullptr) {
 		delete _pBlockDatabase;
 		_pBlockDatabase = nullptr;
 	}
 }
+int BlockDatabase::CheckingSize() {
+	return _blockStore.size();
+}
+
 
 BlockDatabase* BlockDatabase::operator()() {
 	return GetInstance();
@@ -45,6 +53,12 @@ BlockDatabase* BlockDatabase::GetInstance() {
 
 
 void BlockDatabase::AddBlock( Block* b) {
+	
+	_blockStore.push_back( b );
+
+};
+
+void BlockDatabase::CreateDefaultCubeModel() {
 	std::vector<GLuint> indices
 	{
 
@@ -92,40 +106,40 @@ void BlockDatabase::AddBlock( Block* b) {
 				 //      | 1------|-0	| |		/	| 
 				 //	     | /      | /	| |	  /	    |
 		// front //	     |/       |/	| |	/		|
-        0, 0, 1, //4     4--------5		| 0_________1_______X
-        1, 0, 1, //5     
-        1, 1, 1, //6
-        0, 1, 1, //7
-        
-        // right
-        1, 0, 1, //8
-        1, 0, 0, //9
-        1, 1, 0, //10
-        1, 1, 1, //11
-        
-        // left
-        0, 0, 0, //12
-        0, 0, 1, //13
-        0, 1, 1, //14
-        0, 1, 0, //15
-        
-        // top
-        0, 1, 1, //16
-        1, 1, 1, //17
-        1, 1, 0, //18
-        0, 1, 0, //19
-        
-        // bottom
-        0, 0, 0, //20
-        1, 0, 0, //21
-        1, 0, 1, //22
-        0, 0, 1  //23
+		0, 0, 1, //4     4--------5		| 0_________1_______X
+		1, 0, 1, //5     
+		1, 1, 1, //6
+		0, 1, 1, //7
+
+		// right
+		1, 0, 1, //8
+		1, 0, 0, //9
+		1, 1, 0, //10
+		1, 1, 1, //11
+
+		// left
+		0, 0, 0, //12
+		0, 0, 1, //13
+		0, 1, 1, //14
+		0, 1, 0, //15
+
+		// top
+		0, 1, 1, //16
+		1, 1, 1, //17
+		1, 1, 0, //18
+		0, 1, 0, //19
+
+		// bottom
+		0, 0, 0, //20
+		1, 0, 0, //21
+		1, 0, 1, //22
+		0, 0, 1  //23
 	};
 
-	// block data textures coords
-	auto top    = _cubeTexture->GetTexture(b->texTopCoords);
-	auto side   = _cubeTexture->GetTexture(b->texSideCoords);
-	auto bottom = _cubeTexture->GetTexture(b->texBottomCoords);
+	/* Default texture grass */
+	auto top	= _cubeTexture->GetTexture({0,0});
+	auto side	= _cubeTexture->GetTexture({1,0});
+	auto bottom = _cubeTexture->GetTexture({2,0});
 
 	std::vector<GLfloat> texCoords;
 	texCoords.insert(texCoords.end(), side.begin(), side.end());
@@ -135,19 +149,17 @@ void BlockDatabase::AddBlock( Block* b) {
 	texCoords.insert(texCoords.end(), top.begin(), top.end());
 	texCoords.insert(texCoords.end(), bottom.begin(), bottom.end());
 
-	Model* model = new Model();
-	model->addData({ vertexCoords, texCoords, indices });
+	_cubeModel = new Model();
+	_cubeModel->addData({ vertexCoords, texCoords, indices });
+}
 
-	//std::pair<Block*, Model*>
-	_blockStore.push_back( std::make_pair( b, model ) );
-
-};
+Model* BlockDatabase::GetModel() { return _cubeModel; };
 
 void BlockDatabase::RemoveBlock(const glm::vec3 l) {
 	_blockStore.erase(
 		std::remove_if(_blockStore.begin(), _blockStore.end(), 
-			[&l](const std::pair<Block*, Model*>& pair) {
-				return pair.first->cubeLocation == l;
+			[&l](const Block* ptr) {
+				return ptr->cubeLocation == l;
 			}),
 		_blockStore.end()
 	);
@@ -158,19 +170,18 @@ CubeTexture* BlockDatabase::GetTexture() { return _cubeTexture; };
 
 Block* BlockDatabase::FindBlockByLocation(const glm::vec3 l) const {
 	auto it = std::find_if(_blockStore.begin(), _blockStore.end(),
-		[&l](const auto& pair) {
-			return pair.first->cubeLocation == l;
+		[&l](const auto& block) {
+			return block->cubeLocation == l;
 		});
 
 	if (it != _blockStore.end()) {
-		return it->first;
+		return *it;
 	}
 
 	return nullptr;
 }
 
-
-std::vector < std::pair<Block*, Model*> >
+std::vector < Block* >
 BlockDatabase::GetAllBlocks() const {
 	return _blockStore;
 };

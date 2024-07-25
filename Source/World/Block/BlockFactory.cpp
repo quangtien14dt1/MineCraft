@@ -2,10 +2,10 @@
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 
-Block* BlockFactory::CreateBlock(BlockId id, glm::vec3 l) {
+Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
 	Block* block = nullptr;
 	switch (id) {
-		case BlockId::Air:
+		case BlockType::Air:
 			block = new Block();
 			block->id = id;
 			block->texTopCoords = { 0,0 };
@@ -14,7 +14,7 @@ Block* BlockFactory::CreateBlock(BlockId id, glm::vec3 l) {
 			block->cubeLocation = l;
 			return block;
 
-		case BlockId::Dirt:
+		case BlockType::Dirt:
 			block = new Block();
 			block->id = id;
 			block->texTopCoords = { 2 ,0 };
@@ -23,7 +23,7 @@ Block* BlockFactory::CreateBlock(BlockId id, glm::vec3 l) {
 			block->cubeLocation = l;
 			return block;
 
-		case BlockId::Grass:
+		case BlockType::Grass:
 			block = new Block();
 			block->id = id;
 			block->texTopCoords = { 0,0 };
@@ -32,7 +32,7 @@ Block* BlockFactory::CreateBlock(BlockId id, glm::vec3 l) {
 			block->cubeLocation = l;
 			return block;
 
-		case BlockId::Stone:
+		case BlockType::Stone:
 			block = new Block();
 			block->id = id;
 			block->texTopCoords = { 3,0 };
@@ -40,7 +40,9 @@ Block* BlockFactory::CreateBlock(BlockId id, glm::vec3 l) {
 			block->texBottomCoords = { 3,0 };
 			block->cubeLocation = l;
 			return block;
+
 	}
+
 	if ( block == NULL) {
 		throw std::runtime_error("Failed create new block type : ");
 	}

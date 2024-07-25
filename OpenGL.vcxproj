@@ -267,6 +267,7 @@
     <ClInclude Include="Source\World\Block\BlockDatabase.h" />
     <ClInclude Include="Source\World\Block\BlockContribute.h" />
     <ClInclude Include="Source\World\Block\BlockFactory.h" />
+    <ClInclude Include="Source\World\Chunk\Chunk.h" />
     <ClInclude Include="Source\World\WorldContant.h" />
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +318,7 @@
     <ClCompile Include="Source\Utils\Matrix.cpp" />
     <ClCompile Include="Source\World\Block\BlockDatabase.cpp" />
     <ClCompile Include="Source\World\Block\BlockFactory.cpp" />
+    <ClCompile Include="Source\World\Chunk\Chunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />

@@ -62,7 +62,7 @@ public:
 
 private:
 	static Engine* _pEngine;
-	//BlockDatabase* _blockDatabase;
+	BlockDatabase* _blockDatabase;
 	BlockFactory* _blockFactory;
 	Config*		_pConfig;
 	Context*		_pContext;

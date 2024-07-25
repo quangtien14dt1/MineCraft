@@ -29,15 +29,18 @@ void CubeRenderer::add(const glm::vec3& position) { }
 
 void CubeRenderer::render( Camera* camera ) {
 	
-
-	std::vector< std::pair<Block*, Model*> > data =
+	// std::pair<Block*, Model*> >
+	std::vector< Block* > blocks =
 		BlockDatabase::GetInstance()->GetAllBlocks();
 
 
-	for (auto& pair : data) {
+	for (auto& block : blocks) {
+		/* update cube model texture */
+
+
 		/* activate shader , bind vao and texture */
 		_cubeShader->Activate();
-		pair.second->getVao().bind();
+		BlockDatabase::GetInstance()->GetModel()->getVao().bind();
 		BlockDatabase::GetInstance()->GetTexture()->bind();
 
 		/* update camera */
@@ -47,14 +50,20 @@ void CubeRenderer::render( Camera* camera ) {
 		_cubeShader->LoadViewMatrix(camera->GetViewMatrix());
 		_cubeShader->LoadProjectionMatrix(camera->GetProjectionMatrix());
 		_cubeShader->LoadModelMatrix(
-			pair.second->modelMatrix( pair.first->cubeLocation, pair.first->cubeRotation )
+			BlockDatabase::GetInstance()->GetModel()->modelMatrix ( 
+				block->cubeLocation, 
+				block->cubeRotation 
+			)
 		);
 
-		
-		
 #ifdef LAB
 		/* draw line only */
-		glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+		glDrawElements( 
+			GL_TRIANGLES, 
+			GLsizei(
+				BlockDatabase::GetInstance()->GetModel()->getIndiceCount()), 
+			GL_UNSIGNED_INT, 0
+		);
 
 		/* draw by strip triangle */
 		//glDrawElements(GL_TRIANGLE_STRIP, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);

@@ -2,11 +2,14 @@
 
 #include <cstdint>
 #include <SFML/Graphics.hpp>
+#include "../Chunk/Chunk.h"
 #include "../../glm.h"
+
+class Chunk;
 
 using Block_t = uint8_t;
 
-enum class BlockId : Block_t {
+enum class BlockType : Block_t {
 	Air		= 0,
 	Grass	= 1,
 	Dirt	= 2,
@@ -24,7 +27,8 @@ struct Block {
 	glm::vec3 cubeLocation;
 	glm::vec3 cubeRotation;
 
-	BlockId id;
+	BlockType id;
+	sf::Vector2i chunkId;
 
 };
 

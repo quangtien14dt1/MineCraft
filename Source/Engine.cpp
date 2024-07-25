@@ -13,6 +13,7 @@
 #include "../Shader/BasicShader.h"
 #include "../World/Block/BlockDatabase.h"
 #include "../World/Block/BlockFactory.h"
+#include "../World/Chunk/Chunk.h"
 
 
 
@@ -92,14 +93,25 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 /**/
 void Engine::LoadMap() {
 
+	BlockDatabase::GetInstance()->CreateDefaultCubeModel();
 
-	// try 1 
-	Block * block = _blockFactory->GetInstance()->CreateBlock(
-		BlockId::Grass, glm::vec3{0,0,0}
-	);
+	/* need baking chunk and chunk database ? */
 
-	BlockDatabase::GetInstance()->AddBlock(block);
-	
+	/*
+	*	should containt 3 level 
+	*	chess 1  => map / noice , let say 10x 10 
+	*	chessMan => chunk  / 16x16x256 
+	*	bugs => block level / 
+	* -   -  -  -
+	*   |  |  |  |
+	* -  -  -   -
+	*   |  |  |  |
+	* -  -  -   -
+	* 
+	*/
+
+	Chunk chunk;
+	chunk.CreateChunk();
 };
 
 void Engine::Invoke() {
