@@ -59,8 +59,12 @@ public:
 	/* load data */
 	void LoadMap();
 
+	void LoadModeRender();
+	void SetRenderMode( bool);
+	bool GetRenderMode();
 
 private:
+	bool _polyMode;
 	static Engine* _pEngine;
 	BlockDatabase* _blockDatabase;
 	BlockFactory* _blockFactory;

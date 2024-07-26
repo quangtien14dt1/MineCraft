@@ -27,7 +27,7 @@ void CubeRenderer::create(const Block& b ) { };
 
 void CubeRenderer::add(const glm::vec3& position) { }
 
-void CubeRenderer::render( Camera* camera ) {
+void CubeRenderer::render( Camera* camera, bool poly ) {
 	
 	// std::pair<Block*, Model*> >
 	std::vector< Block* > blocks =

@@ -3,34 +3,33 @@
 #include <iostream>
 
 
-void Render::render(Camera* c)  {
-
-	//_quadRenderer->render(c);
-	_cubeRenderer->render(c);
-
-};
-
-void Render::DatabaseBinding(BlockDatabase* p) {
-};
-
 Render::Render()
-{ 
-	std::cout << "Init Quad renderer..." << std::endl;
+	: _poligonRender(false)
+{
 	_quadRenderer = new QuadRenderer();
-
-	std::cout << "Init Cube renderer..." << std::endl;
 	_cubeRenderer = new CubeRenderer();
-
 };
+
+void 
+Render::render(Camera* c, bool polygon )  { _cubeRenderer->render(c, polygon); };
+
+void 
+Render::PolygonRenderMode(bool mode ) { _poligonRender = mode; };
+
+bool Render::GetRenderMode() { return _poligonRender; };
+
+void Render::DatabaseBinding(BlockDatabase* p) { };
 
 Render::~Render() { 
 
-	if (_quadRenderer != NULL) {
-		delete _quadRenderer; _quadRenderer = nullptr;
+	if ( _quadRenderer ) {
+		delete _quadRenderer; 
+		_quadRenderer = nullptr;
 	}
 
-	if (_cubeRenderer != NULL) {
-		delete _cubeRenderer; _cubeRenderer = nullptr;
+	if ( _cubeRenderer ) {
+		delete _cubeRenderer; 
+		_cubeRenderer = nullptr;
 	}
 };
 

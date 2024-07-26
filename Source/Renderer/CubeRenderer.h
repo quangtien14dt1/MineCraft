@@ -18,7 +18,7 @@ public:
 
 	void add(const glm::vec3& postion);
 
-	void render( Camera* camera );
+	void render( Camera* camera, bool );
 
 	~CubeRenderer();
 

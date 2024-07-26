@@ -7,14 +7,11 @@ static BlockDatabase* _pBlockDatabase;
 
 BlockDatabase* BlockDatabase::_pBlockDatabase = nullptr;
 
-BlockDatabase::BlockDatabase() {
+BlockDatabase::BlockDatabase() 
+{
 
-	std::cout << "Create cube image ..." << std::endl;
 	_cubeTexture = new CubeTexture();
-
-	std::cout << "Load DefaultPack texture..." << std::endl;
 	_cubeTexture->SetupCubeImage("DefaultPack");
-
 }
 
 BlockDatabase::~BlockDatabase() {

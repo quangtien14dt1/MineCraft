@@ -110,8 +110,8 @@ void Camera::HandleMouseMoving(sf::Event& e, float delta) {
 	// Move the camera based on the mouse movement
 	float scale = _sensitivity * delta ;
 
-	_yaw -= (float)del.x * scale * 50;
-	_pitch -= (float)del.y * scale * 50;
+	_yaw -= (float)del.x * scale;
+	_pitch -= (float)del.y * scale;
 
 	if (_pitch > 89.0f) _pitch = 89.0f;
 	if (_pitch < -89.0f) _pitch = -89.0f;
@@ -136,19 +136,19 @@ void Camera::UpdateCameraVector() {
 
 /* moving */
 void Camera::MoveBackWard(float delta) { 
-		_position -= _viewDirection * _sensitivity * delta * 50; 
+		_position -= _viewDirection * _sensitivity * delta; 
 }
 
 void Camera::MoveForWard(float delta) { 
-	_position += _viewDirection * _sensitivity * delta * 50 ; 
+	_position += _viewDirection * _sensitivity * delta ; 
 }
 
 void Camera::MoveLeft(float delta) { 
-	_position -= _right * _sensitivity * delta * 50 ; 
+	_position -= _right * _sensitivity * delta ; 
 }
 
 void Camera::MoveRight(float delta) { 
-	_position += _right * _sensitivity * delta * 50; 
+	_position += _right * _sensitivity * delta; 
 }
 
 void Camera::ToString() {

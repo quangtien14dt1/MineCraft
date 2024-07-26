@@ -38,16 +38,15 @@ Engine* Engine::GetInstance(
 };
 
 Engine::Engine(  Config* cf,  Application* a, Context* ct)
+	: _polyMode(false)
 {
 	_pConfig = cf;
 	_pContext = ct;
 	_pApplication = a;
 
 	/* with block instance camera and Rendermaster */
-	std::cout << "Init camera..." << std::endl;
 	_camera = new Camera( _pConfig, _pContext );
 
-	std::cout << "Init render master..." << std::endl;
 	_renderMaster = new Render();
 
 	//std::cout << "Init block database..." << std::endl;
@@ -114,12 +113,25 @@ void Engine::LoadMap() {
 	chunk.CreateChunk();
 };
 
+void Engine::LoadModeRender() {
+	if (_polyMode) {
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
+	}
+};
+
 void Engine::Invoke() {
 
-
-	_renderMaster->render(_camera);
-
+	LoadModeRender();
+	_renderMaster->render(_camera, 1);
 };
+
+void Engine::SetRenderMode( bool m ) { _polyMode = m; };
+
+bool Engine::GetRenderMode() { return _polyMode; }
 
 Camera* Engine::GetCamera() { return _camera; };
 

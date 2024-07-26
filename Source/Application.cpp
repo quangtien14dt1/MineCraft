@@ -37,7 +37,7 @@ void Application::RunLoop() {
 
 			runTime += _clock.restart();
 			float deltaTime = runTime.asSeconds() - holdTime.asSeconds();
-			if (deltaTime = update.asSeconds()) {
+			if (deltaTime >= update.asSeconds()) {
 				/*
 				* Centerlizing mouse cursor
 				* Polling Event handle from SFML
@@ -50,13 +50,11 @@ void Application::RunLoop() {
 						deltaTime
 					);
 
+					HandleEvents(e);
+
 				}
 				
 			}
-
-			HandleEvents(e);
-
-			//LockMouseInsideWindow();
 
 			cleanBuffer();
 
@@ -76,8 +74,13 @@ void Application::RunLoop() {
 
 void Application::cleanBuffer()
 {
+	/* Clean buffer and swap buffer */
 	glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	/* render mode */
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); /* this enable context draw line mode */
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); /* this enable context draw line mode */
 }
 
 void Application::CenteringMousePosition() {
@@ -127,8 +130,6 @@ bool Application::LockMouseInsideWindow() {
 		
 }
 
-
-
 void Application::HandleEvents(sf::Event& e) {
 
 	/*
@@ -137,36 +138,32 @@ void Application::HandleEvents(sf::Event& e) {
 	switch (e.type)
 	{
 	case sf::Event::Closed:
-
 		_context._pWindow->close();
-
 		break;
 
 	case sf::Event::KeyPressed:
-
 		switch (e.key.code)
 		{
 		case sf::Keyboard::Escape:
-
 			/*_context._pWindow->close();*/
 			windowFocus = false;
 			_context._pWindow->setMouseCursorVisible(true);
-
 			break;
 
-		case sf::Event::GainedFocus:
-			_context._pWindow->setMouseCursorVisible(false);
+		case sf::Keyboard::M:
+			_pEngine->SetRenderMode(!_pEngine->GetRenderMode());
 			break;
-
 
 		default:
-
 			break;
-	}
+		}
+		break;
+
 	case sf::Event::Resized:
 		// should handle at engine level 
 		// adjust the viewport when the window is resized
 		glViewport(0, 0, e.size.width, e.size.height);
+		break;
 
 	default:
 

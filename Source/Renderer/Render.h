@@ -4,6 +4,7 @@
 #include "CubeRenderer.h"
 
 class Camera;
+
 class BlockDatabase;
 
 class Render 
@@ -14,10 +15,16 @@ public:
 
 	void DatabaseBinding(BlockDatabase * p );
 
-	void render(Camera* );
+	void render(Camera*, bool );
+
 	~Render();
 
+	void PolygonRenderMode( bool );
+	bool GetRenderMode();
+
 private:
+	bool _poligonRender;
+
 	QuadRenderer* _quadRenderer;
 	CubeRenderer* _cubeRenderer;
 };
