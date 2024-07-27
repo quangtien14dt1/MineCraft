@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <SFML/Graphics.hpp>
+#include "../../glm.h"
 #include "../Chunk/Chunk.h"
 #include "../../glm.h"
 
@@ -24,11 +25,22 @@ struct Block {
 	sf::Vector2f texSideCoords;
 	sf::Vector2f texBottomCoords;
 
-	glm::vec3 cubeLocation;
-	glm::vec3 cubeRotation;
-
 	BlockType id;
 	sf::Vector2i chunkId;
 
+};
+
+class BlockKey {
+public:
+
+	sf::Vector3i _position;
+
+	BlockKey(float x, float y, float z) : _position(x, y, z) {};
+
+	BlockKey(const sf::Vector3i& p) : _position(p) {};
+
+	bool operator==(const sf::Vector3i l) const {
+		return _position == l;
+	}
 };
 

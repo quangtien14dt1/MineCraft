@@ -11,16 +11,20 @@ Chunk::Chunk() {
 
 Chunk::~Chunk() {};
 
-void Chunk::ProcessPosition(sf::Vector3i location) {
+void Chunk::SetBlockType(int x, int y, int z, uint8_t) {
+    
+};
+
+void Chunk::ProcessPosition(sf::Vector3i& location) {
 
     Block* block = BlockFactory::GetInstance()->CreateBlock(
-        BlockType::Stone, glm::vec3{ 
+        BlockType::Air, glm::vec3{ 
                 location.x,
                 location.y,
                 location.z }
     );
 
-    BlockDatabase::GetInstance()->AddBlock(block);
+    BlockDatabase::GetInstance()->AddBlock ( BlockKey(location), block);
 };
 
 void Chunk::CreateChunk() {

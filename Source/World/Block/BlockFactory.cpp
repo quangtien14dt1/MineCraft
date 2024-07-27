@@ -11,7 +11,6 @@ Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
 			block->texTopCoords = { 0,0 };
 			block->texSideCoords = { 0,0 };
 			block->texBottomCoords = { 0,0 };
-			block->cubeLocation = l;
 			return block;
 
 		case BlockType::Dirt:
@@ -20,7 +19,6 @@ Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
 			block->texTopCoords = { 2 ,0 };
 			block->texSideCoords = { 2 ,0 };
 			block->texBottomCoords = { 2 ,0 };
-			block->cubeLocation = l;
 			return block;
 
 		case BlockType::Grass:
@@ -29,7 +27,6 @@ Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
 			block->texTopCoords = { 0,0 };
 			block->texSideCoords = { 1,0 };
 			block->texBottomCoords = { 2,0 };
-			block->cubeLocation = l;
 			return block;
 
 		case BlockType::Stone:
@@ -38,7 +35,6 @@ Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
 			block->texTopCoords = { 3,0 };
 			block->texSideCoords = { 3,0 };
 			block->texBottomCoords = { 3,0 };
-			block->cubeLocation = l;
 			return block;
 
 	}

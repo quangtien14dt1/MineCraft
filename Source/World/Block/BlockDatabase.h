@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include ".././Utils/Patterns/SingleTon.h"
 #include "../World/Block/BlockContribute.h"
 #include "../World/Block/BlockFactory.h"
@@ -22,7 +23,7 @@ public:
 
 	const Block& GetBlockId(BlockType id) const;
 
-	void AddBlock( Block* );
+	void AddBlock( BlockKey ,Block* );
 
 	void CleanDatabase();
 
@@ -31,15 +32,15 @@ public:
 	std::vector<GLfloat>
 		GetTextureCoords(Block* );
 
-	void RemoveBlock( const glm::vec3 );
+	void RemoveBlock( const BlockKey& );
 
 	std::vector<Block*, Model*> 
 		GetAllBlockById(const BlockType) const;
 
 
-	Block* FindBlockByLocation( const glm::vec3 ) const;
+	Block* FindBlockByLocation( const BlockKey& ) const;
 
-	std::vector< Block* > GetAllBlocks() const;
+	std::unordered_map< BlockKey, Block* > GetAllBlocks() const;
 
 	void RemoveBlockByLocation(const glm::vec3&);
 
@@ -51,7 +52,7 @@ public:
 
 	Model* GetModel();
 
-	int CheckingSize();
+	size_t CheckingSize();
 	
 private:
 
@@ -59,7 +60,8 @@ private:
 	CubeTexture*	_cubeTexture;
 	Model*			_cubeModel;
 
-	std::vector< Block* > _blockStore;
+	std::unordered_map< BlockKey , Block* > _blockStore;
+	//std::vector< Block* > _blockStore;
 
 	
 };

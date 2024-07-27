@@ -21,9 +21,9 @@ BlockDatabase::~BlockDatabase() {
 	}
 	
 	for (auto& block : _blockStore) {
-		if (block) {
-			delete block;
-			block = nullptr;
+		if (block.second ) {
+			delete block.second;
+			block.second = nullptr;
 		}
 	}
 
@@ -32,7 +32,7 @@ BlockDatabase::~BlockDatabase() {
 		_pBlockDatabase = nullptr;
 	}
 }
-int BlockDatabase::CheckingSize() {
+size_t BlockDatabase::CheckingSize() {
 	return _blockStore.size();
 }
 
@@ -49,9 +49,9 @@ BlockDatabase* BlockDatabase::GetInstance() {
 };
 
 
-void BlockDatabase::AddBlock( Block* b) {
+void BlockDatabase::AddBlock( BlockKey k ,Block* b) {
 	
-	_blockStore.push_back( b );
+	_blockStore.emplace( k, b );
 
 };
 
@@ -170,33 +170,27 @@ BlockDatabase::GetTextureCoords(Block* b) {
 	return texCoords;
 };
 
-void BlockDatabase::RemoveBlock(const glm::vec3 l) {
-	_blockStore.erase(
-		std::remove_if(_blockStore.begin(), _blockStore.end(), 
-			[&l](const Block* ptr) {
-				return ptr->cubeLocation == l;
-			}),
-		_blockStore.end()
-	);
+void BlockDatabase::RemoveBlock( const BlockKey& k) {
+
+	_blockStore.erase( k );
+
 };
 
 
 CubeTexture* BlockDatabase::GetTexture() { return _cubeTexture; };
 
-Block* BlockDatabase::FindBlockByLocation(const glm::vec3 l) const {
-	auto it = std::find_if(_blockStore.begin(), _blockStore.end(),
-		[&l](const auto& block) {
-			return block->cubeLocation == l;
-		});
+Block* BlockDatabase::FindBlockByLocation(const BlockKey& k ) const {
 
-	if (it != _blockStore.end()) {
-		return *it;
+	std::unordered_map< BlockKey, Block* >::const_iterator got
+		= _blockStore.find( k );
+
+	if ( got != _blockStore.end()) {
+		return got->second;
 	}
 
 	return nullptr;
 }
 
-std::vector < Block* >
-BlockDatabase::GetAllBlocks() const {
+std::unordered_map< BlockKey, Block* >  BlockDatabase::GetAllBlocks() const {
 	return _blockStore;
 };

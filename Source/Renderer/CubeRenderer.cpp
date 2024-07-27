@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 
+static const glm::vec3 DEFAULT_ROTATION{ 0,0,0 };
+
 
 CubeRenderer::CubeRenderer( ) {
 
@@ -55,7 +57,7 @@ void CubeRenderer::render( Camera* camera, bool poly ) {
 		_cubeShader->LoadModelMatrix(
 			BlockDatabase::GetInstance()->GetModel()->modelMatrix ( 
 				block->cubeLocation, 
-				block->cubeRotation 
+				DEFAULT_ROTATION
 			)
 		);
 
