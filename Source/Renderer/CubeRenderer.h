@@ -20,6 +20,8 @@ public:
 
 	void render( Camera* camera, bool );
 
+	//std::vector<GLfloat> GetTextureCoords(Block* b);
+
 	~CubeRenderer();
 
 private:

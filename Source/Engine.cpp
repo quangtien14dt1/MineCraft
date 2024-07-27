@@ -49,16 +49,6 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 
 	_renderMaster = new Render();
 
-	//std::cout << "Init block database..." << std::endl;
-	//_blockDatabase = new BlockDatabase();
-
-	//std::cout << "Init block factory..." << std::endl;
-	//_blockFactory = BlockFactory::GetInstance();
-
-	//std::cout << "Binding database to renderer..." << std::endl;
-	//_renderMaster->DatabaseBinding(_blockDatabase);
-
-	/* attach intance that receive event queue  */
 	Attach(_camera);
 
 }
@@ -72,9 +62,6 @@ Engine::~Engine() {
 		delete _renderMaster; _renderMaster = nullptr; 
 	}
 
-	//if (_blockDatabase != NULL) {
-	//	delete _blockDatabase; _blockDatabase = nullptr;
-	//}
 };
 
 

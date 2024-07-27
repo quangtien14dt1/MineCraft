@@ -28,6 +28,9 @@ public:
 
 	void CreateDefaultCubeModel();
 
+	std::vector<GLfloat>
+		GetTextureCoords(Block* );
+
 	void RemoveBlock( const glm::vec3 );
 
 	std::vector<Block*, Model*> 

@@ -62,7 +62,10 @@ void Model::addVBO(
 
 };
 
-void Model::updateVBOTextureCoord(std::vector<GLfloat>& newTexCoord) {
+void 
+Model::updateVBOTextureCoord(
+	std::vector<GLfloat>& newTexCoord
+) {
 	m_vao.bind();
 	m_buffers[TEXTURE_COORD].bind();
 

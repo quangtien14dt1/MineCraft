@@ -5,7 +5,6 @@
 
 QuadRenderer::QuadRenderer() {
 
-	std::cout << "Init Quad Renderer..." << std::endl;
 	m_texture.LoadFromFile("test");
 	m_quadModel.addData({
 		{

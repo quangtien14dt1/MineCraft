@@ -152,6 +152,24 @@ void BlockDatabase::CreateDefaultCubeModel() {
 
 Model* BlockDatabase::GetModel() { return _cubeModel; };
 
+std::vector<GLfloat>
+BlockDatabase::GetTextureCoords(Block* b) {
+
+	auto top = _cubeTexture->GetTexture(b->texTopCoords);
+	auto side = _cubeTexture->GetTexture(b->texSideCoords);
+	auto bottom = _cubeTexture->GetTexture(b->texBottomCoords);
+
+	std::vector<GLfloat> texCoords;
+	texCoords.insert(texCoords.end(), side.begin(), side.end());
+	texCoords.insert(texCoords.end(), side.begin(), side.end());
+	texCoords.insert(texCoords.end(), side.begin(), side.end());
+	texCoords.insert(texCoords.end(), side.begin(), side.end());
+	texCoords.insert(texCoords.end(), top.begin(), top.end());
+	texCoords.insert(texCoords.end(), bottom.begin(), bottom.end());
+
+	return texCoords;
+};
+
 void BlockDatabase::RemoveBlock(const glm::vec3 l) {
 	_blockStore.erase(
 		std::remove_if(_blockStore.begin(), _blockStore.end(), 

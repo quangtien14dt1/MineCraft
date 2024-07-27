@@ -10,9 +10,6 @@
 
 CubeRenderer::CubeRenderer( ) {
 
-	std::cout << "Init Cube Renderer..." << std::endl;
-
-	std::cout << "Init cube shader program..." << std::endl;
 	_cubeShader = new BasicShader("Cube", "Cube");
 
 };
@@ -35,8 +32,14 @@ void CubeRenderer::render( Camera* camera, bool poly ) {
 
 
 	for (auto& block : blocks) {
-		/* update cube model texture */
 
+		/* update cube model texture */
+		std::vector<GLfloat> texCoords = 
+			BlockDatabase::GetInstance()->GetTextureCoords(block);
+
+		BlockDatabase::GetInstance()->GetModel()->updateVBOTextureCoord(
+			texCoords
+		);
 
 		/* activate shader , bind vao and texture */
 		_cubeShader->Activate();
