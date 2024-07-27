@@ -15,7 +15,7 @@ void Chunk::SetBlockType(int x, int y, int z, uint8_t) {
     
 };
 
-void Chunk::ProcessPosition(sf::Vector3i& location) {
+void Chunk::ProcessPosition( glm::vec3& location) {
 
     Block* block = BlockFactory::GetInstance()->CreateBlock(
         BlockType::Air, glm::vec3{ 
@@ -35,7 +35,7 @@ void Chunk::CreateChunk() {
 
             for (int z = 0; z < 2; ++z) {
 
-                sf::Vector3i l{x,y,z};
+                glm::vec3 l{x,y,z};
 
                 ProcessPosition(l);
 

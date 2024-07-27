@@ -11,7 +11,9 @@ Render::Render()
 };
 
 void 
-Render::render(Camera* c, bool polygon )  { _cubeRenderer->render(c, polygon); };
+Render::render(Camera* c, bool polygon )  { 
+	_cubeRenderer->render(c, polygon); 
+};
 
 void 
 Render::PolygonRenderMode(bool mode ) { _poligonRender = mode; };

@@ -97,6 +97,7 @@ void Engine::LoadMap() {
 	*/
 
 	Chunk chunk;
+
 	chunk.CreateChunk();
 };
 

@@ -24,7 +24,7 @@ public:
 	void CreateChunk();
 
 	/* generator  */
-	void ProcessPosition(sf::Vector3i& );
+	void ProcessPosition(glm::vec3& );
 
 
 private:

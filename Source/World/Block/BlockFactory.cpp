@@ -1,46 +1,37 @@
 #include "BlockFactory.h"
+#include <SFML/Graphics.hpp>
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 
 Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
-	Block* block = nullptr;
+
+	auto createblock = [id](
+		sf::Vector2f top, sf::Vector2f side, sf::Vector2f bottom
+	) -> Block* {
+			Block* block = new Block();
+			block->id = id;
+			block->texTopCoords = top;
+			block->texSideCoords = side;
+			block->texBottomCoords = bottom;
+			return block;
+	};
+
 	switch (id) {
 		case BlockType::Air:
-			block = new Block();
-			block->id = id;
-			block->texTopCoords = { 0,0 };
-			block->texSideCoords = { 0,0 };
-			block->texBottomCoords = { 0,0 };
-			return block;
+			return createblock({ 0, 0 }, { 0, 0 }, { 0, 0 });
 
 		case BlockType::Dirt:
-			block = new Block();
-			block->id = id;
-			block->texTopCoords = { 2 ,0 };
-			block->texSideCoords = { 2 ,0 };
-			block->texBottomCoords = { 2 ,0 };
-			return block;
+			return createblock({ 2, 0 }, { 2, 0 }, { 2, 0 });
 
 		case BlockType::Grass:
-			block = new Block();
-			block->id = id;
-			block->texTopCoords = { 0,0 };
-			block->texSideCoords = { 1,0 };
-			block->texBottomCoords = { 2,0 };
-			return block;
+			return createblock({ 0, 0 }, { 1, 0 }, { 2, 0 });
 
 		case BlockType::Stone:
-			block = new Block();
-			block->id = id;
-			block->texTopCoords = { 3,0 };
-			block->texSideCoords = { 3,0 };
-			block->texBottomCoords = { 3,0 };
-			return block;
+			return createblock({ 3, 0 }, { 3, 0 }, { 3, 0 });
 
-	}
+		default:
+			throw std::runtime_error("Failed to creat new block type: invalid id ");
 
-	if ( block == NULL) {
-		throw std::runtime_error("Failed create new block type : ");
 	}
 
 };

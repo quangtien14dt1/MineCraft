@@ -6,6 +6,8 @@
 #include "../Chunk/Chunk.h"
 #include "../../glm.h"
 
+static const glm::vec3 DEFAULT_ROTATION{ 0,0,0 };
+
 class Chunk;
 
 using Block_t = uint8_t;
@@ -32,15 +34,28 @@ struct Block {
 
 class BlockKey {
 public:
+	glm::vec3 _position;
 
-	sf::Vector3i _position;
+	BlockKey(float x, float y, float z) : _position(x, y, z) {}
 
-	BlockKey(float x, float y, float z) : _position(x, y, z) {};
+	BlockKey(const glm::vec3& p) : _position(p) {}
 
-	BlockKey(const sf::Vector3i& p) : _position(p) {};
+	glm::vec3 GetKey() const { return _position; }
 
-	bool operator==(const sf::Vector3i l) const {
-		return _position == l;
+	bool operator==(const BlockKey& other) const {
+		return _position == other._position;
 	}
 };
+
+/* overide hashcode for class BlockKey */
+namespace std {
+	template <>
+	struct hash<BlockKey> {
+		std::size_t operator()(const BlockKey& k) const {
+			return ((std::hash<float>()(k._position.x)
+				^ (std::hash<float>()(k._position.y) << 1)) >> 1)
+				^ (std::hash<float>()(k._position.z) << 1);
+		}
+	};
+}
 

@@ -19,7 +19,7 @@ public:
 	VAO getVao() ;
 
 	/* manipulate with model itself */
-	glm::mat4 modelMatrix(glm::vec3, glm::vec3);
+	static glm::mat4 modelMatrix( const glm::vec3&,const glm::vec3&);
 	GLuint getIndiceCount() const;
 
 private:

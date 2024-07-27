@@ -3,6 +3,12 @@
 
 static const int ZERO = 0;
 
+static const int BASE_X_AXIS = 1;
+
+static const int BASE_Y_AXIS = 1;
+
+static const int BASE_Z_AXIS = 1;
+
 static const int POSITION = 0;
 
 static const int TEXTURE_COORD = 1;
@@ -90,17 +96,29 @@ void Model::addEBO(const std::vector<GLuint>& indices) {
 VAO Model::getVao() { return m_vao; };
 
 
-glm::mat4 Model::modelMatrix(glm::vec3 location, glm::vec3 rotation) {
+glm::mat4 Model::modelMatrix(
+	const glm::vec3& location,
+	const glm::vec3& rotation)
+{
+	glm::mat4 mat = glm::mat4(1.0f);
 
-	glm::mat4 matrix = glm::mat4(1.0f);
+	auto rotateMatrix = [&mat](const glm::vec3& rotation) {
+		glm::vec3 axes[] = {
+			{BASE_X_AXIS, 0, 0},
+			{0, BASE_Y_AXIS, 0},
+			{0, 0, BASE_Z_AXIS}
+		};
 
-	matrix = glm::rotate(matrix, glm::radians(rotation.x), { 1, 0, 0 });
-	matrix = glm::rotate(matrix, glm::radians(rotation.y), { 0, 1, 0 });
-	matrix = glm::rotate(matrix, glm::radians(rotation.z), { 0, 0, 1 });
+		for (int i = 0; i < 3; ++i) {
+			mat = glm::rotate(mat, glm::radians(rotation[i]), axes[i]);
+		}
+	};
 
-	matrix = glm::translate(matrix, location);
+	rotateMatrix(rotation);
 
-	return matrix;
+	mat = glm::translate(mat, location);
+
+	return mat;
 
 };
 

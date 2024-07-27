@@ -7,8 +7,6 @@
 #include <vector>
 #include <iostream>
 
-static const glm::vec3 DEFAULT_ROTATION{ 0,0,0 };
-
 
 CubeRenderer::CubeRenderer( ) {
 
@@ -29,15 +27,15 @@ void CubeRenderer::add(const glm::vec3& position) { }
 void CubeRenderer::render( Camera* camera, bool poly ) {
 	
 	// std::pair<Block*, Model*> >
-	std::vector< Block* > blocks =
+	std::unordered_map< BlockKey, Block* > blocks =
 		BlockDatabase::GetInstance()->GetAllBlocks();
 
 
 	for (auto& block : blocks) {
 
-		/* update cube model texture */
+		/* recalculate texture coordinates and update  */
 		std::vector<GLfloat> texCoords = 
-			BlockDatabase::GetInstance()->GetTextureCoords(block);
+			BlockDatabase::GetInstance()->GetTextureCoords(block.second);
 
 		BlockDatabase::GetInstance()->GetModel()->updateVBOTextureCoord(
 			texCoords
@@ -56,7 +54,7 @@ void CubeRenderer::render( Camera* camera, bool poly ) {
 		_cubeShader->LoadProjectionMatrix(camera->GetProjectionMatrix());
 		_cubeShader->LoadModelMatrix(
 			BlockDatabase::GetInstance()->GetModel()->modelMatrix ( 
-				block->cubeLocation, 
+				block.first.GetKey(),
 				DEFAULT_ROTATION
 			)
 		);
