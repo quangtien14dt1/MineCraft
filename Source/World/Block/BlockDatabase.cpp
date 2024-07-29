@@ -8,9 +8,11 @@ static BlockDatabase* _pBlockDatabase;
 BlockDatabase* BlockDatabase::_pBlockDatabase = nullptr;
 
 BlockDatabase::BlockDatabase() 
+	: _cubeModel{NULL}
 {
 
 	_cubeTexture = new CubeTexture();
+
 	_cubeTexture->SetupCubeImage("DefaultPack");
 }
 
@@ -19,18 +21,14 @@ BlockDatabase::~BlockDatabase() {
 		delete _cubeTexture;
 		_cubeTexture = nullptr;
 	}
-	
-	for (auto& block : _blockStore) {
-		if (block.second ) {
-			delete block.second;
-			block.second = nullptr;
-		}
-	}
 
 	if (_pBlockDatabase != nullptr) {
 		delete _pBlockDatabase;
 		_pBlockDatabase = nullptr;
 	}
+	
+	CleanDatabase();
+
 }
 size_t BlockDatabase::CheckingSize() {
 	return _blockStore.size();
@@ -41,6 +39,16 @@ BlockDatabase* BlockDatabase::operator()() {
 	return GetInstance();
 };
 
+void BlockDatabase::CleanDatabase() {
+	for (auto& yLevel : _blockStore) {
+		for (auto& xzBlock : yLevel.second) {
+			delete xzBlock.second;
+		}
+		yLevel.second.clear();
+	}
+	_blockStore.clear();
+}
+
 BlockDatabase* BlockDatabase::GetInstance() {
 	if (_pBlockDatabase == nullptr) {
 		_pBlockDatabase = new BlockDatabase();
@@ -49,9 +57,11 @@ BlockDatabase* BlockDatabase::GetInstance() {
 };
 
 
-void BlockDatabase::AddBlock( BlockKey k ,Block* b) {
+void BlockDatabase::AddBlock(const sf::Vector3i& p,Block* b) {
+
+	std::pair<int, int> xzKey = { p.x, p.z };
 	
-	_blockStore.emplace( k, b );
+	_blockStore[p.y][xzKey] = b;
 
 };
 
@@ -147,7 +157,8 @@ void BlockDatabase::CreateDefaultCubeModel() {
 	texCoords.insert(texCoords.end(), bottom.begin(), bottom.end());
 
 	_cubeModel = new Model();
-	_cubeModel->addData({ vertexCoords, texCoords, indices });
+
+	_cubeModel->AddData({ vertexCoords, texCoords, indices });
 }
 
 Model* BlockDatabase::GetModel() { return _cubeModel; };
@@ -170,27 +181,42 @@ BlockDatabase::GetTextureCoords(Block* b) {
 	return texCoords;
 };
 
-void BlockDatabase::RemoveBlock( const BlockKey& k) {
+void BlockDatabase::RemoveBlockByLocation(const sf::Vector3i& p) {
 
-	_blockStore.erase( k );
+	auto yIt = _blockStore.find(p.y);
+
+	if (yIt != _blockStore.end()) {
+
+		auto xzIt = yIt->second.find({ p.x, p.z });
+
+		if (xzIt != yIt->second.end()) {
+			delete xzIt->second;
+			yIt->second.erase(xzIt);
+		}
+		if (yIt->second.empty()) {
+			_blockStore.erase(yIt);
+		}
+	}
 
 };
 
 
 CubeTexture* BlockDatabase::GetTexture() { return _cubeTexture; };
 
-Block* BlockDatabase::FindBlockByLocation(const BlockKey& k ) const {
+Block* BlockDatabase::FindBlockByLocation(const sf::Vector3i& p) const {
 
-	std::unordered_map< BlockKey, Block* >::const_iterator got
-		= _blockStore.find( k );
+	auto yIt = _blockStore.find(p.y);
 
-	if ( got != _blockStore.end()) {
-		return got->second;
+	if (yIt != _blockStore.end()) {
+		auto xzIt = yIt->second.find({ p.x, p.z });
+		if (xzIt != yIt->second.end()) {
+			return xzIt->second;
+		}
 	}
-
 	return nullptr;
 }
 
-std::unordered_map< BlockKey, Block* >  BlockDatabase::GetAllBlocks() const {
+std::unordered_map<int, std::unordered_map< std::pair<int, int>, Block*, pair_hash> >
+BlockDatabase::GetAllBlocks() const {
 	return _blockStore;
 };

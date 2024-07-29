@@ -11,16 +11,16 @@ public:
 
 	/* abstrct functions */
 	void InitModel();
-	void addData(const Mesh& mesh);
-	void deleteData();
-	void addVBO(GLuint dimensions, const std::vector<GLfloat>& data);
-	void updateVBOTextureCoord(std::vector<GLfloat>& );
-	void addEBO(const std::vector<GLuint>& indices);
-	VAO getVao() ;
+	void AddData(const Mesh& mesh);
+	void DeleteData();
+	void AddVBO(GLuint dimensions, const std::vector<GLfloat>& data);
+	void UpdateVBOTextureCoord(std::vector<GLfloat>& );
+	void AddEBO(const std::vector<GLuint>& indices);
+	VAO	 GetVao() ;
 
 	/* manipulate with model itself */
-	static glm::mat4 modelMatrix( const glm::vec3&,const glm::vec3&);
-	GLuint getIndiceCount() const;
+	static glm::mat4 ModelMatrix( const glm::vec3&,const glm::vec3&);
+	GLuint GetIndiceCount() const;
 
 private:
 	

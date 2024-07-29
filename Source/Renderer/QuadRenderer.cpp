@@ -6,7 +6,7 @@
 QuadRenderer::QuadRenderer() {
 
 	m_texture.LoadFromFile("test");
-	m_quadModel.addData({
+	m_quadModel.AddData({
 		{
 			/* vertex coord */
 			-0.5,  0.5, 0,
@@ -39,7 +39,7 @@ void QuadRenderer::render(Camera* camera) {
 
 	/* activate sahder , vao and texture */
 	m_shader.Activate();
-	m_quadModel.getVao().bind();
+	m_quadModel.GetVao().bind();
 	m_texture.bind();
 
 	/* binding shader */
@@ -49,10 +49,10 @@ void QuadRenderer::render(Camera* camera) {
 
 	for (auto& quad : m_quads) {
 
-		m_shader.LoadModelMatrix(m_quadModel.modelMatrix( quad,glm::vec3{0,0,0} ));
+		m_shader.LoadModelMatrix(m_quadModel.ModelMatrix( quad,glm::vec3{0,0,0} ));
 
 		// draw using indices 
-		glDrawElements(GL_TRIANGLES, GLsizei(m_quadModel.getIndiceCount()), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, GLsizei(m_quadModel.GetIndiceCount()), GL_UNSIGNED_INT, 0);
 	}
 	m_texture.unbind();
 	

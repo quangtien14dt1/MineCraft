@@ -3,7 +3,7 @@
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 
-Block* BlockFactory::CreateBlock(BlockType id, glm::vec3 l) {
+Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3i l) {
 
 	auto createblock = [id](
 		sf::Vector2f top, sf::Vector2f side, sf::Vector2f bottom

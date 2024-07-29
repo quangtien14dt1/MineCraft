@@ -20,12 +20,12 @@ static const int TEXTURE_BUFFER_SIZE = 2;
 /* default Model init */
 void Model::InitModel() {}
 
-void Model::addData(const Mesh& mesh) {
+void Model::AddData(const Mesh& mesh) {
 
 	if (m_vao.getVaoId() != 0) {
 		// delete vao and clean previous round 
 		m_vao.deleteVao();
-		deleteData();
+		DeleteData();
 	}
 
 	m_indicesCount = mesh.indices.size();
@@ -33,13 +33,13 @@ void Model::addData(const Mesh& mesh) {
 	// regenerate and bind data
 	m_vao.generateVao();
 	m_vao.bind();
-	addVBO(POSITION_BUFFER_SIZE, mesh.vertexPositions);
-	addVBO(TEXTURE_BUFFER_SIZE, mesh.textureCoords);
-	addEBO(mesh.indices);
+	AddVBO(POSITION_BUFFER_SIZE, mesh.vertexPositions);
+	AddVBO(TEXTURE_BUFFER_SIZE, mesh.textureCoords);
+	AddEBO(mesh.indices);
 	
 };
 
-void Model::deleteData() { 
+void Model::DeleteData() {
 
 	std::for_each(m_buffers.begin(), m_buffers.end(), [](VBO v) {
 		v.delete_();
@@ -52,7 +52,7 @@ void Model::deleteData() {
 
 };
 
-void Model::addVBO(
+void Model::AddVBO(
 		GLuint dimension, 
 		const std::vector<GLfloat>& data ) 
 {
@@ -69,7 +69,7 @@ void Model::addVBO(
 };
 
 void 
-Model::updateVBOTextureCoord(
+Model::UpdateVBOTextureCoord(
 	std::vector<GLfloat>& newTexCoord
 ) {
 	m_vao.bind();
@@ -86,17 +86,17 @@ Model::updateVBOTextureCoord(
 	m_vao.unbind();
 };
 
-void Model::addEBO(const std::vector<GLuint>& indices) {
+void Model::AddEBO(const std::vector<GLuint>& indices) {
 
 	EBO ebo(indices);
 	ebo.bind();
 
 };
 
-VAO Model::getVao() { return m_vao; };
+VAO Model::GetVao() { return m_vao; };
 
 
-glm::mat4 Model::modelMatrix(
+glm::mat4 Model::ModelMatrix(
 	const glm::vec3& location,
 	const glm::vec3& rotation)
 {
@@ -123,7 +123,7 @@ glm::mat4 Model::modelMatrix(
 };
 
 
-GLuint Model::getIndiceCount() const { return m_indicesCount; };
+GLuint Model::GetIndiceCount() const { return m_indicesCount; };
 
 
 
