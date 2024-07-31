@@ -1,4 +1,4 @@
-#include "CubeTexture.h"
+#include "texture/CubeTexture.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 

@@ -28,7 +28,7 @@ void Model::AddData(const Mesh& mesh) {
 		DeleteData();
 	}
 
-	m_indicesCount = mesh.indices.size();
+	m_indicesCount = (GLuint)mesh.indices.size();
 
 	// regenerate and bind data
 	m_vao.generateVao();

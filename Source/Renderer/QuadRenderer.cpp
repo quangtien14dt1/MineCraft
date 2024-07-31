@@ -1,5 +1,5 @@
-#include "QuadRenderer.h"
-#include "../Entity/Camera.h"
+#include "renderer/QuadRenderer.h"
+#include "Entity/Camera.h"
 #include <iostream>
 
 

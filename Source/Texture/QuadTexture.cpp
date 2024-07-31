@@ -1,4 +1,4 @@
-#include "QuadTexture.h"
+#include "texture/QuadTexture.h"
 
 QuadTexture::QuadTexture(const std::string& name) { LoadFromFile(name); };
 

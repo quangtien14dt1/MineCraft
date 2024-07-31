@@ -1,8 +1,10 @@
-#include "Camera.h"
-#include "../glm.h"
-#include "../Shader/BasicShader.h"
-#include "../EventManager.h"
+
 #include <iostream>
+
+#include "glm.h"
+#include "shader/BasicShader.h"
+#include "entity/Camera.h"
+
 
 
 Camera::~Camera() { }

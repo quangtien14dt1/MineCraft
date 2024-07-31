@@ -6,14 +6,14 @@
 
 #include "Engine.h"
 #include "Entity/Camera.h"
-#include "Entity/ModelLoading.h"
-#include "Entity/Mesh.h"
-#include "Entity/Model.h"
+#include "ModelLoading.h"
+#include "Mesh.h"
+#include "Model.h"
 #include "Renderer/Render.h"
-#include "../Shader/BasicShader.h"
-#include "../World/Block/BlockDatabase.h"
-#include "../World/Block/BlockFactory.h"
-#include "../World/Chunk/Chunk.h"
+#include "shader/BasicShader.h"
+#include "world/block/BlockDatabase.h"
+#include "world/block/BlockFactory.h"
+#include "world/chunk/Chunk.h"
 
 
 

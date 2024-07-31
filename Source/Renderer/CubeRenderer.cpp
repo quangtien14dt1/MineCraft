@@ -1,9 +1,9 @@
-#include "CubeRenderer.h"
-#include "../Entity/Camera.h"
-#include "../World/Block/BlockDatabase.h"
-#include "../World/Block/BlockContribute.h"
-#include "../Shader/BasicShader.h"
-#include "../Entity/Model.h"
+#include "renderer/CubeRenderer.h"
+#include "entity/Camera.h"
+#include "world/block/BlockDatabase.h"
+#include "world/block/BlockContribute.h"
+#include "shader/BasicShader.h"
+#include "Model.h"
 #include <vector>
 #include <iostream>
 

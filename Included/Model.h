@@ -1,9 +1,9 @@
 #pragma once
 
 #include "ModelLoading.h"
-#include "../glm.h"
+#include "glm.h"
 #include "Mesh.h"
-#include "ModelLoading.h"
+
 
 class Model {
 

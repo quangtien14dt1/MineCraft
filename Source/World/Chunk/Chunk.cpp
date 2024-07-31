@@ -1,7 +1,8 @@
-#include "Chunk.h"
-#include "../WorldContant.h"
-#include "../Block/BlockDatabase.h"
-#include "../Block/BlockFactory.h"
+#include "world/chunk/Chunk.h"
+#include "world/block/BlockDatabase.h"
+#include "world/block/BlockFactory.h"
+#include "world/WorldContant.h"
+
 #include <random>
 #include <iostream>
 

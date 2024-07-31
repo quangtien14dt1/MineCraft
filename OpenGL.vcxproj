@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);LAB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\include;$(SolutionDir)\Source\Thirdparty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\include;$(SolutionDir)\Source\Thirdparty;$(SolutionDir)\Included\;$(SolutionDir)\Source\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -235,40 +235,40 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
-    <ClInclude Include="Source\Renderer\Render.h" />
-    <ClInclude Include="Source\Entity\Entity.h" />
-    <ClInclude Include="Source\Entity\Mesh.h" />
-    <ClInclude Include="Source\Renderer\QuadRenderer.h" />
+    <ClInclude Include="Included\renderer\Render.h" />
+    <ClInclude Include="Included\entity\Entity.h" />
+    <ClInclude Include="Included\Mesh.h" />
+    <ClInclude Include="Included\renderer\QuadRenderer.h" />
     <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\Context.h" />
-    <ClInclude Include="Source\counted_ptr.h" />
+    <ClInclude Include="Included\Context.h" />
+    <ClInclude Include="Included\counted_ptr.h" />
     <ClInclude Include="Source\Engine.h" />
-    <ClInclude Include="Source\Entity\Camera.h" />
-    <ClInclude Include="Source\Entity\Model.h" />
-    <ClInclude Include="Source\EventManager.h" />
-    <ClInclude Include="Source\glm.h" />
-    <ClInclude Include="Source\Entity\ModelLoading.h" />
-    <ClInclude Include="Source\Utils\Patterns\NonCopyable.h" />
-    <ClInclude Include="Source\Utils\Patterns\ObserverPatter.h" />
-    <ClInclude Include="Source\Renderer\CubeRenderer.h" />
-    <ClInclude Include="Source\Shader\BasicShader.h" />
-    <ClInclude Include="Source\Shader\Shader.h" />
-    <ClInclude Include="Source\Utils\ShaderLoader.h" />
+    <ClInclude Include="Included\entity\Camera.h" />
+    <ClInclude Include="Included\Model.h" />
+    <ClInclude Include="Included\EventManager.h" />
+    <ClInclude Include="Included\glm.h" />
+    <ClInclude Include="Included\ModelLoading.h" />
+    <ClInclude Include="Source\utils\Patterns\NonCopyable.h" />
+    <ClInclude Include="Source\utils\Patterns\ObserverPatter.h" />
+    <ClInclude Include="Included\renderer\CubeRenderer.h" />
+    <ClInclude Include="Included\shader\BasicShader.h" />
+    <ClInclude Include="Included\shader\Shader.h" />
+    <ClInclude Include="Source\utils\ShaderLoader.h" />
     <ClInclude Include="Source\smart_ptr\autocreate_ptr.h" />
     <ClInclude Include="Source\smart_ptr\counted_ptr.h" />
-    <ClInclude Include="Source\Texture\CubeTexture.h" />
-    <ClInclude Include="Source\Texture\QuadTexture.h" />
-    <ClInclude Include="Source\Thirdparty\fastnoise.hpp" />
-    <ClInclude Include="Source\Thirdparty\stb_image.hpp" />
-    <ClInclude Include="Source\Thirdparty\stb_image_write.hpp" />
-    <ClInclude Include="Source\Utils\Matrix.h" />
-    <ClInclude Include="Source\Utils\Patterns\NonMovable.h" />
-    <ClInclude Include="Source\Utils\Patterns\SingleTon.h" />
-    <ClInclude Include="Source\World\Block\BlockDatabase.h" />
-    <ClInclude Include="Source\World\Block\BlockContribute.h" />
-    <ClInclude Include="Source\World\Block\BlockFactory.h" />
-    <ClInclude Include="Source\World\Chunk\Chunk.h" />
-    <ClInclude Include="Source\World\WorldContant.h" />
+    <ClInclude Include="Included\texture\CubeTexture.h" />
+    <ClInclude Include="Included\texture\QuadTexture.h" />
+    <ClInclude Include="Source\thirdparty\fastnoise.hpp" />
+    <ClInclude Include="Source\thirdparty\stb_image.hpp" />
+    <ClInclude Include="Source\thirdparty\stb_image_write.hpp" />
+    <ClInclude Include="Source\utils\Matrix.h" />
+    <ClInclude Include="Source\utils\Patterns\NonMovable.h" />
+    <ClInclude Include="Source\utils\Patterns\SingleTon.h" />
+    <ClInclude Include="Included\world\block\BlockDatabase.h" />
+    <ClInclude Include="Included\world\block\BlockContribute.h" />
+    <ClInclude Include="Included\world\block\BlockFactory.h" />
+    <ClInclude Include="Included\world\chunk\Chunk.h" />
+    <ClInclude Include="Included\world\WorldContant.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -300,25 +300,25 @@
     <None Include="Resource\shaders\Quad.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Renderer\Render.cpp" />
-    <ClCompile Include="Source\Renderer\QuadRenderer.cpp" />
+    <ClCompile Include="Source\renderer\Render.cpp" />
+    <ClCompile Include="Source\renderer\QuadRenderer.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\Entity\Camera.cpp" />
-    <ClCompile Include="Source\Entity\Model.cpp" />
+    <ClCompile Include="Source\entity\Camera.cpp" />
+    <ClCompile Include="Source\Model.cpp" />
     <ClCompile Include="Source\MineCraft.cpp" />
-    <ClCompile Include="Source\Renderer\CubeRenderer.cpp" />
-    <ClCompile Include="Source\Shader\BasicShader.cpp" />
-    <ClCompile Include="Source\Utils\ShaderLoader.cpp" />
-    <ClCompile Include="Source\Texture\CubeTexture.cpp" />
-    <ClCompile Include="Source\Texture\QuadTexture.cpp" />
-    <ClCompile Include="Source\Thirdparty\fastnoise.cpp" />
-    <ClCompile Include="Source\Thirdparty\glad.c" />
-    <ClCompile Include="Source\Utils\Matrix.cpp" />
-    <ClCompile Include="Source\World\Block\BlockDatabase.cpp" />
-    <ClCompile Include="Source\World\Block\BlockFactory.cpp" />
-    <ClCompile Include="Source\World\Chunk\Chunk.cpp" />
+    <ClCompile Include="Source\renderer\CubeRenderer.cpp" />
+    <ClCompile Include="Source\shader\BasicShader.cpp" />
+    <ClCompile Include="Source\utils\ShaderLoader.cpp" />
+    <ClCompile Include="Source\texture\CubeTexture.cpp" />
+    <ClCompile Include="Source\texture\QuadTexture.cpp" />
+    <ClCompile Include="Source\thirdparty\fastnoise.cpp" />
+    <ClCompile Include="Source\thirdparty\glad.c" />
+    <ClCompile Include="Source\utils\Matrix.cpp" />
+    <ClCompile Include="Source\world\Block\BlockDatabase.cpp" />
+    <ClCompile Include="Source\world\Block\BlockFactory.cpp" />
+    <ClCompile Include="Source\world\Chunk\Chunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />

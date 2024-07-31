@@ -1,4 +1,4 @@
-#include "BlockFactory.h"
+#include "World/Block/BlockFactory.h"
 #include <SFML/Graphics.hpp>
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;

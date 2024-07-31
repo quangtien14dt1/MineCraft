@@ -5,8 +5,8 @@
 #include <map>
 #include <unordered_map>
 #include ".././Utils/Patterns/SingleTon.h"
-#include "../World/Block/BlockContribute.h"
-#include "../World/Block/BlockFactory.h"
+#include "World/Block/BlockContribute.h"
+#include "World/Block/BlockFactory.h"
 #include "../../Texture/CubeTexture.h"
 
 class Model;

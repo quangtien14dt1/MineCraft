@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../glm.h"
-#include "../Entity/Model.h"
-#include "../Shader/BasicShader.h"
-#include "../Texture/QuadTexture.h"
+#include "glm.h"
+#include "Model.h"
+#include "shader/BasicShader.h"
+#include "texture/QuadTexture.h"
 #include <vector>
 
 class Camera;
