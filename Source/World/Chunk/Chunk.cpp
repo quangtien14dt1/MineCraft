@@ -5,7 +5,9 @@
 #include <random>
 #include <iostream>
 
-Chunk::Chunk() {
+Chunk::Chunk()
+    : _chunkId({ 1,1 })
+{
 
 }
 
@@ -15,10 +17,10 @@ void Chunk::SetBlockType(int x, int y, int z, uint8_t) {
     
 };
 
-void Chunk::ProcessPosition(const sf::Vector3i& location) {
+void Chunk::ProcessPosition(const sf::Vector3f& location ) {
 
     Block* block = BlockFactory::GetInstance()->CreateBlock(
-        BlockType::Air, location
+        BlockType::Air, location , _chunkId
     );
 
     BlockDatabase::GetInstance()->AddBlock ( location, block);
@@ -26,13 +28,13 @@ void Chunk::ProcessPosition(const sf::Vector3i& location) {
 
 void Chunk::CreateChunk() {
     // look not very smart 
-    for (int x = 0; x < CHUNK_SIZE; ++x) {
+    for (float  x = 0; x < CHUNK_SIZE; ++x) {
 
-        for (int y = 0; y < CHUNK_SIZE; ++y) {
+        for (float  y = 0; y < CHUNK_SIZE; ++y) {
 
-            for (int z = 0; z < 2; ++z) {
+            for ( float z = 0; z < 2; ++z) {
 
-                sf::Vector3i l{x,y,z};
+                sf::Vector3f l{x,y,z};
 
                 ProcessPosition(l);
 

@@ -8,6 +8,6 @@ class BlockFactory : public SingleTon {
 public :
 	static BlockFactory* _pBlockFactory;
 	static BlockFactory* GetInstance();
-	Block* CreateBlock(BlockType, sf::Vector3i);
+	Block* CreateBlock(BlockType, sf::Vector3f, sf::Vector2i);
 	~BlockFactory();
 };

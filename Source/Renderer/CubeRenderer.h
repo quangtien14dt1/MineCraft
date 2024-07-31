@@ -20,6 +20,8 @@ public:
 
 	void render( Camera* camera, bool );
 
+	void RenderBySection( const std::vector<Block*>& );
+
 	//std::vector<GLfloat> GetTextureCoords(Block* b);
 
 	~CubeRenderer();

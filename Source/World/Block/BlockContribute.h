@@ -21,11 +21,21 @@ enum class BlockType : Block_t {
 	NUM_TYPES
 };
 
+/* Textures map to block type */
+const std::map<BlockType, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f> > textureMap = {
+	{	BlockType::Air,      { sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Vector2f(0, 0) }	},
+	{	BlockType::Dirt,     { sf::Vector2f(2, 0), sf::Vector2f(2, 0), sf::Vector2f(2, 0) }	},
+	{	BlockType::Grass,    { sf::Vector2f(0, 0), sf::Vector2f(1, 0), sf::Vector2f(2, 0) }	},
+	{	BlockType::Stone,    { sf::Vector2f(3, 0), sf::Vector2f(3, 0), sf::Vector2f(3, 0) }	}
+};
+
 struct Block {
 
 	sf::Vector2f texTopCoords;
 	sf::Vector2f texSideCoords;
 	sf::Vector2f texBottomCoords;
+
+	sf::Vector3f location;
 
 	BlockType id;
 	sf::Vector2i chunkId;

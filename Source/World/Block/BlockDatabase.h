@@ -30,7 +30,7 @@ public:
 
 	const Block* GetBlockId(BlockType id) const;
 
-	void AddBlock( const sf::Vector3i& ,Block* );
+	void AddBlock( const sf::Vector3f& ,Block* );
 
 	void CleanDatabase();
 
@@ -39,18 +39,15 @@ public:
 	std::vector<GLfloat>
 		GetTextureCoords(Block* );
 
-	void RemoveBlockByLocation( const sf::Vector3i& );
+	void RemoveBlockByLocation( const sf::Vector3f& );
 
 	std::vector<Block*, Model*> 
 		GetAllBlockById(const BlockType) const;
 
 
-	Block* FindBlockByLocation( const sf::Vector3i& ) const;
+	Block* FindBlockByLocation( const sf::Vector3f& ) const;
 
-	std::unordered_map< int, 
-						std::unordered_map<std::pair<int, int>, 
-						Block*, pair_hash > > 
-		GetAllBlocks() const;
+	std::vector< Block* >  GetAllBlocks() const;
 
 	BlockDatabase* operator()();
 
@@ -68,9 +65,7 @@ private:
 	CubeTexture*	_cubeTexture;
 	Model*			_cubeModel;
 
-	std::unordered_map< int , std::unordered_map < 
-		std::pair< int, int > , Block*, pair_hash >
-	> _blockStore;
+	std::unordered_map< float , std::vector< Block* > > _blockStore;
 
 	//std::vector< Block* > _blockStore;
 	

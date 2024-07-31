@@ -3,9 +3,10 @@
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 
-Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3i l) {
+Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3f l, sf::Vector2i chunkId) {
 
-	auto createblock = [id](
+	// value copy lambda function
+	auto createblock = [id,l, chunkId](
 		sf::Vector2f top, sf::Vector2f side, sf::Vector2f bottom
 	) -> Block* {
 			Block* block = new Block();
@@ -13,6 +14,8 @@ Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3i l) {
 			block->texTopCoords = top;
 			block->texSideCoords = side;
 			block->texBottomCoords = bottom;
+			block->location = l;
+			block->chunkId = chunkId;
 			return block;
 	};
 

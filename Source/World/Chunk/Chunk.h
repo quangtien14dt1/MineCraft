@@ -24,12 +24,12 @@ public:
 	void CreateChunk();
 
 	/* generator  */
-	void ProcessPosition(const sf::Vector3i& );
+	void ProcessPosition(const sf::Vector3f& );
 
 
 private:
 
 	static int GenerateRandomId();
-	int _chunkId;
+	sf::Vector2i _chunkId;
 	
 };

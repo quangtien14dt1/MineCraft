@@ -42,7 +42,8 @@ BlockDatabase* BlockDatabase::operator()() {
 void BlockDatabase::CleanDatabase() {
 	for (auto& yLevel : _blockStore) {
 		for (auto& xzBlock : yLevel.second) {
-			delete xzBlock.second;
+
+			delete xzBlock;
 		}
 		yLevel.second.clear();
 	}
@@ -57,11 +58,9 @@ BlockDatabase* BlockDatabase::GetInstance() {
 };
 
 
-void BlockDatabase::AddBlock(const sf::Vector3i& p,Block* b) {
+void BlockDatabase::AddBlock(const sf::Vector3f& p,Block* b) {
 
-	std::pair<int, int> xzKey = { p.x, p.z };
-	
-	_blockStore[p.y][xzKey] = b;
+	_blockStore[p.y].push_back(b);
 
 };
 
@@ -181,21 +180,24 @@ BlockDatabase::GetTextureCoords(Block* b) {
 	return texCoords;
 };
 
-void BlockDatabase::RemoveBlockByLocation(const sf::Vector3i& p) {
+void BlockDatabase::RemoveBlockByLocation(const sf::Vector3f& p) {
 
 	auto yIt = _blockStore.find(p.y);
 
 	if (yIt != _blockStore.end()) {
 
-		auto xzIt = yIt->second.find({ p.x, p.z });
+		auto xzIt = std::find_if(yIt->second.begin(), yIt->second.end(), [&p](Block* b) {
+			return b->location.x == p.x && b->location.y == p.y;
+			});
 
 		if (xzIt != yIt->second.end()) {
-			delete xzIt->second;
+			delete *xzIt;
 			yIt->second.erase(xzIt);
 		}
 		if (yIt->second.empty()) {
 			_blockStore.erase(yIt);
 		}
+
 	}
 
 };
@@ -203,20 +205,32 @@ void BlockDatabase::RemoveBlockByLocation(const sf::Vector3i& p) {
 
 CubeTexture* BlockDatabase::GetTexture() { return _cubeTexture; };
 
-Block* BlockDatabase::FindBlockByLocation(const sf::Vector3i& p) const {
+Block* BlockDatabase::FindBlockByLocation(const sf::Vector3f& p) const {
 
-	auto yIt = _blockStore.find(p.y);
+	auto yIt = _blockStore.find( p.y );
 
 	if (yIt != _blockStore.end()) {
-		auto xzIt = yIt->second.find({ p.x, p.z });
+
+		auto xzIt = std::find_if( yIt->second.begin(), yIt->second.end(), [&p](Block* b) {
+			return b->location.x == p.x && b->location.y == p.y;
+			});
+
 		if (xzIt != yIt->second.end()) {
-			return xzIt->second;
+			return *xzIt;
 		}
 	}
 	return nullptr;
 }
 
-std::unordered_map<int, std::unordered_map< std::pair<int, int>, Block*, pair_hash> >
+std::vector< Block* > 
 BlockDatabase::GetAllBlocks() const {
-	return _blockStore;
+	std::vector<Block*> allBlocks;
+
+	for (const auto& yPair : _blockStore) {
+		for (Block* block : yPair.second) {
+			allBlocks.push_back(block);
+		}
+	}
+
+	return allBlocks;
 };

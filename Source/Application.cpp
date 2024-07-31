@@ -147,7 +147,8 @@ void Application::HandleEvents(sf::Event& e) {
 		case sf::Keyboard::Escape:
 			/*_context._pWindow->close();*/
 			windowFocus = false;
-			_context._pWindow->setMouseCursorVisible(true);
+			_context._pWindow->close();
+			//_context._pWindow->setMouseCursorVisible(true);
 			break;
 
 		case sf::Keyboard::M:

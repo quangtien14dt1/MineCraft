@@ -27,71 +27,64 @@ void CubeRenderer::add(const glm::vec3& position) { }
 void CubeRenderer::render( Camera* camera, bool poly ) {
 	
 	// std::pair<Block*, Model*> >
-	std::unordered_map< int, std::unordered_map< 
-		std::pair<int, int>, Block*, pair_hash >
-	> blocks = BlockDatabase::GetInstance()->GetAllBlocks();
-
-
-	for (auto& yLevel : blocks) {
-
+	std::vector< Block* > blocks 
+		= BlockDatabase::GetInstance()->GetAllBlocks();
 		
-		for (auto& xzBlock : yLevel.second) {
+	for (auto& block :  blocks) {
 
-			/* recalculate texture coordinates and update  */
-			std::vector<GLfloat> texCoords =
-				BlockDatabase::GetInstance()->GetTextureCoords( xzBlock.second );
+		/* recalculate texture coordinates and update  */
+		std::vector<GLfloat> texCoords =
+			BlockDatabase::GetInstance()->GetTextureCoords(block);
 
-			BlockDatabase::GetInstance()->GetModel()->UpdateVBOTextureCoord(
-				texCoords
-			);
+		BlockDatabase::GetInstance()->GetModel()->UpdateVBOTextureCoord(
+			texCoords
+		);
 
-			/* activate shader , bind vao and texture */ 
-			_cubeShader->Activate();
-			BlockDatabase::GetInstance()->GetModel()->GetVao().bind();
-			BlockDatabase::GetInstance()->GetTexture()->bind();
+		/* activate shader , bind vao and texture */ 
+		_cubeShader->Activate();
+		BlockDatabase::GetInstance()->GetModel()->GetVao().bind();
+		BlockDatabase::GetInstance()->GetTexture()->bind();
 
-			/* update camera */
-			camera->UpdateCameraVector();
+		/* update camera */
+		camera->UpdateCameraVector();
 
-			/* project view model */
-			_cubeShader->LoadViewMatrix(camera->GetViewMatrix());
-			_cubeShader->LoadProjectionMatrix(camera->GetProjectionMatrix());
+		/* project view model */
+		_cubeShader->LoadViewMatrix(camera->GetViewMatrix());
+		_cubeShader->LoadProjectionMatrix(camera->GetProjectionMatrix());
 
-			const glm::vec3 location{ 
-				float(xzBlock.first.first) ,
-				float(yLevel.first),
-				float(xzBlock.first.second )};
-
-			_cubeShader->LoadModelMatrix(
-				BlockDatabase::GetInstance()->GetModel()->ModelMatrix(
-					location,
-					DEFAULT_ROTATION
-				)
-			);
+		const glm::vec3 location{block->location.x, block->location.y, block->location.z};
+		_cubeShader->LoadModelMatrix(
+			BlockDatabase::GetInstance()->GetModel()->ModelMatrix(
+				location,
+				DEFAULT_ROTATION
+			)
+		);
 
 #ifdef LAB
-			/* draw line only */
-			glDrawElements(
-				GL_TRIANGLES,
-				GLsizei(
-					BlockDatabase::GetInstance()->GetModel()->GetIndiceCount()),
-				GL_UNSIGNED_INT, 0
-			);
+		/* draw line only */
+		glDrawElements(
+			GL_TRIANGLES,
+			GLsizei(
+				BlockDatabase::GetInstance()->GetModel()->GetIndiceCount()),
+			GL_UNSIGNED_INT, 0
+		);
 
-			/* draw by strip triangle */
-			//glDrawElements(GL_TRIANGLE_STRIP, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+		/* draw by strip triangle */
+		//glDrawElements(GL_TRIANGLE_STRIP, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
 
 #else
-			/* draw using indices */
-			glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+		/* draw using indices */
+		glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
 
 #endif // LAB
 
 
-		}
-		
 	}
 
 }
+
+void CubeRenderer::RenderBySection(const std::vector<Block*>& blocks) {
+
+};
 
 
