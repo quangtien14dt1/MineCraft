@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../glm.h"
-#include "../Context.h"
-#include "../Engine.h"
-#include "../Utils/Patterns/ObserverPatter.h"
-#include "../Utils/Patterns/SingleTon.h"
+#include "glm.h"
+#include "context.h"
+#include "engine.h"
+#include "utils/patterns/observerpattern.h"
+#include "utils/patterns/singleton.h"
 
 
 /* POV parameter  */

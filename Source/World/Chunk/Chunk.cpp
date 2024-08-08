@@ -1,30 +1,51 @@
 #include "world/chunk/Chunk.h"
-#include "world/block/BlockDatabase.h"
-#include "world/block/BlockFactory.h"
-#include "world/WorldContant.h"
+#include "world/block/blockdatabase.h"
+#include "world/block/blockfactory.h"
+#include "world/worldcontant.h"
 
 #include <random>
 #include <iostream>
 
-Chunk::Chunk()
-    : _chunkId({ 1,1 })
-{
-
-}
+Chunk::Chunk(sf::Vector2i location )
+    : _chunkId(location)
+{ /* shoudl create blocks default */ }
 
 Chunk::~Chunk() {};
 
-void Chunk::SetBlockType(int x, int y, int z, uint8_t) {
-    
+bool Chunk::SetBlockType(int x, int y, int z, BlockType type) {
+    Block* block = GetBlockByLocation(x,y,z);
+    if (block != NULL) return false;
+
+    delete block;
+    sf::Vector3i location{x,y,z};
+    block = BlockFactory::GetInstance()->CreateBlock(
+        type, location, _chunkId);
 };
 
-void Chunk::ProcessPosition(const sf::Vector3f& location ) {
+const sf::Vector2i Chunk::GetChunkLocation()const {
+    return _chunkId;
+};
+
+Block* Chunk::GetBlockByLocation(int x, int y, int z) {
+    if (OutOfBoundValidate(x, y, z)) {
+        return _blocks[x][y][z];
+    }
+    return NULL;
+};
+
+void Chunk::ProcessPosition(const sf::Vector3i& location ) {
 
     Block* block = BlockFactory::GetInstance()->CreateBlock(
         BlockType::Air, location , _chunkId
     );
 
-    BlockDatabase::GetInstance()->AddBlock ( location, block);
+    //BlockDatabase::GetInstance()->AddBlock ( location, block);
+};
+
+bool Chunk::OutOfBoundValidate(int x, int y, int z) {
+    return (x < CHUNK_SIZE && x >= 0)
+        && (y < CHUNK_SIZE && y >= 0)
+        && (z < CHUNK_SIZE && z >= 0);
 };
 
 void Chunk::CreateChunk() {
@@ -37,7 +58,7 @@ void Chunk::CreateChunk() {
 
                 sf::Vector3f l{x,y,z};
 
-                ProcessPosition(l);
+                //ProcessPosition(l);
 
             }
 
@@ -47,6 +68,8 @@ void Chunk::CreateChunk() {
     //std::cout << "size: " << 
     //    BlockDatabase::GetInstance()->CheckingSize() << std::endl;
 };
+
+//bool Chunk::OutOfBound() {};
 
 /* i dont know this shit @@ , never use before */
 int Chunk::GenerateRandomId() {

@@ -2,9 +2,8 @@
 
 #include <cstdint>
 #include <SFML/Graphics.hpp>
-#include "../../glm.h"
-#include "../Chunk/Chunk.h"
-#include "../../glm.h"
+#include "glm.h"
+#include "world/chunk/chunk.h"
 
 static const glm::vec3 DEFAULT_ROTATION{ 0,0,0 };
 
@@ -21,6 +20,51 @@ enum class BlockType : Block_t {
 	NUM_TYPES
 };
 
+
+struct Block {
+	/* block' type */
+	BlockType id;
+
+	/* cube textures coords */
+	sf::Vector2f texTopCoords;
+	sf::Vector2f texSideCoords;
+	sf::Vector2f texBottomCoords;
+
+	/* internal location block to chunk */
+	sf::Vector3i location;
+
+	/* chunk location to world map */
+	sf::Vector2i chunkId;
+
+};
+
+class ChunkKey {
+public:
+	sf::Vector3f _position;
+
+	ChunkKey(float x, float y, float z) : _position(x, y, z) {}
+
+	ChunkKey(const sf::Vector3f& p) : _position(p) {}
+
+	sf::Vector3f GetKey() const { return _position; }
+
+	bool operator==(const ChunkKey& other) const {
+		return _position == other._position;
+	}
+};
+
+/* overide hashcode for class BlockKey */
+namespace std {
+	template <>
+	struct hash<ChunkKey> {
+		std::size_t operator()(const ChunkKey& k) const {
+			return ((std::hash<float>()(k._position.x)
+				^ (std::hash<float>()(k._position.y) << 1)) >> 1)
+				^ (std::hash<float>()(k._position.z) << 1);
+		}
+	};
+}
+
 /* Textures map to block type */
 const std::map<BlockType, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f> > textureMap = {
 	{	BlockType::Air,      { sf::Vector2f(0, 0), sf::Vector2f(0, 0), sf::Vector2f(0, 0) }	},
@@ -29,43 +73,4 @@ const std::map<BlockType, std::tuple<sf::Vector2f, sf::Vector2f, sf::Vector2f> >
 	{	BlockType::Stone,    { sf::Vector2f(3, 0), sf::Vector2f(3, 0), sf::Vector2f(3, 0) }	}
 };
 
-struct Block {
-
-	sf::Vector2f texTopCoords;
-	sf::Vector2f texSideCoords;
-	sf::Vector2f texBottomCoords;
-
-	sf::Vector3f location;
-
-	BlockType id;
-	sf::Vector2i chunkId;
-
-};
-
-class BlockKey {
-public:
-	glm::vec3 _position;
-
-	BlockKey(float x, float y, float z) : _position(x, y, z) {}
-
-	BlockKey(const glm::vec3& p) : _position(p) {}
-
-	glm::vec3 GetKey() const { return _position; }
-
-	bool operator==(const BlockKey& other) const {
-		return _position == other._position;
-	}
-};
-
-/* overide hashcode for class BlockKey */
-namespace std {
-	template <>
-	struct hash<BlockKey> {
-		std::size_t operator()(const BlockKey& k) const {
-			return ((std::hash<float>()(k._position.x)
-				^ (std::hash<float>()(k._position.y) << 1)) >> 1)
-				^ (std::hash<float>()(k._position.z) << 1);
-		}
-	};
-}
 

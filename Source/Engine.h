@@ -2,8 +2,8 @@
 
 #include "Context.h"
 #include "Application.h"
-#include "Utils/Patterns/ObserverPatter.h"
-#include "Utils/Patterns/SingleTon.h"
+#include "utils/patterns/observerpattern.h"
+#include "utils/patterns/singleton.h"
 #include <SFML/Window.hpp>
 #include <vector>
 #include <memory>

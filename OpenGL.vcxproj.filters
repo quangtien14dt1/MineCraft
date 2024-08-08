@@ -321,16 +321,16 @@
     <ClInclude Include="Dependencies\include\SFML\Window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\entity\Camera.h">
+    <ClInclude Include="Included\entity\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\shader\BasicShader.h">
+    <ClInclude Include="Included\shader\basicshader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\shader\Shader.h">
+    <ClInclude Include="Included\shader\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\ShaderLoader.h">
+    <ClInclude Include="Source\utils\shaderloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\thirdparty\fastnoise.hpp">
@@ -342,28 +342,28 @@
     <ClInclude Include="Source\thirdparty\stb_image_write.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Application.h">
+    <ClInclude Include="Source\application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\Context.h">
+    <ClInclude Include="Included\context.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Engine.h">
+    <ClInclude Include="Source\engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\EventManager.h">
+    <ClInclude Include="Included\eventmanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\glm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\Mesh.h">
+    <ClInclude Include="Included\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\ModelLoading.h">
+    <ClInclude Include="Included\modelloading.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\Patterns\NonCopyable.h">
+    <ClInclude Include="Source\utils\patterns\noncopyable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\counted_ptr.h">
@@ -375,52 +375,61 @@
     <ClInclude Include="Source\smart_ptr\counted_ptr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\Patterns\ObserverPatter.h">
+    <ClInclude Include="Source\utils\patterns\observerpattern.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\texture\CubeTexture.h">
+    <ClInclude Include="Included\texture\cubetexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\renderer\QuadRenderer.h">
+    <ClInclude Include="Included\renderer\quadrenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\Model.h">
+    <ClInclude Include="Included\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\renderer\CubeRenderer.h">
+    <ClInclude Include="Included\renderer\cuberenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\texture\QuadTexture.h">
+    <ClInclude Include="Included\texture\quadtexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\Matrix.h">
+    <ClInclude Include="Source\utils\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\entity\Entity.h">
+    <ClInclude Include="Included\entity\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\renderer\Render.h">
+    <ClInclude Include="Included\renderer\render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\block\BlockContribute.h">
+    <ClInclude Include="Included\world\block\blockcontribute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\Patterns\NonMovable.h">
+    <ClInclude Include="Source\utils\patterns\nonmovable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\Patterns\SingleTon.h">
+    <ClInclude Include="Source\utils\patterns\singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\block\BlockDatabase.h">
+    <ClInclude Include="Included\world\block\blockdatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\block\BlockFactory.h">
+    <ClInclude Include="Included\world\block\blockfactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\WorldContant.h">
+    <ClInclude Include="Included\world\worldcontant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\chunk\Chunk.h">
+    <ClInclude Include="Included\world\chunk\chunk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\world\chunk\chunkmesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\world\chunk\chunkmeshbuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\world\worldgenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -472,10 +481,10 @@
     <None Include="Resource\shaders\Quad.frag" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\entity\Camera.cpp">
+    <ClCompile Include="Source\entity\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\utils\ShaderLoader.cpp">
+    <ClCompile Include="Source\utils\shaderloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\thirdparty\fastnoise.cpp">
@@ -484,49 +493,55 @@
     <ClCompile Include="Source\thirdparty\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Application.cpp">
+    <ClCompile Include="Source\application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Engine.cpp">
+    <ClCompile Include="Source\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MineCraft.cpp">
+    <ClCompile Include="Source\minecraft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Context.cpp">
+    <ClCompile Include="Source\context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\shader\BasicShader.cpp">
+    <ClCompile Include="Source\shader\basicshader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\texture\CubeTexture.cpp">
+    <ClCompile Include="Source\texture\cubetexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\renderer\QuadRenderer.cpp">
+    <ClCompile Include="Source\renderer\quadrenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Model.cpp">
+    <ClCompile Include="Source\model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\renderer\CubeRenderer.cpp">
+    <ClCompile Include="Source\renderer\cuberenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\texture\QuadTexture.cpp">
+    <ClCompile Include="Source\texture\quadtexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\utils\Matrix.cpp">
+    <ClCompile Include="Source\utils\matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\renderer\Render.cpp">
+    <ClCompile Include="Source\renderer\render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\world\Block\BlockDatabase.cpp">
+    <ClCompile Include="Source\world\block\blockdatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\world\Block\BlockFactory.cpp">
+    <ClCompile Include="Source\world\block\blockfactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\world\Chunk\Chunk.cpp">
+    <ClCompile Include="Source\world\chunk\chunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\chunk\chunkmesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\chunk\chunkmeshbuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

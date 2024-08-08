@@ -41,12 +41,15 @@ BlockDatabase* BlockDatabase::operator()() {
 };
 
 void BlockDatabase::CleanDatabase() {
-	for (auto& yLevel : _blockStore) {
-		for (auto& xzBlock : yLevel.second) {
+	/* think this only make sence when 
+	we load blocks from database 
+	*/
+	for (auto& chunkKey : _blockStore) {
+		for (auto& block : chunkKey.second) {
 
-			delete xzBlock;
+			delete block;
 		}
-		yLevel.second.clear();
+		chunkKey.second.clear();
 	}
 	_blockStore.clear();
 }
@@ -58,12 +61,66 @@ BlockDatabase* BlockDatabase::GetInstance() {
 	return _pBlockDatabase;
 };
 
+void 
+BlockDatabase::AddBlocksByChunkId(
+	const sf::Vector3f& p, 
+	std::vector< Block* > blocks) 
+{
+	ChunkKey key(p);
+	UpdateChunkBlock(key , blocks);
 
-void BlockDatabase::AddBlock(const sf::Vector3f& p,Block* b) {
+}
 
-	_blockStore[p.y].push_back(b);
-
+void BlockDatabase::AddBlocksByChunkId(
+	const ChunkKey& k,
+	std::vector< Block* >& blocks
+) {
+	UpdateChunkBlock(k, blocks);
 };
+
+void BlockDatabase::RemoveBlocksByChunkIds(
+	 const ChunkKey& k) 
+{
+	auto it = _blockStore.find(k);
+	if (it != _blockStore.end()) {
+		for (Block* block : it->second) {
+			delete block;
+		}
+	}
+	_blockStore.erase(it);
+}; 
+
+
+void BlockDatabase::UpdateChunkBlock (
+	 const ChunkKey& k,
+	 std::vector< Block* >& blocks ) 
+{
+	auto it = _blockStore.find(k);
+	if( it != _blockStore.end()) {
+		RemoveBlocksByChunkIds( k );
+		_blockStore[k] = blocks;
+	}
+	else {
+		_blockStore[k] = blocks;
+	}
+}
+
+void BlockDatabase::UpdateChunkBlock(
+	 const sf::Vector3f& l,
+	 std::vector< Block* >& blocks ) 
+{
+	ChunkKey key(l);
+	auto it = _blockStore.find(key);
+	if (it != _blockStore.end()) {
+		RemoveBlocksByChunkIds(key);
+		_blockStore[key] = blocks;
+	}
+	else {
+		_blockStore[key] = blocks;
+	}
+};
+
+void BlockDatabase::AddBlock(const sf::Vector3f& p,Block* b) {};
 
 void BlockDatabase::CreateDefaultCubeModel() {
 	std::vector<GLuint> indices
@@ -164,7 +221,7 @@ void BlockDatabase::CreateDefaultCubeModel() {
 Model* BlockDatabase::GetModel() { return _cubeModel; };
 
 std::vector<GLfloat>
-BlockDatabase::GetTextureCoords(Block* b) {
+BlockDatabase::GetTextureCoords( const Block* b) {
 
 	auto top = _cubeTexture->GetTexture(b->texTopCoords);
 	auto side = _cubeTexture->GetTexture(b->texSideCoords);
@@ -183,7 +240,7 @@ BlockDatabase::GetTextureCoords(Block* b) {
 
 void BlockDatabase::RemoveBlockByLocation(const sf::Vector3f& p) {
 
-	auto yIt = _blockStore.find(p.y);
+	auto yIt = _blockStore.find( ChunkKey(p) );
 
 	if (yIt != _blockStore.end()) {
 
@@ -206,9 +263,9 @@ void BlockDatabase::RemoveBlockByLocation(const sf::Vector3f& p) {
 
 CubeTexture* BlockDatabase::GetTexture() { return _cubeTexture; };
 
-Block* BlockDatabase::FindBlockByLocation(const sf::Vector3f& p) const {
+Block* BlockDatabase::FindBlocksByChunkKey(const sf::Vector3f& p) const {
 
-	auto yIt = _blockStore.find( p.y );
+	auto yIt = _blockStore.find( ChunkKey(p) );
 
 	if (yIt != _blockStore.end()) {
 
@@ -227,8 +284,8 @@ std::vector< Block* >
 BlockDatabase::GetAllBlocks() const {
 	std::vector<Block*> allBlocks;
 
-	for (const auto& yPair : _blockStore) {
-		for (Block* block : yPair.second) {
+	for (const auto& chunk : _blockStore) {
+		for (Block* block : chunk.second) {
 			allBlocks.push_back(block);
 		}
 	}

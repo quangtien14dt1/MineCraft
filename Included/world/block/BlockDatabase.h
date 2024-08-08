@@ -32,20 +32,24 @@ public:
 
 	void AddBlock( const sf::Vector3f& ,Block* );
 
+	void AddBlocksByChunkId(
+		const ChunkKey&,
+		std::vector< Block* >&
+	);
+
+	void AddBlocksByChunkId(const sf::Vector3f&, 
+		std::vector< Block* > );
+	
 	void CleanDatabase();
 
 	void CreateDefaultCubeModel();
 
 	std::vector<GLfloat>
-		GetTextureCoords(Block* );
+		GetTextureCoords( const Block* );
 
 	void RemoveBlockByLocation( const sf::Vector3f& );
 
-	std::vector<Block*, Model*> 
-		GetAllBlockById(const BlockType) const;
-
-
-	Block* FindBlockByLocation( const sf::Vector3f& ) const;
+	Block* FindBlocksByChunkKey( const sf::Vector3f& ) const;
 
 	std::vector< Block* >  GetAllBlocks() const;
 
@@ -58,14 +62,30 @@ public:
 	Model* GetModel();
 
 	size_t CheckingSize();
+
+	// loader
+	// writer
 	
 private:
+
+	void RemoveBlocksByChunkIds(const ChunkKey&);
+
+	void UpdateChunkBlock(
+		 const ChunkKey&,
+		 std::vector< Block* >& );
+
+	void UpdateChunkBlock(
+		 const sf::Vector3f&,
+		 std::vector< Block* >& );
 
 	static BlockDatabase* _pBlockDatabase;
 	CubeTexture*	_cubeTexture;
 	Model*			_cubeModel;
 
-	std::unordered_map< float , std::vector< Block* > > _blockStore;
+	/* chunk location / blocks of that chunk */
+	std::unordered_map< 
+		ChunkKey, std::vector< Block* > 
+	> _blockStore;
 
 	//std::vector< Block* > _blockStore;
 	

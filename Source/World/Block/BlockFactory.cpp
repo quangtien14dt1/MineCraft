@@ -1,9 +1,9 @@
-#include "World/Block/BlockFactory.h"
+#include "world/block/blockfactory.h"
 #include <SFML/Graphics.hpp>
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 
-Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3f l, sf::Vector2i chunkId) {
+Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3i l, sf::Vector2i chunkId) {
 
 	// value copy lambda function
 	auto createblock = [id,l, chunkId](
@@ -14,8 +14,8 @@ Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3f l, sf::Vector2i chun
 			block->texTopCoords = top;
 			block->texSideCoords = side;
 			block->texBottomCoords = bottom;
-			block->location = l;
-			block->chunkId = chunkId;
+			block->location = l;		// location block to chunk 
+			block->chunkId = chunkId;	// location chunk to world map
 			return block;
 	};
 
