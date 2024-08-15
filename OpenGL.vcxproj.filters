@@ -384,7 +384,7 @@
     <ClInclude Include="Included\renderer\quadrenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\model.h">
+    <ClInclude Include="Included\basemodel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\renderer\cuberenderer.h">
@@ -393,7 +393,7 @@
     <ClInclude Include="Included\texture\quadtexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\utils\matrix.h">
+    <ClInclude Include="Included\ultils\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\entity\entity.h">
@@ -423,13 +423,19 @@
     <ClInclude Include="Included\world\chunk\chunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\chunk\chunkmesh.h">
+    <ClInclude Include="Included\world\chunk\chunkmodel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\chunk\chunkmeshbuilder.h">
+    <ClInclude Include="Included\world\chunk\chunkmodelbuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\world\worldgenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\renderer\chunkrenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\world\block\blockmodel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -479,6 +485,8 @@
     <None Include="Resource\shaders\Cube.frag" />
     <None Include="Resource\shaders\Quad.vert" />
     <None Include="Resource\shaders\Quad.frag" />
+    <None Include="Resource\shaders\Chunk.frag" />
+    <None Include="Resource\shaders\Chunk.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\entity\camera.cpp">
@@ -514,7 +522,7 @@
     <ClCompile Include="Source\renderer\quadrenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\model.cpp">
+    <ClCompile Include="Source\basemodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\renderer\cuberenderer.cpp">
@@ -538,10 +546,28 @@
     <ClCompile Include="Source\world\chunk\chunk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\world\chunk\chunkmesh.cpp">
+    <ClCompile Include="Source\world\chunk\chunkmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\world\chunk\chunkmeshbuilder.cpp">
+    <ClCompile Include="Source\world\chunk\chunkmodelbuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\block\airblock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\block\dirtblock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\block\grassblock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\block\stoneblock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\renderer\chunkrenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\world\block\blockmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

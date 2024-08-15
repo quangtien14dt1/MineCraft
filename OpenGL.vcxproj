@@ -235,19 +235,21 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
+    <ClInclude Include="Included\renderer\chunkrenderer.h" />
     <ClInclude Include="Included\renderer\render.h" />
     <ClInclude Include="Included\entity\entity.h" />
     <ClInclude Include="Included\mesh.h" />
     <ClInclude Include="Included\renderer\quadrenderer.h" />
-    <ClInclude Include="Included\world\chunk\chunkmesh.h" />
-    <ClInclude Include="Included\world\chunk\chunkmeshbuilder.h" />
+    <ClInclude Include="Included\world\block\blockmodel.h" />
+    <ClInclude Include="Included\world\chunk\chunkmodel.h" />
+    <ClInclude Include="Included\world\chunk\chunkmodelbuilder.h" />
     <ClInclude Include="Included\world\worldgenerator.h" />
     <ClInclude Include="Source\application.h" />
     <ClInclude Include="Included\context.h" />
     <ClInclude Include="Included\counted_ptr.h" />
     <ClInclude Include="Source\engine.h" />
     <ClInclude Include="Included\entity\camera.h" />
-    <ClInclude Include="Included\model.h" />
+    <ClInclude Include="Included\basemodel.h" />
     <ClInclude Include="Included\eventmanager.h" />
     <ClInclude Include="Included\glm.h" />
     <ClInclude Include="Included\modelloading.h" />
@@ -264,7 +266,7 @@
     <ClInclude Include="Source\thirdparty\fastnoise.hpp" />
     <ClInclude Include="Source\thirdparty\stb_image.hpp" />
     <ClInclude Include="Source\thirdparty\stb_image_write.hpp" />
-    <ClInclude Include="Source\utils\matrix.h" />
+    <ClInclude Include="Included\ultils\matrix.h" />
     <ClInclude Include="Source\utils\patterns\nonmovable.h" />
     <ClInclude Include="Source\utils\patterns\singleton.h" />
     <ClInclude Include="Included\world\block\blockdatabase.h" />
@@ -295,6 +297,8 @@
     <None Include="Dependencies\include\SFML\System\Vector3.inl" />
     <None Include="LICENSE" />
     <None Include="README.md" />
+    <None Include="Resource\shaders\Chunk.frag" />
+    <None Include="Resource\shaders\Chunk.vert" />
     <None Include="Resource\shaders\Cube.frag" />
     <None Include="Resource\shaders\Cube.vert" />
     <None Include="Resource\shaders\Default.frag" />
@@ -303,13 +307,14 @@
     <None Include="Resource\shaders\Quad.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\renderer\chunkrenderer.cpp" />
     <ClCompile Include="Source\renderer\render.cpp" />
     <ClCompile Include="Source\renderer\quadrenderer.cpp" />
     <ClCompile Include="Source\application.cpp" />
     <ClCompile Include="Source\context.cpp" />
     <ClCompile Include="Source\engine.cpp" />
     <ClCompile Include="Source\entity\camera.cpp" />
-    <ClCompile Include="Source\model.cpp" />
+    <ClCompile Include="Source\basemodel.cpp" />
     <ClCompile Include="Source\minecraft.cpp" />
     <ClCompile Include="Source\renderer\cuberenderer.cpp" />
     <ClCompile Include="Source\shader\basicshader.cpp" />
@@ -319,11 +324,16 @@
     <ClCompile Include="Source\thirdparty\fastnoise.cpp" />
     <ClCompile Include="Source\thirdparty\glad.c" />
     <ClCompile Include="Source\utils\matrix.cpp" />
+    <ClCompile Include="Source\world\block\airblock.cpp" />
     <ClCompile Include="Source\world\block\blockdatabase.cpp" />
     <ClCompile Include="Source\world\block\blockfactory.cpp" />
+    <ClCompile Include="Source\world\block\blockmodel.cpp" />
+    <ClCompile Include="Source\world\block\dirtblock.cpp" />
+    <ClCompile Include="Source\world\block\grassblock.cpp" />
+    <ClCompile Include="Source\world\block\stoneblock.cpp" />
     <ClCompile Include="Source\world\chunk\chunk.cpp" />
-    <ClCompile Include="Source\world\chunk\chunkmesh.cpp" />
-    <ClCompile Include="Source\world\chunk\chunkmeshbuilder.cpp" />
+    <ClCompile Include="Source\world\chunk\chunkmodel.cpp" />
+    <ClCompile Include="Source\world\chunk\chunkmodelbuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />

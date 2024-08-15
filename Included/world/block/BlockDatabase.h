@@ -42,7 +42,7 @@ public:
 	
 	void CleanDatabase();
 
-	void CreateDefaultCubeModel();
+	void CreateDefaultCubeModel( Model *);
 
 	std::vector<GLfloat>
 		GetTextureCoords( const Block* );

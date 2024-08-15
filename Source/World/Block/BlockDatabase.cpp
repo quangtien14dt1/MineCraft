@@ -122,7 +122,7 @@ void BlockDatabase::UpdateChunkBlock(
 
 void BlockDatabase::AddBlock(const sf::Vector3f& p,Block* b) {};
 
-void BlockDatabase::CreateDefaultCubeModel() {
+void BlockDatabase::CreateDefaultCubeModel(Model* m) {
 	std::vector<GLuint> indices
 	{
 

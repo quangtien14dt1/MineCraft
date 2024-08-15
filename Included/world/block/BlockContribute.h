@@ -6,6 +6,7 @@
 #include "world/chunk/chunk.h"
 
 static const glm::vec3 DEFAULT_ROTATION{ 0,0,0 };
+static const glm::vec3 DEFAULT_LOCATION{ 0,0,0 };
 
 class Chunk;
 
@@ -21,21 +22,38 @@ enum class BlockType : Block_t {
 };
 
 
-struct Block {
-	/* block' type */
-	BlockType id;
+class  Block {
+public:
+	virtual Block* operator()() = 0;
 
 	/* cube textures coords */
 	sf::Vector2f texTopCoords;
 	sf::Vector2f texSideCoords;
 	sf::Vector2f texBottomCoords;
 
-	/* internal location block to chunk */
-	sf::Vector3i location;
+	///* internal location block to chunk */
+	//sf::Vector3i location;
 
-	/* chunk location to world map */
-	sf::Vector2i chunkId;
+};
 
+class AirBlock : public Block {
+public:
+	Block* operator()() override;
+};
+
+class DirtBlock : public Block {
+public:
+	Block* operator()() override;
+};
+
+class GrassBlock : public Block {
+public:
+	Block* operator()() override;
+};
+
+class StoneBlock : public Block {
+public:
+	Block* operator()() override;
 };
 
 class ChunkKey {

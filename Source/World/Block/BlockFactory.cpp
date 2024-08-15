@@ -3,34 +3,46 @@
 
 BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 
-Block* BlockFactory::CreateBlock(BlockType id, sf::Vector3i l, sf::Vector2i chunkId) {
+/* small type factory  menthod  
+*/
+BlockFactory::BlockFactory() {
 
-	// value copy lambda function
-	auto createblock = [id,l, chunkId](
-		sf::Vector2f top, sf::Vector2f side, sf::Vector2f bottom
-	) -> Block* {
-			Block* block = new Block();
-			block->id = id;
-			block->texTopCoords = top;
-			block->texSideCoords = side;
-			block->texBottomCoords = bottom;
-			block->location = l;		// location block to chunk 
-			block->chunkId = chunkId;	// location chunk to world map
-			return block;
-	};
+};
+
+Block* BlockFactory::CreateBlock(BlockType id) {
 
 	switch (id) {
 		case BlockType::Air:
-			return createblock({ 0, 0 }, { 0, 0 }, { 0, 0 });
+			if (!_blocksType[(unsigned)BlockType::Air]) {
 
+				_blocksType[(unsigned)BlockType::Air] = &AirBlock();
+
+			}
+			return _blocksType[(unsigned)BlockType::Air];
+			
 		case BlockType::Dirt:
-			return createblock({ 2, 0 }, { 2, 0 }, { 2, 0 });
+			if(!_blocksType[(unsigned)BlockType::Dirt]) {
+
+				_blocksType[(unsigned)BlockType::Dirt] = &DirtBlock();
+
+			}
+			return _blocksType[(unsigned)BlockType::Dirt];
 
 		case BlockType::Grass:
-			return createblock({ 0, 0 }, { 1, 0 }, { 2, 0 });
+			if (!_blocksType[(unsigned)BlockType::Grass]) {
+
+				_blocksType[(unsigned)BlockType::Grass] = &GrassBlock();
+
+			}
+			return _blocksType[(unsigned)BlockType::Grass];
 
 		case BlockType::Stone:
-			return createblock({ 3, 0 }, { 3, 0 }, { 3, 0 });
+			if (!_blocksType[(unsigned)BlockType::Stone]) {
+
+				_blocksType[(unsigned)BlockType::Stone] = &StoneBlock();
+
+			}
+			return _blocksType[(unsigned)BlockType::Stone];
 
 		default:
 			throw std::runtime_error("Failed to creat new block type: invalid id ");
@@ -48,6 +60,12 @@ BlockFactory* BlockFactory::GetInstance() {
 };
 
 BlockFactory::~BlockFactory() { 
+
+	for (auto b : _blocksType) {
+		if (b != NULL) delete b;
+		b = nullptr;
+	}
+
 	if (_pBlockFactory != NULL) {
 		delete _pBlockFactory;
 		_pBlockFactory = nullptr;

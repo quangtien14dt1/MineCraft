@@ -2,12 +2,15 @@
 
 #include "utils/Patterns/SingleTon.h"
 #include "BlockContribute.h"
+#include <array>
 
 
 class BlockFactory : public SingleTon {
 public :
+	BlockFactory();
 	static BlockFactory* _pBlockFactory;
 	static BlockFactory* GetInstance();
-	Block* CreateBlock(BlockType, sf::Vector3i, sf::Vector2i);
+	Block* CreateBlock(BlockType);
 	~BlockFactory();
+	std::array<Block*, static_cast<size_t>(BlockType::NUM_TYPES) >  _blocksType;
 };

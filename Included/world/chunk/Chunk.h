@@ -1,9 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "world/worldcontant.h"
-#include "world/block/blockcontribute.h"
 #include <vector>
+#include "world/worldcontant.h"
 
 /* 
   make play ground ( x, y)  and z is ladder to sky
@@ -12,37 +11,37 @@
   each chunk ocupile 16x16 point , and deep will be 256 
 */
 
-class ChunkMesh;
+class ChunkModel;
 class BlockDatabase;
+class Block;
 
 class Chunk {
 public:
-	Chunk( sf::Vector2i );
+	Chunk( sf::Vector3i );
 	~Chunk();
 
-	bool SetBlockType(int x, int y, int z, BlockType);
+	void SetBlockType(int x, int y, int z, BlockType);
 
 	bool OutOfBoundValidate(int x, int y, int z);
 
 	/* chunk maintanance */
 	void CreateChunk();
-	const sf::Vector2i GetChunkLocation() const ;
 
-	/* generator  */
-	void ProcessPosition(const sf::Vector3i& );
+	sf::Vector3i GetChunkLocation() const ;
+
+	void SetChunkLocation(sf::Vector3i);
+
+
 	Block* GetBlockByLocation(int x, int y, int z);
 
 private:
 
 	static int GenerateRandomId();
-	sf::Vector2i _chunkId;
-	//std::array<Block*, CHUNK_VOLUME > _blocks;
+	sf::Vector3i _chunkId;
 
 	/* store 3D map chunk' block y, x, z */
 	Block* _blocks[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
-	ChunkMesh* _mesh;
 
-	
 };
 
 class  ChunkCache {};

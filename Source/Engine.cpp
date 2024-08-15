@@ -4,16 +4,16 @@
 #include <glad/glad.h>
 #include <memory.h>
 
-#include "Engine.h"
-#include "Entity/Camera.h"
-#include "ModelLoading.h"
-#include "Mesh.h"
-#include "Model.h"
-#include "Renderer/Render.h"
-#include "shader/BasicShader.h"
-#include "world/block/BlockDatabase.h"
-#include "world/block/BlockFactory.h"
-#include "world/chunk/Chunk.h"
+#include "engine.h"
+#include "entity/camera.h"
+#include "modelloading.h"
+#include "mesh.h"
+#include "model.h"
+#include "renderer/render.h"
+#include "shader/basicshader.h"
+#include "world/block/blockdatabase.h"
+#include "world/block/blockfactory.h"
+#include "world/chunk/chunk.h"
 
 
 
@@ -96,7 +96,7 @@ void Engine::LoadMap() {
 	* 
 	*/
 
-	Chunk chunk;
+	Chunk chunk({0,0,0});
 
 	chunk.CreateChunk();
 };

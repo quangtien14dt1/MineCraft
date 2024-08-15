@@ -7,7 +7,8 @@
 class BasicShader;
 class Camera;
 class BlockDatabase;
-struct Block;
+class Block;
+class Model;
 
 class CubeRenderer
 {
@@ -32,6 +33,10 @@ private:
 	BlockDatabase* _blocksDatabase;
 
 	BasicShader* _cubeShader;
+
+	Model* _model;
+
+	const glm::vec3 _default{ 0,0,0 };
 
 };
 
