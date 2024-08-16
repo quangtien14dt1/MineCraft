@@ -83,5 +83,12 @@ VAO BaseModel::GetVao() { return m_vao; };
 
 GLuint BaseModel::GetIndiceCount() const { return m_indicesCount; };
 
+sf::Vector3f BaseModel::GetModelLocation() {
+	return _defaultLocation;
+};
+
+void BaseModel::SetModelLocation(sf::Vector3f l) {
+	_defaultLocation = l;
+};
 
 

@@ -4,39 +4,27 @@
 #include <array>
 #include <vector>
 
-class BasicShader;
+#include "glm.h"
+#include "baserender.h"
+#include <vector>
+
+class BlockModel;
+class BaseModel;
 class Camera;
-class BlockDatabase;
-class Block;
-class Model;
+class BasicShader;
 
-class CubeRenderer
-{
+class CubeRender : public BaseRender {
+
 public:
-	CubeRenderer();
-
-	void create(const Block& );
-
-	void add(const glm::vec3& postion);
-
-	void render( Camera* camera, bool );
-
-	void RenderBySection( const std::vector<Block*>& );
-
-	//std::vector<GLfloat> GetTextureCoords(Block* b);
-
-	~CubeRenderer();
+	CubeRender();
+	~CubeRender();
+	void RenderModels(Camera*, BlockModel*);
+	std::vector< sf::Vector3f > GetLocation();
+	void AddNewLocation(sf::Vector3f);
 
 private:
-
-
-	BlockDatabase* _blocksDatabase;
-
-	BasicShader* _cubeShader;
-
-	Model* _model;
-
-	const glm::vec3 _default{ 0,0,0 };
-
+	std::vector<sf::Vector3f > _cubeLocations;
+	BasicShader* _defaultShader;
 };
+
 

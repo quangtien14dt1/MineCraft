@@ -27,14 +27,14 @@ glm::mat4 MakeModelMatrix(
 
 };
 
-glm::vec3 ConvertToGlmVec3i(const sf::Vector3i& sfVector) {
+glm::vec3 ConvertToGlmVec3f(const sf::Vector3f& sfVector) {
 	return glm::vec3(static_cast<float>(sfVector.x),
 		static_cast<float>(sfVector.y),
 		static_cast<float>(sfVector.z));
 }
 
-sf::Vector3i ConvertToSfVector3i(const glm::vec3& glmVector) {
-	return sf::Vector3i(static_cast<int>(glmVector.x),
+sf::Vector3f ConvertToSfVector3f(const glm::vec3& glmVector) {
+	return sf::Vector3f(static_cast<int>(glmVector.x),
 		static_cast<int>(glmVector.y),
 		static_cast<int>(glmVector.z));
 };

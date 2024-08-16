@@ -1,59 +1,54 @@
-#include "renderer/QuadRenderer.h"
-#include "Entity/Camera.h"
+#include "renderer/quadrenderer.h"
+#include "entity/camera.h"
+#include "shader/BasicShader.h"
+#include "basemodel.h"
+#include "world/quad/quadmodel.h"
+#include "texture/QuadTexture.h"
+#include "ultils/matrix.h"
 #include <iostream>
 
 
-QuadRenderer::QuadRenderer() {
+QuadRender::QuadRender() 
+	: _defaultShader(new BasicShader("Quad","Quad"))
+{ }
 
-	m_texture.LoadFromFile("test");
-	m_quadModel.AddData({
-		{
-			/* vertex coord */
-			-0.5,  0.5, 0,
-			 0.5,  0.5, 0,
-			 0.5, -0.5, 0,
-			-0.5, -0.5, 0,
-		},
-		{
-			/* texture coords */
-			0, 1,
-			1, 1,
-			1, 0,
-			0, 0,
-		},
-		{
-			/* indices */
-			0, 1, 2,
-			2, 3, 0
-		}
-	});
+QuadRender::~QuadRender() {
+	if (_defaultShader) {
+		delete _defaultShader;
+		_defaultShader = NULL;
+	}
+}
 
-	m_shader = BasicShader("Quad", "Quad");
+std::vector< sf::Vector3f > QuadRender::GetLocation() {
+	return _quadLocations;
 };
 
-void QuadRenderer::add(const glm::vec3& position) {
-	m_quads.push_back(position);
+void QuadRender::AddNewLocation(sf::Vector3f l ) {
+	_quadLocations.push_back(l);
 };
 
-void QuadRenderer::render(Camera* camera) {
+void QuadRender::RenderModels(Camera* c , QuadModel* m) {
 
 	/* activate sahder , vao and texture */
-	m_shader.Activate();
-	m_quadModel.GetVao().bind();
-	m_texture.bind();
+	_defaultShader->Activate();
+	m->GetVao().bind();
+	m->GetTexture()->bind();
 
 	/* binding shader */
-	camera->UpdateCameraVector();
-	m_shader.LoadViewMatrix(camera->GetViewMatrix());
-	m_shader.LoadProjectionMatrix(camera->GetProjectionMatrix());
+	c->UpdateCameraVector();
 
-	for (auto& quad : m_quads) {
+	/* model view projection */
+	_defaultShader->LoadViewMatrix(c->GetViewMatrix());
+	_defaultShader->LoadProjectionMatrix(c->GetProjectionMatrix());
 
-		m_shader.LoadModelMatrix(m_quadModel.ModelMatrix( quad,glm::vec3{0,0,0} ));
+	for (auto& quad : GetLocation() ) {
+
+		_defaultShader->LoadModelMatrix(MakeModelMatrix(ConvertToGlmVec3f(quad), glm::vec3{0,0,0}));
 
 		// draw using indices 
-		glDrawElements(GL_TRIANGLES, GLsizei(m_quadModel.GetIndiceCount()), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, GLsizei(m->GetIndiceCount()), GL_UNSIGNED_INT, 0);
 	}
-	m_texture.unbind();
+
+	m->GetTexture()->unbind();
 	
 };

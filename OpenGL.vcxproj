@@ -236,13 +236,14 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="Included\renderer\chunkrenderer.h" />
-    <ClInclude Include="Included\renderer\render.h" />
+    <ClInclude Include="Included\renderer\baserender.h" />
     <ClInclude Include="Included\entity\entity.h" />
     <ClInclude Include="Included\mesh.h" />
     <ClInclude Include="Included\renderer\quadrenderer.h" />
     <ClInclude Include="Included\world\block\blockmodel.h" />
     <ClInclude Include="Included\world\chunk\chunkmodel.h" />
     <ClInclude Include="Included\world\chunk\chunkmodelbuilder.h" />
+    <ClInclude Include="Included\world\quad\quadmodel.h" />
     <ClInclude Include="Included\world\worldgenerator.h" />
     <ClInclude Include="Source\application.h" />
     <ClInclude Include="Included\context.h" />
@@ -308,7 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\renderer\chunkrenderer.cpp" />
-    <ClCompile Include="Source\renderer\render.cpp" />
+    <ClCompile Include="Source\renderer\baserenderer.cpp" />
     <ClCompile Include="Source\renderer\quadrenderer.cpp" />
     <ClCompile Include="Source\application.cpp" />
     <ClCompile Include="Source\context.cpp" />
@@ -324,16 +325,17 @@
     <ClCompile Include="Source\thirdparty\fastnoise.cpp" />
     <ClCompile Include="Source\thirdparty\glad.c" />
     <ClCompile Include="Source\utils\matrix.cpp" />
-    <ClCompile Include="Source\world\block\airblock.cpp" />
-    <ClCompile Include="Source\world\block\blockdatabase.cpp" />
-    <ClCompile Include="Source\world\block\blockfactory.cpp" />
-    <ClCompile Include="Source\world\block\blockmodel.cpp" />
-    <ClCompile Include="Source\world\block\dirtblock.cpp" />
-    <ClCompile Include="Source\world\block\grassblock.cpp" />
-    <ClCompile Include="Source\world\block\stoneblock.cpp" />
-    <ClCompile Include="Source\world\chunk\chunk.cpp" />
-    <ClCompile Include="Source\world\chunk\chunkmodel.cpp" />
-    <ClCompile Include="Source\world\chunk\chunkmodelbuilder.cpp" />
+    <ClCompile Include="Source\World\block\airblock.cpp" />
+    <ClCompile Include="Source\World\block\blockdatabase.cpp" />
+    <ClCompile Include="Source\World\block\blockfactory.cpp" />
+    <ClCompile Include="Source\World\block\blockmodel.cpp" />
+    <ClCompile Include="Source\World\block\dirtblock.cpp" />
+    <ClCompile Include="Source\World\block\grassblock.cpp" />
+    <ClCompile Include="Source\World\block\stoneblock.cpp" />
+    <ClCompile Include="Source\World\chunk\chunk.cpp" />
+    <ClCompile Include="Source\World\chunk\chunkmodel.cpp" />
+    <ClCompile Include="Source\World\chunk\chunkmodelbuilder.cpp" />
+    <ClCompile Include="Source\World\quad\quadmodel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\textures\aiuehara.png" />

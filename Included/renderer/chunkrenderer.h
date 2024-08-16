@@ -1,8 +1,7 @@
 #pragma once
 
-#pragma once
-
-#include "../glm.h"
+#include "glm.h"
+#include "baserender.h"s
 #include <array>
 #include <vector>
 
@@ -10,22 +9,15 @@ class BasicShader;
 class Camera;
 class ChunkModel;
 
-class ChunkRenderer
+class ChunkRenderer : public BaseRender
 {
 public:
 	ChunkRenderer();
 
-	void Add(const ChunkModel& model);
-
-	void Render(Camera* camera);
+	void RenderModels(Camera* , ChunkModel* );
 
 	~ChunkRenderer();
 
 private:
-
-	std::vector<const ChunkModel* > _chunks;
-
 	BasicShader* _chunkShader;
-
-
 };

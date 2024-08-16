@@ -1,76 +1,68 @@
-#include "renderer/cubeRenderer.h"
+#include "renderer/cuberenderer.h"
 #include "entity/camera.h"
-#include "world/block/blockDatabase.h"
 #include "world/block/blockContribute.h"
 #include "shader/basicShader.h"
-#include "model.h"
+#include "world/block/blockmodel.h"
+#include "ultils/matrix.h"
 #include <vector>
 #include <iostream>
 
 
-CubeRenderer::CubeRenderer( ) {
+CubeRender::CubeRender( )
+	:_defaultShader( new BasicShader("Cube", "Cube"))
+{ };
 
-	_cubeShader = new BasicShader("Cube", "Cube");
-	_model = new Model();
-};
-
-CubeRenderer::~CubeRenderer() { 
-	if (_cubeShader != NULL) {
-		delete _cubeShader; _cubeShader = nullptr;
+CubeRender::~CubeRender() {
+	if (_defaultShader != NULL) {
+		delete _defaultShader; 
+		_defaultShader = nullptr;
 	}
 
-	if (_model != NULL) {
-		delete _model; _model = nullptr;
-	}
 };
 
-void CubeRenderer::create(const Block& b ) { };
+std::vector< sf::Vector3f > 
+CubeRender::GetLocation() {
+	return _cubeLocations;
+};
 
-void CubeRenderer::add(const glm::vec3& position) { }
+void CubeRender::AddNewLocation( sf::Vector3f l ) { }
 
-void CubeRenderer::render( Camera* camera, bool poly ) {
-	
-	// std::pair<Block*, Model*> >
-	BlockDatabase::GetInstance()->CreateDefaultCubeModel(_model);
-
+void CubeRender::RenderModels( Camera* c, BlockModel* m ) {
 
 	/* activate shader , bind vao and texture */ 
-	_cubeShader->Activate();
-	_model->GetVao().bind();
-	BlockDatabase::GetInstance()->GetTexture()->bind();
+	_defaultShader->Activate();
+	m->GetVao().bind();
 
 	/* update camera */
-	camera->UpdateCameraVector();
+	c->UpdateCameraVector();
 
 	/* project view model */
-	
-	_cubeShader->LoadViewMatrix(camera->GetViewMatrix());
-	_cubeShader->LoadProjectionMatrix(camera->GetProjectionMatrix());
-	_cubeShader->LoadModelMatrix(_model->ModelMatrix( _default, DEFAULT_ROTATION ) );
+	_defaultShader->LoadViewMatrix(c->GetViewMatrix());
+	_defaultShader->LoadProjectionMatrix(c->GetProjectionMatrix());
 
-#ifdef LAB
-	/* draw line only */
-	glDrawElements(
-		GL_TRIANGLES,
-		GLsizei(
-			BlockDatabase::GetInstance()->GetModel()->GetIndiceCount()),
-		GL_UNSIGNED_INT, 0
-	);
+	for (auto& cube : GetLocation()) {
 
-	/* draw by strip triangle */
-	//glDrawElements(GL_TRIANGLE_STRIP, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+		_defaultShader->LoadModelMatrix( MakeModelMatrix(ConvertToGlmVec3f(cube), DEFAULT_ROTATION));
 
-#else
-	/* draw using indices */
-	glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+		#ifdef LAB
+				/* draw line only */
+				glDrawElements(
+					GL_TRIANGLES,
+					m->GetModel()->GetIndiceCount(),
+					GL_UNSIGNED_INT, 0
+				);
 
-#endif // LAB
+				/* draw by strip triangle */
+				//glDrawElements(GL_TRIANGLE_STRIP, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
 
+		#else
+				/* draw using indices */
+				glDrawElements(GL_TRIANGLES, GLsizei(pair.second->getIndiceCount()), GL_UNSIGNED_INT, 0);
+
+		#endif // LAB
+	}
 
 }
 
-void CubeRenderer::RenderBySection(const std::vector<Block*>& blocks) {
-
-};
 
 

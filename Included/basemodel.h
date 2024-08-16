@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include "modelloading.h"
 #include "glm.h"
 #include "Mesh.h"
@@ -24,12 +25,15 @@ public:
 		std::vector<GLfloat>& );
 
 	GLuint GetIndiceCount( ) const;
+	sf::Vector3f GetModelLocation();
+	void SetModelLocation( sf::Vector3f);
 
 private:
 	
-	VAO		m_vao;
-	GLuint	m_vboCount = 0; 
-	GLuint	m_indicesCount = 0;
+	sf::Vector3f		_defaultLocation;
+	VAO					m_vao;
+	GLuint				m_vboCount = 0; 
+	GLuint				m_indicesCount = 0;
 	std::vector<VBO> m_buffers;
 
 };

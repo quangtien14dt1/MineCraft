@@ -1,27 +1,26 @@
 #pragma once
 
 #include "glm.h"
-#include "Model.h"
-#include "shader/BasicShader.h"
-#include "texture/QuadTexture.h"
+#include "baserender.h"
+#include <SFML/Graphics.hpp>
 #include <vector>
 
+class QuadModel;
+class BaseModel;
 class Camera;
+class BasicShader;
 
-class QuadRenderer
-{
+class QuadRender : public BaseRender {
+
 public:
-	QuadRenderer();
-	
-	void add(const glm::vec3& position);
-
-	void render(Camera* camera);
+	QuadRender();
+	~QuadRender();
+	void RenderModels(Camera*, QuadModel* );
+	std::vector< sf::Vector3f > GetLocation();
+	void AddNewLocation(sf::Vector3f);
 
 private:
-	std::vector<glm::vec3> m_quads;
-
-	Model m_quadModel;
-	BasicShader m_shader;
-	QuadTexture m_texture;
+	std::vector<sf::Vector3f > _quadLocations;
+	BasicShader* _defaultShader;
 };
 
