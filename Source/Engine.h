@@ -29,7 +29,7 @@ class Application;
 class Camera;
 class BasicShader;
 class Model;
-class Render;
+class ModelRender;
 class BlockDatabase;
 class BlockFactory;
 
@@ -59,7 +59,6 @@ public:
 	/* load data */
 	void LoadMap();
 
-	void LoadModeRender();
 	void SetRenderMode( bool);
 	bool GetRenderMode();
 
@@ -72,7 +71,7 @@ private:
 	Context*		_pContext;
 	Application*	_pApplication; 
 	Camera*			_camera;	
-	Render*	_renderMaster;
+	ModelRender*	_renderMaster;
 	std::vector< std::shared_ptr< Model> > _vModel;
 	std::list<IObserver*> _observer;
 };

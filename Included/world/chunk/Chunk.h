@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "world/worldcontant.h"
+#include "world/block/blockcontribute.h"
 
 /* 
   make play ground ( x, y)  and z is ladder to sky
@@ -15,12 +16,14 @@ class ChunkModel;
 class BlockDatabase;
 class Block;
 
+
+
 class Chunk {
 public:
 	Chunk( sf::Vector3i );
 	~Chunk();
 
-	void SetBlockType(int x, int y, int z, BlockType);
+	void SetBlockType(int x, int y, int z, BlockType type);
 
 	bool OutOfBoundValidate(int x, int y, int z);
 

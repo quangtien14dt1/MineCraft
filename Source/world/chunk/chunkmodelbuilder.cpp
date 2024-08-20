@@ -124,7 +124,7 @@ void ChunkModelBuilder::AddFaceToMesh(
 	* so world map be 16x16 2d , each be a chunk 
 	* and from above look down , each chunk contain 16x16 block 
 	*/
-	if (CheckingShouldAddFace(blockAdj, block)) {
+	if (CheckingShouldAddFace(blockAdj)) {
 		auto texCoords = BlockDatabase::GetInstance()->GetTextureCoords(block);
 
 		_chunkMesh->AddFace( blockFace, texCoords, bLocation,_chunk->GetChunkLocation());
@@ -133,8 +133,8 @@ void ChunkModelBuilder::AddFaceToMesh(
 };
 
 bool ChunkModelBuilder::CheckingShouldAddFace(
-	const sf::Vector3i& blockAdj,
-	const Block* block
+	const sf::Vector3i& blockAdj
+	//const Block* block
 ) 
 {
 	

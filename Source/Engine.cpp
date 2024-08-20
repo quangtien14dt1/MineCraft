@@ -8,8 +8,9 @@
 #include "entity/camera.h"
 #include "modelloading.h"
 #include "mesh.h"
-#include "model.h"
-#include "renderer/render.h"
+#include "basemodel.h"
+#include "renderer/baserender.h"
+#include "renderer/modelsrender.h"
 #include "shader/basicshader.h"
 #include "world/block/blockdatabase.h"
 #include "world/block/blockfactory.h"
@@ -47,7 +48,7 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 	/* with block instance camera and Rendermaster */
 	_camera = new Camera( _pConfig, _pContext );
 
-	_renderMaster = new Render();
+	_renderMaster = new ModelRender();
 
 	Attach(_camera);
 
@@ -79,8 +80,6 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 /**/
 void Engine::LoadMap() {
 
-	BlockDatabase::GetInstance()->CreateDefaultCubeModel();
-
 	/* need baking chunk and chunk database ? */
 
 	/*
@@ -99,27 +98,18 @@ void Engine::LoadMap() {
 	Chunk chunk({0,0,0});
 
 	chunk.CreateChunk();
+
 };
 
-void Engine::LoadModeRender() {
-	if (_polyMode) {
-
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
-	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
-	}
-};
 
 void Engine::Invoke() {
 
-	LoadModeRender();
-	_renderMaster->render(_camera, 1);
+	//_renderMaster->RenderModels(_camera, 1);
 };
 
-void Engine::SetRenderMode( bool m ) { _polyMode = m; };
-
-bool Engine::GetRenderMode() { return _polyMode; }
+void Engine::SetRenderMode( bool m ) { 
+	_renderMaster->SetRenderMode(m);
+};
 
 Camera* Engine::GetCamera() { return _camera; };
 

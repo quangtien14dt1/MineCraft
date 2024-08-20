@@ -1,5 +1,6 @@
 #include "world/chunk/chunkmodel.h"
 #include "world/block/blockcontribute.h"
+#include "world/worldcontant.h"
 #include "mesh.h"
 
 
@@ -29,7 +30,7 @@ void ChunkModel::AddFace(
 	/* 
 	 vertices 
 	*/
-	for (int i = 0, int index = 0; i < 4; ++i) {
+	for (int i = 0, index = 0; i < 4; ++i) {
 
 		// first chessmap scale -> block location -> vertex
 		verticies.push_back( cl.x * CHUNK_SIZE + bl.x + face[index++]);
@@ -55,12 +56,12 @@ void ChunkModel::AddMeshToModel() {
 	AddData(_mesh);
 
 	_mesh.vertexPositions.clear();
-	_mesh.vertexPositions.clear();
-	_mesh.vertexPositions.clear();
+	_mesh.textureCoords.clear();
+	_mesh.indices.clear();
 
 	_mesh.vertexPositions.shrink_to_fit();
-	_mesh.vertexPositions.shrink_to_fit();
-	_mesh.vertexPositions.shrink_to_fit();
+	_mesh.textureCoords.shrink_to_fit();
+	_mesh.indices.shrink_to_fit();
 
 	_indexIndice = 0;
 

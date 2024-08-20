@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Model.h"
-#include "World/Block/BlockContribute.h"
-#include "World/Block/BlockDatabase.h"
+#include "basemodel.h"
+#include "world/Block/blockcontribute.h"
+#include "world/Block/blockdatabase.h"
 
 
 static BlockDatabase* _pBlockDatabase;
@@ -213,9 +213,9 @@ void BlockDatabase::CreateDefaultCubeModel(Model* m) {
 	texCoords.insert(texCoords.end(), top.begin(), top.end());
 	texCoords.insert(texCoords.end(), bottom.begin(), bottom.end());
 
-	_cubeModel = new Model();
+	//_cubeModel = new BaseModel();
 
-	_cubeModel->AddData({ vertexCoords, texCoords, indices });
+	//_cubeModel->AddData({ vertexCoords, texCoords, indices });
 }
 
 Model* BlockDatabase::GetModel() { return _cubeModel; };
@@ -240,23 +240,23 @@ BlockDatabase::GetTextureCoords( const Block* b) {
 
 void BlockDatabase::RemoveBlockByLocation(const sf::Vector3f& p) {
 
-	auto yIt = _blockStore.find( ChunkKey(p) );
+	//auto yIt = _blockStore.find( ChunkKey(p) );
 
-	if (yIt != _blockStore.end()) {
+	//if (yIt != _blockStore.end()) {
 
-		auto xzIt = std::find_if(yIt->second.begin(), yIt->second.end(), [&p](Block* b) {
-			return b->location.x == p.x && b->location.y == p.y;
-			});
+	//	auto xzIt = std::find_if(yIt->second.begin(), yIt->second.end(), [&p](Block* b) {
+	//		return b->location.x == p.x && b->location.y == p.y;
+	//		});
 
-		if (xzIt != yIt->second.end()) {
-			delete *xzIt;
-			yIt->second.erase(xzIt);
-		}
-		if (yIt->second.empty()) {
-			_blockStore.erase(yIt);
-		}
+	//	if (xzIt != yIt->second.end()) {
+	//		delete *xzIt;
+	//		yIt->second.erase(xzIt);
+	//	}
+	//	if (yIt->second.empty()) {
+	//		_blockStore.erase(yIt);
+	//	}
 
-	}
+	//}
 
 };
 
@@ -265,7 +265,7 @@ CubeTexture* BlockDatabase::GetTexture() { return _cubeTexture; };
 
 Block* BlockDatabase::FindBlocksByChunkKey(const sf::Vector3f& p) const {
 
-	auto yIt = _blockStore.find( ChunkKey(p) );
+	/*auto yIt = _blockStore.find( ChunkKey(p) );
 
 	if (yIt != _blockStore.end()) {
 
@@ -277,6 +277,7 @@ Block* BlockDatabase::FindBlocksByChunkKey(const sf::Vector3f& p) const {
 			return *xzIt;
 		}
 	}
+	*/
 	return nullptr;
 }
 

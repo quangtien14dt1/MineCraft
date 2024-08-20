@@ -1,8 +1,6 @@
 #include "world/chunk/Chunk.h"
 #include "world/block/blockdatabase.h"
 #include "world/block/blockfactory.h"
-#include "world/block/blockcontribute.h"
-
 #include <random>
 #include <iostream>
 
@@ -16,7 +14,7 @@ void Chunk::SetBlockType(int x, int y, int z, BlockType type) {
 
     Block* block = GetBlockByLocation(x,y,z);
 
-    block = BlockFactory::GetInstance()->CreateBlock(type);
+    block = BlockFactory::GetInstance()->PointToBlockType(type);
     
 };
 
@@ -29,11 +27,11 @@ bool Chunk::OutOfBoundValidate(int x, int y, int z) {
 
 void Chunk::CreateChunk() {
     // now much better
-    for (float x = 0; x < CHUNK_SIZE; ++x) {
+    for (int x = 0; x < CHUNK_SIZE; ++x) {
 
-        for (float y = 0; y < CHUNK_SIZE; ++y) {
+        for (int y = 0; y < CHUNK_SIZE; ++y) {
 
-            for (float z = 0; z < 2; ++z) {
+            for (int z = 0; z < 2; ++z) {
 
                 SetBlockType(x, y, z, BlockType::Grass );
 

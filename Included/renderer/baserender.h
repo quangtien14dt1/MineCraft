@@ -2,6 +2,7 @@
 
 #include "glm.h"
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 class Camera;
 class BaseModel;
@@ -9,12 +10,15 @@ class BaseModel;
 class BaseRender 
 {
 public:
-	BaseRender();
-	virtual void RenderModels( Camera*, bool ) = 0;
-	virtual ~BaseRender( );
+	virtual void RenderModels( Camera*, BaseModel*) = 0;
 	virtual void AddModel( const BaseModel* ) = 0;
-	virtual bool GetRenderModels() = 0;
-private:
-	std::vector<const BaseModel*> _model;
+	virtual std::vector< const BaseModel* > 
+		GetRenderModels() = 0;
+
+	virtual void RenderModelsByListLocation(
+		Camera*,
+		BaseModel*,
+		std::vector<sf::Vector3f> &
+	) = 0;
 };
 

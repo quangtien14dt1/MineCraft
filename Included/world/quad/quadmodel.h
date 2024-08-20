@@ -3,11 +3,16 @@
 #include <SFML/Graphics.hpp>
 #include "glm.h"
 #include "basemodel.h"
+#include "mesh.h"
 
 class Block;
-class Mesh;
 class QuadTexture;
 
+/*
+basemodel containt data and it default 
+location, renderer will containt list of model
+location
+*/
 class  QuadModel : public BaseModel
 {
 public:
@@ -22,7 +27,7 @@ public:
 	QuadTexture* GetTexture();
 
 private:
-	std::vector< sf::Vector3i > _location;
+	
 	Mesh	_mesh;
 	QuadTexture* _quadTexture;
 };

@@ -10,6 +10,8 @@ class BaseModel {
 
 public:
 
+	~BaseModel();
+
 	/* abstrct functions */
 	virtual void InitModel( );
 	virtual void AddData( const Mesh& );
@@ -25,6 +27,8 @@ public:
 		std::vector<GLfloat>& );
 
 	GLuint GetIndiceCount( ) const;
+
+	/* it own model's location */
 	sf::Vector3f GetModelLocation();
 	void SetModelLocation( sf::Vector3f);
 

@@ -10,7 +10,7 @@ public :
 	BlockFactory();
 	static BlockFactory* _pBlockFactory;
 	static BlockFactory* GetInstance();
-	Block* CreateBlock(BlockType);
+	Block* PointToBlockType(BlockType);
 	~BlockFactory();
 	std::array<Block*, static_cast<size_t>(BlockType::NUM_TYPES) >  _blocksType;
 };

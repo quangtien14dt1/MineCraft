@@ -5,7 +5,7 @@
 #include "basemodel.h"
 
 class Block;
-class Mesh;
+struct Mesh;
 class CubeTexture;
 
 class BlockModel : public BaseModel

@@ -4,10 +4,10 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
-#include ".././Utils/Patterns/SingleTon.h"
-#include "World/Block/BlockContribute.h"
-#include "World/Block/BlockFactory.h"
-#include "../../Texture/CubeTexture.h"
+#include "utils/patterns/SingleTon.h"
+#include "world/block/blockcontribute.h"
+#include "world/block/blockfactory.h"
+#include "texture/cubetexture.h"
 
 class Model;
 
@@ -26,9 +26,9 @@ public:
 	
 	~BlockDatabase();
 
-	const Block* GetBlock(BlockType id) const;
+	const Block* GetBlock(BlockType  id) const;
 
-	const Block* GetBlockId(BlockType id) const;
+	const Block* GetBlockId(BlockType  id) const;
 
 	void AddBlock( const sf::Vector3f& ,Block* );
 

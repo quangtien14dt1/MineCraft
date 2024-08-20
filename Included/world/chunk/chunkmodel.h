@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "glm.h"
 #include "basemodel.h"
+#include "mesh.h"
 
 class Block;
-class Mesh;
 
 class ChunkModel : public BaseModel
 {

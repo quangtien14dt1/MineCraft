@@ -21,8 +21,8 @@ public:
 	void BuildMesh( ChunkModel&, Chunk&);
 
 	bool CheckingShouldAddFace(
-		 const sf::Vector3i& nextDoorBlock,
-		 const Block* block
+		 const sf::Vector3i& nextDoorBlock
+		 //const Block* block
 	);
 
 	void AddFaceToMesh(

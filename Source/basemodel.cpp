@@ -91,4 +91,8 @@ void BaseModel::SetModelLocation(sf::Vector3f l) {
 	_defaultLocation = l;
 };
 
+BaseModel::~BaseModel() {
+
+};
+
 

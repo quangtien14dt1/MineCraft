@@ -6,42 +6,25 @@ BlockFactory* BlockFactory::_pBlockFactory = nullptr;
 /* small type factory  menthod  
 */
 BlockFactory::BlockFactory() {
-
+	_blocksType[static_cast<size_t>(BlockType::Air)] = new AirBlock();
+	_blocksType[static_cast<size_t>(BlockType::Dirt)] = new DirtBlock();
+	_blocksType[static_cast<size_t>(BlockType::Grass)] = new GrassBlock();
+	_blocksType[static_cast<size_t>(BlockType::Stone)] = new StoneBlock();
 };
 
-Block* BlockFactory::CreateBlock(BlockType id) {
+Block* BlockFactory::PointToBlockType(BlockType id) {
 
 	switch (id) {
 		case BlockType::Air:
-			if (!_blocksType[(unsigned)BlockType::Air]) {
-
-				_blocksType[(unsigned)BlockType::Air] = &AirBlock();
-
-			}
 			return _blocksType[(unsigned)BlockType::Air];
 			
 		case BlockType::Dirt:
-			if(!_blocksType[(unsigned)BlockType::Dirt]) {
-
-				_blocksType[(unsigned)BlockType::Dirt] = &DirtBlock();
-
-			}
 			return _blocksType[(unsigned)BlockType::Dirt];
 
 		case BlockType::Grass:
-			if (!_blocksType[(unsigned)BlockType::Grass]) {
-
-				_blocksType[(unsigned)BlockType::Grass] = &GrassBlock();
-
-			}
 			return _blocksType[(unsigned)BlockType::Grass];
 
 		case BlockType::Stone:
-			if (!_blocksType[(unsigned)BlockType::Stone]) {
-
-				_blocksType[(unsigned)BlockType::Stone] = &StoneBlock();
-
-			}
 			return _blocksType[(unsigned)BlockType::Stone];
 
 		default:

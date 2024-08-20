@@ -235,11 +235,9 @@
     <ClInclude Include="Dependencies\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="Dependencies\include\SFML\Window\WindowStyle.hpp" />
-    <ClInclude Include="Included\renderer\chunkrenderer.h" />
     <ClInclude Include="Included\renderer\baserender.h" />
     <ClInclude Include="Included\entity\entity.h" />
     <ClInclude Include="Included\mesh.h" />
-    <ClInclude Include="Included\renderer\quadrenderer.h" />
     <ClInclude Include="Included\world\block\blockmodel.h" />
     <ClInclude Include="Included\world\chunk\chunkmodel.h" />
     <ClInclude Include="Included\world\chunk\chunkmodelbuilder.h" />
@@ -256,7 +254,7 @@
     <ClInclude Include="Included\modelloading.h" />
     <ClInclude Include="Source\utils\patterns\noncopyable.h" />
     <ClInclude Include="Source\utils\patterns\observerpattern.h" />
-    <ClInclude Include="Included\renderer\cuberenderer.h" />
+    <ClInclude Include="Included\renderer\modelsrender.h" />
     <ClInclude Include="Included\shader\basicshader.h" />
     <ClInclude Include="Included\shader\shader.h" />
     <ClInclude Include="Source\utils\shaderloader.h" />
@@ -308,16 +306,13 @@
     <None Include="Resource\shaders\Quad.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\renderer\chunkrenderer.cpp" />
-    <ClCompile Include="Source\renderer\baserenderer.cpp" />
-    <ClCompile Include="Source\renderer\quadrenderer.cpp" />
     <ClCompile Include="Source\application.cpp" />
     <ClCompile Include="Source\context.cpp" />
     <ClCompile Include="Source\engine.cpp" />
     <ClCompile Include="Source\entity\camera.cpp" />
     <ClCompile Include="Source\basemodel.cpp" />
     <ClCompile Include="Source\minecraft.cpp" />
-    <ClCompile Include="Source\renderer\cuberenderer.cpp" />
+    <ClCompile Include="Source\renderer\modelsrender.cpp" />
     <ClCompile Include="Source\shader\basicshader.cpp" />
     <ClCompile Include="Source\utils\shaderloader.cpp" />
     <ClCompile Include="Source\texture\cubetexture.cpp" />

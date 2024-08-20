@@ -45,14 +45,6 @@ QuadTexture* QuadModel::GetTexture() {
 	return _quadTexture;
 };
 
-std::vector< sf::Vector3i > QuadModel::GetLocation() {
-	return _location;
-}
-
-void QuadModel::AddNewLocation(sf::Vector3i l) {
-	_location.push_back(l);
-}
-
 BaseModel* QuadModel::GetModel() {
 	return dynamic_cast<BaseModel*>(this);
 }
