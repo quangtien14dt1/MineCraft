@@ -77,6 +77,8 @@ struct Direction {
 	sf::Vector3i back;
 };
 
+ChunkModelBuilder* ChunkModelBuilder::_pChunkModelBuilder = nullptr;
+
 ChunkModelBuilder::ChunkModelBuilder()
 { }
 

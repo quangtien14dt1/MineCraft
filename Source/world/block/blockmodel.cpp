@@ -2,10 +2,12 @@
 #include "world/block/blockcontribute.h"
 #include "texture/cubetexture.h"
 
-BlockModel::BlockModel()
+BlockModel::BlockModel(CubeTexture* cubeTexture)
+	:_cubeTexture(cubeTexture)
 {
-	_cubeTexture = new CubeTexture();
-	_cubeTexture->SetupCubeImage("DefaultPack");
+	/*_cubeTexture = new CubeTexture();
+	_cubeTexture->SetupCubeImage("DefaultPack");*/
+	
 }
 
 void BlockModel::CreateBlockMesh( const Block* block ) {
@@ -102,6 +104,9 @@ void BlockModel::CreateBlockMesh( const Block* block ) {
 	_mesh.vertexPositions = vertexCoords;
 	_mesh.textureCoords = texCoords;
 	_mesh.indices = indices;
+
+	AddMeshToModel();
+
 
 };
 

@@ -32,6 +32,8 @@ class Model;
 class ModelRender;
 class BlockDatabase;
 class BlockFactory;
+class QuadTexture;
+class CubeTexture;
 
 class Engine : public ISubject, public SingleTon
 {
@@ -74,5 +76,8 @@ private:
 	ModelRender*	_renderMaster;
 	std::vector< std::shared_ptr< Model> > _vModel;
 	std::list<IObserver*> _observer;
+	QuadTexture* _quadTexture;
+	CubeTexture* _cubeTexture;
+
 };
 

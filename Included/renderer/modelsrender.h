@@ -12,32 +12,34 @@ class BlockModel;
 class BaseModel;
 class Camera;
 class BasicShader;
+class QuadTexture;
 
 class ModelRender : public BaseRender {
 
 public:
 	ModelRender();
 	~ModelRender();
-	void RenderModels(Camera*, BaseModel*) override;
+	void RenderModels(Camera*, QuadTexture*) override;
 	void RenderModelsByListLocation(
 		Camera*,
 		BaseModel*,
+		QuadTexture*,
 		std::vector<sf::Vector3f>&
 	) override;
 
-	std::vector< const BaseModel* >
+	std::vector< BaseModel* >
 		GetRenderModels() override;
 
 	std::vector< sf::Vector3f > GetLocation();
 	void AddNewLocation(sf::Vector3f);
-	void AddModel(const BaseModel*);
+	void AddModel( BaseModel*);
 	void SetRenderMode(bool m);
 
 	const void Polygon() const;
 	
 private:
 	std::vector<sf::Vector3f > _modelLocations;
-	std::vector< const BaseModel* >  _modelList;
+	std::vector< BaseModel* >  _modelList;
 	BasicShader* _defaultShader;
 	bool _polyMode;
 };

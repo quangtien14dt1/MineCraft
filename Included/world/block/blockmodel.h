@@ -11,7 +11,7 @@ class CubeTexture;
 class BlockModel : public BaseModel
 {
 public:
-	BlockModel();
+	BlockModel(CubeTexture*);
 
 	void CreateBlockMesh(const Block* );
 

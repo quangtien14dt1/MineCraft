@@ -6,18 +6,20 @@
 
 class Camera;
 class BaseModel;
+class QuadTexture;
 
 class BaseRender 
 {
 public:
-	virtual void RenderModels( Camera*, BaseModel*) = 0;
-	virtual void AddModel( const BaseModel* ) = 0;
-	virtual std::vector< const BaseModel* > 
+	virtual void RenderModels( Camera*, QuadTexture*) = 0;
+	virtual void AddModel( BaseModel* ) = 0;
+	virtual std::vector< BaseModel* > 
 		GetRenderModels() = 0;
 
 	virtual void RenderModelsByListLocation(
 		Camera*,
 		BaseModel*,
+		QuadTexture*,
 		std::vector<sf::Vector3f> &
 	) = 0;
 };

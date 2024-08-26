@@ -3,6 +3,8 @@
 #include "world/block/blockcontribute.h"
 #include "shader/basicShader.h"
 #include "world/block/blockmodel.h"
+#include "texture/quadtexture.h"
+#include "texture/cubetexture.h"
 #include "ultils/matrix.h"
 #include <vector>
 #include <iostream>
@@ -19,7 +21,7 @@ ModelRender::~ModelRender() {
 	}
 };
 
-std::vector< const BaseModel* > 
+std::vector< BaseModel* > 
 ModelRender::GetRenderModels() {
 	return _modelList;
 };
@@ -35,48 +37,54 @@ ModelRender::GetLocation() {
 
 void ModelRender::SetRenderMode(bool m) { _polyMode = m; };
 
-void ModelRender::AddModel( const BaseModel* m) {
+void ModelRender::AddModel( BaseModel* m) {
 	_modelList.push_back(m);
 }
 
-void ModelRender::RenderModels( Camera* c, BaseModel* m ) {
+void ModelRender::RenderModels( Camera* c, QuadTexture* t) {
 
-	/* activate shader , bind vao and texture */ 
-	_defaultShader->Activate();
-	m->GetVao().bind();
+	for (auto& m : _modelList) {
+		/* activate shader , bind vao and texture */
+		_defaultShader->Activate();
+		m->GetVao().bind();
+		t->bind();
 
-	/* update camera */
-	c->UpdateCameraVector();
+		/* update camera */
+		c->UpdateCameraVector();
 
-	/* project view model */
-	_defaultShader->LoadViewMatrix(c->GetViewMatrix());
-	_defaultShader->LoadProjectionMatrix(c->GetProjectionMatrix());
-	_defaultShader->LoadModelMatrix(
-		MakeModelMatrix(
-			ConvertToGlmVec3f(m->GetModelLocation()), 
-			DEFAULT_ROTATION)
-	);
+		/* project view model */
+		_defaultShader->LoadViewMatrix(c->GetViewMatrix());
+		_defaultShader->LoadProjectionMatrix(c->GetProjectionMatrix());
+		_defaultShader->LoadModelMatrix(
+			MakeModelMatrix(
+				ConvertToGlmVec3f(m->GetModelLocation()),
+				DEFAULT_ROTATION)
+		);
 
-	/* draw model by indices */
-	glDrawElements(
-		GL_TRIANGLES,
-		m->GetIndiceCount(),
-		GL_UNSIGNED_INT, 0
-	);
+		/* draw model by indices */
+		glDrawElements(
+			GL_TRIANGLES,
+			m->GetIndiceCount(),
+			GL_UNSIGNED_INT, 0
+		);
 
-	Polygon();
+		Polygon();
+
+	}
 
 }
 
 void ModelRender::RenderModelsByListLocation(
 	Camera* c,
 	BaseModel* m,
+	QuadTexture* t,
 	std::vector<sf::Vector3f>& locations
 )
 {
 	/* activate shader , bind vao and texture */
 	_defaultShader->Activate();
 	m->GetVao().bind();
+	t->bind();
 
 	/* update camera */
 	c->UpdateCameraVector();

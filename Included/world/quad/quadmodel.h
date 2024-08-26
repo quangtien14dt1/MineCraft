@@ -16,9 +16,9 @@ location
 class  QuadModel : public BaseModel
 {
 public:
-	QuadModel();
+	QuadModel(QuadTexture*);
 
-	void CreateQuadMesh(const Block*);
+	void CreateQuadMesh();
 
 	void AddMeshToModel();
 

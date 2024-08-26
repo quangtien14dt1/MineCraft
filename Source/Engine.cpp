@@ -15,6 +15,9 @@
 #include "world/block/blockdatabase.h"
 #include "world/block/blockfactory.h"
 #include "world/chunk/chunk.h"
+#include "world/quad/quadmodel.h"
+#include "texture/quadtexture.h"
+#include "texture/cubetexture.h"
 
 
 
@@ -50,6 +53,10 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 
 	_renderMaster = new ModelRender();
 
+	_quadTexture = new QuadTexture();
+
+	_cubeTexture = new CubeTexture();
+
 	Attach(_camera);
 
 }
@@ -61,6 +68,14 @@ Engine::~Engine() {
 
 	if (_renderMaster != NULL) { 
 		delete _renderMaster; _renderMaster = nullptr; 
+	}
+
+	if (_quadTexture != NULL) {
+		delete _quadTexture; _quadTexture = nullptr;
+	}
+
+	if (_cubeTexture != NULL) {
+		delete _cubeTexture; _cubeTexture = nullptr;
 	}
 
 };
@@ -95,16 +110,18 @@ void Engine::LoadMap() {
 	* 
 	*/
 
-	Chunk chunk({0,0,0});
+	_quadTexture->LoadFromFile("test");
 
-	chunk.CreateChunk();
+	QuadModel* model = new QuadModel(_quadTexture);
+
+	_renderMaster->AddModel(model);
 
 };
 
 
 void Engine::Invoke() {
 
-	//_renderMaster->RenderModels(_camera, 1);
+	_renderMaster->RenderModels(_camera, _quadTexture);
 };
 
 void Engine::SetRenderMode( bool m ) { 

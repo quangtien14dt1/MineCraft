@@ -1,13 +1,13 @@
 #include "world/quad/quadmodel.h"
 #include "texture/QuadTexture.h"
 
-QuadModel::QuadModel()
+QuadModel::QuadModel(QuadTexture* texture)
+	:_quadTexture(texture)
 {
-	_quadTexture = new QuadTexture();
-	_quadTexture->LoadFromFile("test");
+	CreateQuadMesh();
 }
 
-void QuadModel::CreateQuadMesh(const Block* block) {
+void QuadModel::CreateQuadMesh( ) {
 
 	std::vector<GLfloat> vertexCoords{
 		/* vertex coord */
@@ -34,6 +34,8 @@ void QuadModel::CreateQuadMesh(const Block* block) {
 	_mesh.vertexPositions = vertexCoords;
 	_mesh.textureCoords = texCoords;
 	_mesh.indices = indices;
+
+	AddMeshToModel();
 
 };
 

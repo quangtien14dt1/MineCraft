@@ -152,7 +152,11 @@ void Application::HandleEvents(sf::Event& e) {
 			break;
 
 		case sf::Keyboard::M:
-			_pEngine->SetRenderMode(!_pEngine->GetRenderMode());
+			_pEngine->SetRenderMode( true);
+			break;
+
+		case sf::Keyboard::N:
+			_pEngine->SetRenderMode(false);
 			break;
 
 		default:

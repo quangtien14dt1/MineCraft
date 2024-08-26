@@ -381,13 +381,7 @@
     <ClInclude Include="Included\texture\cubetexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\renderer\quadrenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Included\basemodel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Included\renderer\cuberenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\texture\quadtexture.h">
@@ -397,9 +391,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\entity\entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Included\renderer\render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Included\world\block\blockcontribute.h">
@@ -432,10 +423,16 @@
     <ClInclude Include="Included\world\worldgenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\renderer\chunkrenderer.h">
+    <ClInclude Include="Included\world\block\blockmodel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Included\world\block\blockmodel.h">
+    <ClInclude Include="Included\renderer\baserender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\world\quad\quadmodel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Included\renderer\modelsrender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -519,22 +516,13 @@
     <ClCompile Include="Source\texture\cubetexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\renderer\quadrenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\basemodel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\renderer\cuberenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\texture\quadtexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\utils\matrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\renderer\render.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\world\block\blockdatabase.cpp">
@@ -564,10 +552,13 @@
     <ClCompile Include="Source\world\block\stoneblock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\renderer\chunkrenderer.cpp">
+    <ClCompile Include="Source\world\block\blockmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\world\block\blockmodel.cpp">
+    <ClCompile Include="Source\renderer\modelsrender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\World\quad\quadmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
