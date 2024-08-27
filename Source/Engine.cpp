@@ -16,6 +16,7 @@
 #include "world/block/blockfactory.h"
 #include "world/chunk/chunk.h"
 #include "world/quad/quadmodel.h"
+#include "world/block/blockmodel.h"
 #include "texture/quadtexture.h"
 #include "texture/cubetexture.h"
 
@@ -92,8 +93,15 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 	/* Shader unifitions */
 };
 
+void Engine::InitTexture() {
+	_quadTexture->LoadFromFile("test");
+	_cubeTexture->SetupCubeImage("DefaultPack");
+};
+
 /**/
 void Engine::LoadMap() {
+
+	InitTexture();
 
 	/* need baking chunk and chunk database ? */
 
@@ -110,11 +118,15 @@ void Engine::LoadMap() {
 	* 
 	*/
 
-	_quadTexture->LoadFromFile("test");
-
 	QuadModel* model = new QuadModel(_quadTexture);
 
-	_renderMaster->AddModel(model);
+	/*const Block* block = BlockFactory()._blocksType[(unsigned)BlockType::Grass];*/
+	BlockModel* cubeModel = new BlockModel(_cubeTexture);
+
+	cubeModel->CreateBlockMesh(BlockFactory()._blocksType[(unsigned)BlockType::Grass]);
+
+	//_renderMaster->AddModel(model);
+	_renderMaster->AddModel(cubeModel);
 
 };
 

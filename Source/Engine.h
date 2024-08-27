@@ -63,6 +63,7 @@ public:
 
 	void SetRenderMode( bool);
 	bool GetRenderMode();
+	void InitTexture();
 
 private:
 	bool _polyMode;
