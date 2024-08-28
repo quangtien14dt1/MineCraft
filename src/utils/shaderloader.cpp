@@ -44,8 +44,8 @@ GLuint ShaderUtil::LoadShader(const std::string& vertex,
     const std::string& fragment) {
 
     /* load content from file */
-    auto vertexSource = ShaderUtil::GetFileContents("Resource/shaders/" + vertex + ".vert");
-    auto fragmentSource = ShaderUtil::GetFileContents("Resource/shaders/" + fragment + ".frag");
+    auto vertexSource = ShaderUtil::GetFileContents("res/shaders/" + vertex + ".vert");
+    auto fragmentSource = ShaderUtil::GetFileContents("res/shaders/" + fragment + ".frag");
 
     /* creat by shader type : VERTEX_SHADER or FRAGMENT_SHADER */
     auto vertexShaderID = ShaderUtil::CompileShader(vertexSource.c_str(), GL_VERTEX_SHADER);

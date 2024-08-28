@@ -6,7 +6,7 @@ QuadTexture::~QuadTexture() { glDeleteTextures(1,&_id); }
 
 void QuadTexture::LoadFromFile(const std::string& name) {
 	sf::Image i;
-	if (!i.loadFromFile("Resource/textures/" + name + ".png")) {
+	if (!i.loadFromFile("res/textures/" + name + ".png")) {
 		throw std::runtime_error("Unable to load texture: " + name);
 	}
 	/*

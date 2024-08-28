@@ -5,7 +5,7 @@
 
 void CubeTexture::SetupCubeImage(std::string file) {
 	sf::Image i;
-	if (!i.loadFromFile("Resource/textures/" + file + ".png"))
+	if (!i.loadFromFile("res/textures/" + file + ".png"))
 	{
 		throw std::runtime_error("Unable to open image: " + file);
 	}

@@ -16,6 +16,8 @@
 #include "world/block/blockfactory.h"
 #include "world/chunk/chunk.h"
 #include "world/quad/quadmodel.h"
+#include "world/chunk/chunkmodel.h"
+#include "world/chunk/chunkmodelbuilder.h"
 #include "world/block/blockmodel.h"
 #include "texture/quadtexture.h"
 #include "texture/cubetexture.h"
@@ -57,6 +59,8 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 	_quadTexture = new QuadTexture();
 
 	_cubeTexture = new CubeTexture();
+
+	_blockFactory = new BlockFactory();
 
 	Attach(_camera);
 
@@ -125,15 +129,28 @@ void Engine::LoadMap() {
 
 	cubeModel->CreateBlockMesh(BlockFactory()._blocksType[(unsigned)BlockType::Grass]);
 
-	//_renderMaster->AddModel(model);
-	_renderMaster->AddModel(cubeModel);
+	// tao chunk 
+	Chunk chunk({0,0,0}, _blockFactory);
 
+	// tao chunkmodel 
+	ChunkModel* chunkModel = new ChunkModel();
+
+	// tao chunk builder 
+	ChunkModelBuilder builder;
+	// build 
+	
+	builder.BuildMesh(*chunkModel, chunk);
+	// add model 
+
+	//_renderMaster->AddModel(model);
+	_renderMaster->AddModel(chunkModel);
+	 
 };
 
 
 void Engine::Invoke() {
 
-	_renderMaster->RenderModels(_camera, _quadTexture);
+	_renderMaster->RenderModels(_camera, _cubeTexture);
 };
 
 void Engine::SetRenderMode( bool m ) { 

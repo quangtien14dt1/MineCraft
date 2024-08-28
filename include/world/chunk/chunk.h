@@ -14,13 +14,14 @@
 
 class ChunkModel;
 class BlockDatabase;
+class BlockFactory; 
 class Block;
 
 
 
 class Chunk {
 public:
-	Chunk( sf::Vector3i );
+	Chunk( sf::Vector3i, BlockFactory* );
 	~Chunk();
 
 	void SetBlockType(int x, int y, int z, BlockType type);
@@ -36,6 +37,7 @@ public:
 
 
 	Block* GetBlockByLocation(int x, int y, int z);
+	void SetBlockType(int x, int y, int z,Block* );
 
 private:
 
@@ -44,6 +46,7 @@ private:
 
 	/* store 3D map chunk' block y, x, z */
 	Block* _blocks[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
+	BlockFactory* _blockFactory;
 
 };
 

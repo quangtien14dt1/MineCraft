@@ -114,6 +114,10 @@ void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c) {
 		AddFaceToMesh(BlockFaces::frontFace, block, blocation, direction.front);
 		AddFaceToMesh(BlockFaces::backFace, block, blocation,direction.back);
 	}
+
+	// add mesh to model 
+	_chunkMesh->AddMeshToModel();
+
 };
 
 void ChunkModelBuilder::AddFaceToMesh(
@@ -130,6 +134,8 @@ void ChunkModelBuilder::AddFaceToMesh(
 		auto texCoords = BlockDatabase::GetInstance()->GetTextureCoords(block);
 
 		_chunkMesh->AddFace( blockFace, texCoords, bLocation,_chunk->GetChunkLocation());
+
+		
 
 	}
 };

@@ -4,17 +4,26 @@
 #include <random>
 #include <iostream>
 
-Chunk::Chunk(sf::Vector3i location)
-    : _chunkId(location)
-{ /* shoudl create blocks default */ }
+Chunk::Chunk(sf::Vector3i location, BlockFactory* f)
+    : _chunkId(location), _blockFactory(f)
+{ 
+    /* shoudl create blocks default */
+    CreateChunk();
+}
 
 Chunk::~Chunk() {};
 
+void Chunk::SetBlockType(int x, int y, int z,Block* b) {
+    _blocks[x][y][z] = b;
+};
+
 void Chunk::SetBlockType(int x, int y, int z, BlockType type) {
 
-    Block* block = GetBlockByLocation(x,y,z);
+    Block* block = GetBlockByLocation(x, y, z);
 
-    block = BlockFactory::GetInstance()->PointToBlockType(type);
+    block = _blockFactory->_blocksType[0];
+
+    SetBlockType(x,y,z,block);
     
 };
 
