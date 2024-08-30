@@ -95,8 +95,8 @@ void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c) {
 	_chunk = &c;
 
 	Direction direction;
-	for (int y = 0; y < CHUNK_SIZE; ++y)
 	for (int x = 0; x < CHUNK_SIZE; ++x)
+	for (int y = 0; y < CHUNK_AREA; ++y)
 	for (int z = 0; z < CHUNK_SIZE; ++z) {
 
 		Block*  block = _chunk->GetBlockByLocation(x,y,z);

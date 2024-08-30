@@ -45,7 +45,7 @@ private:
 	sf::Vector3i _chunkId;
 
 	/* store 3D map chunk' block y, x, z */
-	Block* _blocks[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
+	Block* _blocks[CHUNK_SIZE][CHUNK_AREA][CHUNK_SIZE];
 	BlockFactory* _blockFactory;
 
 };

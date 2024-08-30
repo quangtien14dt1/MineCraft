@@ -29,7 +29,7 @@ void Chunk::SetBlockType(int x, int y, int z, BlockType type) {
 
 bool Chunk::OutOfBoundValidate(int x, int y, int z) {
     return (x < CHUNK_SIZE && x >= 0)
-        && (y < CHUNK_SIZE && y >= 0)
+        && (y < CHUNK_AREA && y >= 0)
         && (z < CHUNK_SIZE && z >= 0);
 };
 
@@ -38,9 +38,9 @@ void Chunk::CreateChunk() {
     // now much better
     for (int x = 0; x < CHUNK_SIZE; ++x) {
 
-        for (int y = 0; y < CHUNK_SIZE; ++y) {
+        for (int y = 0; y < CHUNK_AREA; ++y) {
 
-            for (int z = 0; z < 2; ++z) {
+            for (int z = 0; z < CHUNK_SIZE; ++z) {
 
                 SetBlockType(x, y, z, BlockType::Grass );
 
