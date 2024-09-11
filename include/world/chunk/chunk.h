@@ -21,23 +21,23 @@ class Block;
 
 class Chunk {
 public:
-	Chunk( sf::Vector3i, BlockFactory* );
+	Chunk( sf::Vector3i );
 	~Chunk();
 
 	void SetBlockType(int x, int y, int z, BlockType type);
 
-	bool OutOfBoundValidate(int x, int y, int z);
+	bool isLocationValidate(int x, int y, int z);
 
 	/* chunk maintanance */
-	void CreateChunk();
+	void BlocksConfiguration();
 
 	sf::Vector3i GetChunkLocation() const ;
 
 	void SetChunkLocation(sf::Vector3i);
 
-
 	Block* GetBlockByLocation(int x, int y, int z);
-	void SetBlockType(int x, int y, int z,Block* );
+
+	void resetBlockChunk();
 
 private:
 
@@ -45,7 +45,7 @@ private:
 	sf::Vector3i _chunkId;
 
 	/* store 3D map chunk' block y, x, z */
-	Block* _blocks[CHUNK_SIZE][CHUNK_AREA][CHUNK_SIZE];
+	Block* _blocks[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
 	BlockFactory* _blockFactory;
 
 };

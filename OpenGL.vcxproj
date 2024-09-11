@@ -241,7 +241,9 @@
     <ClInclude Include="include\world\block\blockmodel.h" />
     <ClInclude Include="include\world\chunk\chunkmodel.h" />
     <ClInclude Include="include\world\chunk\chunkmodelbuilder.h" />
+    <ClInclude Include="include\world\noicegenerator.h" />
     <ClInclude Include="include\world\quad\quadmodel.h" />
+    <ClInclude Include="include\world\world.h" />
     <ClInclude Include="include\world\worldgenerator.h" />
     <ClInclude Include="src\application.h" />
     <ClInclude Include="include\context.h" />
@@ -330,7 +332,9 @@
     <ClCompile Include="src\world\chunk\chunk.cpp" />
     <ClCompile Include="src\world\chunk\chunkmodel.cpp" />
     <ClCompile Include="src\world\chunk\chunkmodelbuilder.cpp" />
+    <ClCompile Include="src\world\noicegenrator.cpp" />
     <ClCompile Include="src\world\quad\quadmodel.cpp" />
+    <ClCompile Include="src\world\world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\aiuehara.png" />

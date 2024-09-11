@@ -4,79 +4,111 @@
 #include <random>
 #include <iostream>
 
-Chunk::Chunk(sf::Vector3i location, BlockFactory* f)
-    : _chunkId(location), _blockFactory(f)
+Chunk::Chunk(sf::Vector3i location)
+    : _chunkId(location)
 { 
-    /* shoudl create blocks default */
-    CreateChunk();
+    resetBlockChunk();
 }
 
 Chunk::~Chunk() {};
 
-void Chunk::SetBlockType(int x, int y, int z,Block* b) {
-    _blocks[x][y][z] = b;
+/*
+* function setup all chunk'block
+* my height map and type 
+* 
+*/
+void Chunk::BlocksConfiguration() {
+    int  h = 10;
+    for (int x = 0; x < CHUNK_SIZE; ++x)
+    for (int y = 0; y < CHUNK_SIZE; ++y)
+
+        for (int z = 0; z < CHUNK_SIZE; ++z) {
+
+            SetBlockType(x, y, z, BlockType::Grass);
+
+            
+
+        }
+
 };
 
-void Chunk::SetBlockType(int x, int y, int z, BlockType type) {
+/* 
+* function reset all block of chunk
+* we point to NULL
+*/
+void Chunk::resetBlockChunk() {
 
-    Block* block = GetBlockByLocation(x, y, z);
+    for (int x = 0; x < CHUNK_SIZE; ++x)
+    for (int y = 0; y < CHUNK_SIZE; ++y)
 
-    block = _blockFactory->_blocksType[0];
+        for (int z = 0; z < CHUNK_SIZE; ++z) {
 
-    SetBlockType(x,y,z,block);
+            _blocks[x][y][z] = NULL;
+
+        }
     
 };
 
-bool Chunk::OutOfBoundValidate(int x, int y, int z) {
-    return (x < CHUNK_SIZE && x >= 0)
-        && (y < CHUNK_AREA && y >= 0)
-        && (z < CHUNK_SIZE && z >= 0);
-};
+/*
+* block type configuration
+*/
+void Chunk::SetBlockType(int x, int y, int z, BlockType type) {
+    try {
 
+        Block* block = GetBlockByLocation(x, y, z);
 
-void Chunk::CreateChunk() {
-    // now much better
-    for (int x = 0; x < CHUNK_SIZE; ++x) {
+        BlockFactory* factory = BlockFactory::GetInstance();
 
-        for (int y = 0; y < CHUNK_AREA; ++y) {
+        factory->PointToBlockType(type, &block);
 
-            for (int z = 0; z < CHUNK_SIZE; ++z) {
+        _blocks[x][y][z] = block;
 
-                SetBlockType(x, y, z, BlockType::Grass );
-
-            }
-
-        }
     }
+    catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+    
 };
 
-sf::Vector3i Chunk::GetChunkLocation()const {
-    return _chunkId;
+/*
+* Checking if location is valid inside chunk'area
+* block go from 0 to ( CHUNK_SIZE - 1 )
+* 
+*/
+bool Chunk::isLocationValidate(int x, int y, int z) {
+    
+    if ( (x >= CHUNK_SIZE || x < 0) ) {
+        return false;
+    }
+    else if ( (y >= CHUNK_SIZE || y < 0) ) {
+        return false;
+    }
+    else if ( (z >= CHUNK_SIZE || z < 0) ) {
+        return false;
+    }
+
+    return true;
 };
 
-void Chunk::SetChunkLocation(sf::Vector3i l ) {
-    this->_chunkId = l;
-};
-
+/*
+* return block of chunk which is and pointer
+* point to an block of BlockFactory
+*
+*/
 Block* Chunk::GetBlockByLocation(int x, int y, int z) {
-    if (OutOfBoundValidate(x, y, z)) {
+
+    if (isLocationValidate(x, y, z)) {
+
         return _blocks[x][y][z];
+
     }
+    
+    return NULL;
 };
 
-//void Chunk::ProcessPosition(const sf::Vector3i& location ) {
-//
-//    Block* block = BlockFactory::GetInstance()->CreateBlock(
-//        BlockType::Air, location , _chunkId
-//    );
-//
-//    //BlockDatabase::GetInstance()->AddBlock ( location, block);
-//};
+sf::Vector3i Chunk::GetChunkLocation()const { return _chunkId; };
 
-
-
-
-//bool Chunk::OutOfBound() {};
+void Chunk::SetChunkLocation(sf::Vector3i l ) { _chunkId = l; };
 
 /* i dont know this shit @@ , never use before */
 int Chunk::GenerateRandomId() {

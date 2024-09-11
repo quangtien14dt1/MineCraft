@@ -122,27 +122,15 @@ void Engine::LoadMap() {
 	* 
 	*/
 
-	QuadModel* model = new QuadModel(_quadTexture);
+	Chunk chunk({0,0,0});
 
-	/*const Block* block = BlockFactory()._blocksType[(unsigned)BlockType::Grass];*/
-	BlockModel* cubeModel = new BlockModel(_cubeTexture);
+	chunk.BlocksConfiguration();
 
-	cubeModel->CreateBlockMesh(BlockFactory()._blocksType[(unsigned)BlockType::Grass]);
-
-	// tao chunk 
-	Chunk chunk({0,0,0}, _blockFactory);
-
-	// tao chunkmodel 
 	ChunkModel* chunkModel = new ChunkModel();
-
-	// tao chunk builder 
 	ChunkModelBuilder builder;
-	// build 
-	
-	builder.BuildMesh(*chunkModel, chunk);
-	// add model 
 
-	//_renderMaster->AddModel(model);
+	builder.BuildMesh(*chunkModel, chunk);
+
 	_renderMaster->AddModel(chunkModel);
 	 
 };

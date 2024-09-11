@@ -96,7 +96,7 @@ void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c) {
 
 	Direction direction;
 	for (int x = 0; x < CHUNK_SIZE; ++x)
-	for (int y = 0; y < CHUNK_AREA; ++y)
+	for (int y = 0; y < CHUNK_SIZE; ++y)
 	for (int z = 0; z < CHUNK_SIZE; ++z) {
 
 		Block*  block = _chunk->GetBlockByLocation(x,y,z);
@@ -131,11 +131,10 @@ void ChunkModelBuilder::AddFaceToMesh(
 	* and from above look down , each chunk contain 16x16 block 
 	*/
 	if (CheckingShouldAddFace(blockAdj)) {
+
 		auto texCoords = BlockDatabase::GetInstance()->GetTextureCoords(block);
 
 		_chunkMesh->AddFace( blockFace, texCoords, bLocation,_chunk->GetChunkLocation());
-
-		
 
 	}
 };

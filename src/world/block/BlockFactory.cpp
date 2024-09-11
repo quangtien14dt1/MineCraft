@@ -12,23 +12,29 @@ BlockFactory::BlockFactory() {
 	_blocksType[static_cast<size_t>(BlockType::Stone)] = new StoneBlock();
 };
 
-Block* BlockFactory::PointToBlockType(BlockType id) {
+void BlockFactory::PointToBlockType(BlockType id,Block** block) {
 
 	switch (id) {
 		case BlockType::Air:
-			return _blocksType[(unsigned)BlockType::Air];
+			*block = _blocksType[(unsigned)BlockType::Air];
+			break;
 			
 		case BlockType::Dirt:
-			return _blocksType[(unsigned)BlockType::Dirt];
+			*block = _blocksType[(unsigned)BlockType::Dirt];
+			break;
 
 		case BlockType::Grass:
-			return _blocksType[(unsigned)BlockType::Grass];
+			*block = _blocksType[(unsigned)BlockType::Grass];
+			break;
 
 		case BlockType::Stone:
-			return _blocksType[(unsigned)BlockType::Stone];
+			*block = _blocksType[(unsigned)BlockType::Stone];
+			break;
 
 		default:
-			throw std::runtime_error("Failed to creat new block type: invalid id ");
+			throw std::runtime_error(
+				"Failed to creat new block"
+			);
 
 	}
 
