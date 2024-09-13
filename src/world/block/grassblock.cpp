@@ -7,7 +7,7 @@ Block* GrassBlock::operator()()
 
 GrassBlock::GrassBlock()
 {
-	texTopCoords = sf::Vector2f(0, 0);
-	texSideCoords = sf::Vector2f(1, 0);
-	texBottomCoords = sf::Vector2f(2, 0);
+	texTopCoords = sf::Vector2i(0, 0);
+	texSideCoords = sf::Vector2i(1, 0);
+	texBottomCoords = sf::Vector2i(2, 0);
 }

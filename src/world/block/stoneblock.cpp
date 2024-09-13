@@ -7,7 +7,7 @@ Block* StoneBlock::operator()()
 
 StoneBlock::StoneBlock()
 {
-	texTopCoords = sf::Vector2f(3, 0);
-	texSideCoords = sf::Vector2f(3, 0);
-	texBottomCoords = sf::Vector2f(3, 0);
+	texTopCoords	= sf::Vector2i(3, 0);
+	texSideCoords	= sf::Vector2i(3, 0);
+	texBottomCoords = sf::Vector2i(3, 0);
 }

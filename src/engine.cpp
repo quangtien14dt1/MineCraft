@@ -121,15 +121,17 @@ void Engine::LoadMap() {
 	* -  -  -   -
 	* 
 	*/
+	BlockModel model(_cubeTexture);
 
 	Chunk chunk({0,0,0});
 
 	chunk.BlocksConfiguration();
 
 	ChunkModel* chunkModel = new ChunkModel();
+
 	ChunkModelBuilder builder;
 
-	builder.BuildMesh(*chunkModel, chunk);
+	builder.BuildMesh(*chunkModel, chunk, *_cubeTexture);
 
 	_renderMaster->AddModel(chunkModel);
 	 

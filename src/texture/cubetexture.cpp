@@ -17,17 +17,17 @@ void CubeTexture::SetupCubeImage(std::string file) {
 };
 
 std::vector<GLfloat>  
-CubeTexture::GetTexture(const sf::Vector2f& coords) {
+CubeTexture::GetTexture(const sf::Vector2i& coords) {
 
 	GLfloat TEX_PER_ROW	= (GLfloat)m_imageSize / (GLfloat)m_individualTextureSize;
 	GLfloat INDV_TEX_SIZE  = 1.0f / TEX_PER_ROW;
 	GLfloat PIXEL_SIZE		= 1.0f / (float)m_imageSize;
 
-	GLfloat xMin = (coords.x * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
-	GLfloat yMin = (coords.y * INDV_TEX_SIZE) + 0.5 * PIXEL_SIZE;
+	GLfloat xMin = (coords.x * INDV_TEX_SIZE) + 0.5f * PIXEL_SIZE;
+	GLfloat yMin = (coords.y * INDV_TEX_SIZE) + 0.5f * PIXEL_SIZE;
 
-	GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
-	GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5 * PIXEL_SIZE;
+	GLfloat xMax = (xMin + INDV_TEX_SIZE) - 0.5f * PIXEL_SIZE;
+	GLfloat yMax = (yMin + INDV_TEX_SIZE) - 0.5f * PIXEL_SIZE;
 
 	//std::cout << xMax << yMax << xMin << yMin << std::endl;
 

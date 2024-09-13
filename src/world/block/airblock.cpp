@@ -8,7 +8,7 @@ Block* AirBlock::operator()()
 
 AirBlock::AirBlock() 
 {
-	texTopCoords = sf::Vector2f(0, 0);
-	texSideCoords = sf::Vector2f(0, 0);
-	texBottomCoords = sf::Vector2f(0, 0);
+	texTopCoords = sf::Vector2i(0, 0);
+	texSideCoords = sf::Vector2i(0, 0);
+	texBottomCoords = sf::Vector2i(0, 0);
 }

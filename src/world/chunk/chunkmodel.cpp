@@ -45,8 +45,12 @@ void ChunkModel::AddFace(
 	// 0, 1, 2,
 	// 2, 3, 0,
 	indices.insert(indices.end(), {
-		_indexIndice , _indexIndice + 1, _indexIndice + 2,
-		_indexIndice + 2, _indexIndice + 3, _indexIndice
+		_indexIndice , 
+		_indexIndice + 1,
+		_indexIndice + 2,
+		_indexIndice + 2, 
+		_indexIndice + 3, 
+		_indexIndice
 		});
 
 	_indexIndice += 4;

@@ -8,7 +8,7 @@ Block* DirtBlock::operator()()
 
 DirtBlock::DirtBlock()
 {
-	texTopCoords = sf::Vector2f(2, 0);
-	texSideCoords = sf::Vector2f(2, 0);
-	texBottomCoords = sf::Vector2f(2, 0);
+	texTopCoords = sf::Vector2i(2, 0);
+	texSideCoords = sf::Vector2i(2, 0);
+	texBottomCoords = sf::Vector2i(2, 0);
 }

@@ -8,6 +8,7 @@
 class ChunkModel;
 class Chunk;
 class Block;
+class CubeTexture;
 
 class ChunkModelBuilder : public SingleTon
 {
@@ -17,25 +18,25 @@ public:
 	ChunkModelBuilder();
 
 	ChunkModelBuilder* operator()();
-	
-	void BuildMesh( ChunkModel&, Chunk&);
+
+	void BuildMesh(ChunkModel&, Chunk&, CubeTexture&);
 
 	bool CheckingShouldAddFace(
-		 const sf::Vector3i& nextDoorBlock
-		 //const Block* block
+		const sf::Vector3i& nextDoorBlock
+		//const Block* block
 	);
 
 	void AddFaceToMesh(
-		 const std::vector<GLfloat>& blockFace,
-		 const Block* blockPosition,
-		 const sf::Vector3i&,
-		 const sf::Vector3i& blockFacing );
-	
+		const std::vector<GLfloat>& blockFace,
+		const sf::Vector2i& texcoord,
+		const sf::Vector3i&,
+		const sf::Vector3i& blockFacing);
+
 private:
 	static ChunkModelBuilder* _pChunkModelBuilder;
 
-	ChunkModel*	_chunkMesh{NULL};
-
+	ChunkModel* _chunkMesh{ NULL };
+	CubeTexture* _cubeTexture{NULL};
 	Chunk*		_chunk{NULL};
 };
 

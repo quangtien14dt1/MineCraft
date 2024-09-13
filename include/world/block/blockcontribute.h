@@ -23,9 +23,9 @@ enum class BlockType : Block_t {
 class  Block {
 public:
 	/* cube textures coords */
-	sf::Vector2f texTopCoords;
-	sf::Vector2f texSideCoords;
-	sf::Vector2f texBottomCoords;
+	sf::Vector2i texTopCoords;
+	sf::Vector2i texSideCoords;
+	sf::Vector2i texBottomCoords;
 
 	virtual Block* operator()() = 0;
 

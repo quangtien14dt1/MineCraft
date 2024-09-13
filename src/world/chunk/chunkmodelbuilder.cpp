@@ -90,9 +90,10 @@ ChunkModelBuilder* ChunkModelBuilder::GetInstance() {
 };
 
 
-void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c) {
+void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c, CubeTexture& t) {
 	_chunkMesh = &m;
 	_chunk = &c;
+	_cubeTexture = &t;
 
 	Direction direction;
 	for (int x = 0; x < CHUNK_SIZE; ++x)
@@ -107,12 +108,12 @@ void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c) {
 		direction.update(x,y,z);
 		const sf::Vector3i blocation{ x,y,z };
 
-		AddFaceToMesh(BlockFaces::topFace, block, blocation, direction.up);
-		AddFaceToMesh(BlockFaces::bottomFace, block, blocation, direction.down);
-		AddFaceToMesh(BlockFaces::leftFace,  block, blocation, direction.left);
-		AddFaceToMesh(BlockFaces::rightFace, block, blocation, direction.right);
-		AddFaceToMesh(BlockFaces::frontFace, block, blocation, direction.front);
-		AddFaceToMesh(BlockFaces::backFace, block, blocation,direction.back);
+		AddFaceToMesh(BlockFaces::topFace, block->texTopCoords, blocation, direction.up);
+		AddFaceToMesh(BlockFaces::bottomFace, block->texBottomCoords, blocation, direction.down);
+		AddFaceToMesh(BlockFaces::leftFace,  block->texSideCoords, blocation, direction.left);
+		AddFaceToMesh(BlockFaces::rightFace, block->texSideCoords, blocation, direction.right);
+		AddFaceToMesh(BlockFaces::frontFace, block->texSideCoords, blocation, direction.front);
+		AddFaceToMesh(BlockFaces::backFace, block->texSideCoords, blocation,direction.back);
 	}
 
 	// add mesh to model 
@@ -122,7 +123,7 @@ void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c) {
 
 void ChunkModelBuilder::AddFaceToMesh(
 	const std::vector<GLfloat>& blockFace, // vertices
-	const Block* block,
+	const sf::Vector2i& texture,
 	const sf::Vector3i& bLocation,
 	const sf::Vector3i& blockAdj)
 {
@@ -132,7 +133,7 @@ void ChunkModelBuilder::AddFaceToMesh(
 	*/
 	if (CheckingShouldAddFace(blockAdj)) {
 
-		auto texCoords = BlockDatabase::GetInstance()->GetTextureCoords(block);
+		auto texCoords = _cubeTexture->GetTexture(texture);
 
 		_chunkMesh->AddFace( blockFace, texCoords, bLocation,_chunk->GetChunkLocation());
 

@@ -228,12 +228,12 @@ BlockDatabase::GetTextureCoords( const Block* b) {
 	auto bottom = _cubeTexture->GetTexture(b->texBottomCoords);
 
 	std::vector<GLfloat> texCoords;
-	texCoords.insert(texCoords.end(), side.begin(), side.end());
-	texCoords.insert(texCoords.end(), side.begin(), side.end());
-	texCoords.insert(texCoords.end(), side.begin(), side.end());
-	texCoords.insert(texCoords.end(), side.begin(), side.end());
 	texCoords.insert(texCoords.end(), top.begin(), top.end());
 	texCoords.insert(texCoords.end(), bottom.begin(), bottom.end());
+	texCoords.insert(texCoords.end(), side.begin(), side.end());
+	//texCoords.insert(texCoords.end(), side.begin(), side.end());
+	//texCoords.insert(texCoords.end(), side.begin(), side.end());
+	//texCoords.insert(texCoords.end(), side.begin(), side.end());
 
 	return texCoords;
 };

@@ -24,8 +24,17 @@ void Chunk::BlocksConfiguration() {
 
         for (int z = 0; z < CHUNK_SIZE; ++z) {
 
-            SetBlockType(x, y, z, BlockType::Grass);
+            if (x == 0 && y == 0 && z == 0) {
+                SetBlockType(x, y, z, BlockType::Grass);
+            } else 
 
+            if (x == 1 && y == 0 && z == 1) {
+                SetBlockType(x, y, z, BlockType::Dirt);
+            }
+            
+            else {
+                SetBlockType(x, y, z, BlockType::Stone);
+            }
             
 
         }

@@ -18,7 +18,7 @@ public:
             -back
             -front
     */
-    std::vector<GLfloat>  GetTexture(const sf::Vector2f& coords);
+    std::vector<GLfloat>  GetTexture(const sf::Vector2i& coords);
 
 private:
     GLfloat m_imageSize;
