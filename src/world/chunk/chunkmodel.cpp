@@ -7,6 +7,9 @@
 ChunkModel::ChunkModel()
 {}
 
+ChunkModel::~ChunkModel()
+{}
+
 /*
 */
 void ChunkModel::AddFace(

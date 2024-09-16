@@ -32,8 +32,8 @@ class Model;
 class ModelRender;
 class BlockDatabase;
 class BlockFactory;
-class QuadTexture;
-class CubeTexture;
+class World;
+class ChunkModelBuilder;
 
 class Engine : public ISubject, public SingleTon
 {
@@ -70,15 +70,15 @@ private:
 	static Engine* _pEngine;
 	BlockDatabase* _blockDatabase;
 	BlockFactory* _blockFactory;
+	ChunkModelBuilder* _chunkModelBuilder;
 	Config*		_pConfig;
 	Context*		_pContext;
 	Application*	_pApplication; 
 	Camera*			_camera;	
+	World*			_world;
 	ModelRender*	_renderMaster;
 	std::vector< std::shared_ptr< Model> > _vModel;
 	std::list<IObserver*> _observer;
-	QuadTexture* _quadTexture;
-	CubeTexture* _cubeTexture;
-
+	
 };
 

@@ -91,7 +91,7 @@ ChunkModelBuilder* ChunkModelBuilder::GetInstance() {
 
 
 void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c, CubeTexture& t) {
-	_chunkMesh = &m;
+	_chunkModel = &m;
 	_chunk = &c;
 	_cubeTexture = &t;
 
@@ -116,8 +116,7 @@ void ChunkModelBuilder::BuildMesh(ChunkModel& m, Chunk& c, CubeTexture& t) {
 		AddFaceToMesh(BlockFaces::backFace, block->texSideCoords, blocation,direction.back);
 	}
 
-	// add mesh to model 
-	_chunkMesh->AddMeshToModel();
+	_chunkModel->AddMeshToModel();
 
 };
 
@@ -135,7 +134,12 @@ void ChunkModelBuilder::AddFaceToMesh(
 
 		auto texCoords = _cubeTexture->GetTexture(texture);
 
-		_chunkMesh->AddFace( blockFace, texCoords, bLocation,_chunk->GetChunkLocation());
+		_chunkModel->AddFace(
+			blockFace, 
+			texCoords, 
+			bLocation,
+			_chunk->GetChunkLocation()
+		);
 
 	}
 };

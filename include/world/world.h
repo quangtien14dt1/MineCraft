@@ -1,73 +1,80 @@
 #pragma once
 
+#include <functional>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include <array>
 #include <vector>
 #include <algorithm>
 #include "world/worldcontant.h"
+#include "world/noicegenerator.h"
 
 class Chunk;
 class ChunkModelBuilder;
 class BlockFactory;
+class QuadTexture;
+class CubeTexture;
+class ModelRender;
+class Camera;
 
-struct VectorXZ
-{
-	int x, z;
-    
-    bool operator==(const VectorXZ& other) const {
-        return x == other.x && z == other.z;
+class Key {
+public:
+    int x, y;
+
+    Key(int xCoord, int yCoord) : x(xCoord), y(yCoord) {}
+
+    bool operator==(const Key& other) const {
+        return x == other.x && y == other.y;
     }
 };
 
-// overide hashmap for unorder map 
 namespace std {
     template <>
-    struct hash<VectorXZ> {
-        std::size_t operator()(const VectorXZ& v) const noexcept {
-            std::size_t h1 = std::hash<int>{}(v.x);
-            std::size_t h2 = std::hash<int>{}(v.z);
-            return h1 ^ (h2 << 1);
+    struct hash<Key> {
+        std::size_t operator()(const Key& k) const {
+
+            std::size_t h1 = std::hash<int>{}(k.x);
+            std::size_t h2 = std::hash<int>{}(k.y);
+            return h1 ^ (h2 << 1); 
         }
     };
 }
 
-using ChunkMap = std::unordered_map<VectorXZ, Chunk>;
 
 class World {
 public:
-	World(ChunkModelBuilder*, BlockFactory*);
+    ~World();
+	World();
 
-    Chunk& getChunk(int x, int z);
+    Chunk* getChunk(int x, int z);
 
-    ChunkMap& getChunksMap();
+    std::unordered_map<Key, Chunk*>& getChunksMap();
 
     void  createChunkMap();
 
-    bool chunkLoadedAt(int x, int z) const;
-    bool chunkExistsAt(int x, int z) const;
+    bool isChunkLoadedAt(int x, int z) const;
+
+    bool isChunkExistsAt(int x, int z) const;
 
     void loadChunk(int x, int z);
+
     void unloadChunk(int x, int z);
 
-    void heightmapGenerator();
+    std::array<int, CHUNK_AREA> heightmapGenerator(int x, int z);
 
     sf::Vector2i getChunkLocation(int);
 
-    std::array< std::array<int, CHUNK_SIZE>, CHUNK_SIZE>
-        getHeightMapChunk(int x, int z);
+    void buildChunkMapModel(ChunkModelBuilder* , ModelRender* );
 
-    void buildChunkMapModel();
+    void WorldRender(ModelRender* , Camera* );
 
-    BlockFactory* _blockFactory;
 private:
-    ChunkMap _chunks; // could just  using vector instead then 
 
-    std::vector<Chunk> _chunkMap;
+    // random noice ?
+    NoiseGenerator _noice{ 30 };
 
-    ChunkModelBuilder* _chunkModelBuilder;
+    std::unordered_map<Key, Chunk*> _chunks;
 
-
-    std::array< std::array< std::array<int, CHUNK_SIZE>, CHUNK_SIZE>, CHUNK_AREA> _heightMap;
+    CubeTexture* _cubeTexture;
 
 };

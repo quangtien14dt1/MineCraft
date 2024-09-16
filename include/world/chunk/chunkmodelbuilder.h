@@ -35,7 +35,7 @@ public:
 private:
 	static ChunkModelBuilder* _pChunkModelBuilder;
 
-	ChunkModel* _chunkMesh{ NULL };
+	ChunkModel* _chunkModel{ NULL }; // moving this to chunk
 	CubeTexture* _cubeTexture{NULL};
 	Chunk*		_chunk{NULL};
 };

@@ -18,8 +18,11 @@ class ModelRender : public BaseRender {
 
 public:
 	ModelRender();
+
 	~ModelRender();
+
 	void RenderModels(Camera*, QuadTexture*) override;
+
 	void RenderModelsByListLocation(
 		Camera*,
 		BaseModel*,

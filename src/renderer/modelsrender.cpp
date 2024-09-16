@@ -15,6 +15,15 @@ ModelRender::ModelRender( )
 { };
 
 ModelRender::~ModelRender() {
+
+	for (auto& m : _modelList) {
+
+		delete m;
+
+	}
+
+	_modelList.clear();
+
 	if (_defaultShader != NULL) {
 		delete _defaultShader; 
 		_defaultShader = nullptr;

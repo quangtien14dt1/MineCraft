@@ -1,6 +1,7 @@
 #include "world/chunk/Chunk.h"
 #include "world/block/blockdatabase.h"
 #include "world/block/blockfactory.h"
+#include "world/chunk/chunkmodel.h"
 #include <random>
 #include <iostream>
 
@@ -8,54 +9,19 @@ Chunk::Chunk(sf::Vector3i location)
     : _chunkId(location)
 { 
     resetBlockChunk();
+
+    _chunkModel = new ChunkModel();
 }
 
-Chunk::~Chunk() {};
+Chunk::~Chunk() { 
 
-/*
-* function setup all chunk'block
-* my height map and type 
-* 
-*/
-void Chunk::BlocksConfiguration() {
-    int  h = 10;
-    for (int x = 0; x < CHUNK_SIZE; ++x)
-    for (int y = 0; y < CHUNK_SIZE; ++y)
+    if (_chunkModel != NULL) {
 
-        for (int z = 0; z < CHUNK_SIZE; ++z) {
+        delete _chunkModel;
 
-            if (x == 0 && y == 0 && z == 0) {
-                SetBlockType(x, y, z, BlockType::Grass);
-            } else 
+        _chunkModel = NULL;
 
-            if (x == 1 && y == 0 && z == 1) {
-                SetBlockType(x, y, z, BlockType::Dirt);
-            }
-            
-            else {
-                SetBlockType(x, y, z, BlockType::Stone);
-            }
-            
-
-        }
-
-};
-
-/* 
-* function reset all block of chunk
-* we point to NULL
-*/
-void Chunk::resetBlockChunk() {
-
-    for (int x = 0; x < CHUNK_SIZE; ++x)
-    for (int y = 0; y < CHUNK_SIZE; ++y)
-
-        for (int z = 0; z < CHUNK_SIZE; ++z) {
-
-            _blocks[x][y][z] = NULL;
-
-        }
-    
+    }
 };
 
 /*
@@ -76,28 +42,82 @@ void Chunk::SetBlockType(int x, int y, int z, BlockType type) {
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
-    
+
 };
 
 /*
 * Checking if location is valid inside chunk'area
 * block go from 0 to ( CHUNK_SIZE - 1 )
-* 
+*
 */
 bool Chunk::isLocationValidate(int x, int y, int z) {
-    
-    if ( (x >= CHUNK_SIZE || x < 0) ) {
+
+    if ((x >= CHUNK_SIZE || x < 0)) {
         return false;
     }
-    else if ( (y >= CHUNK_SIZE || y < 0) ) {
+    else if ((y >= CHUNK_SIZE || y < 0)) {
         return false;
     }
-    else if ( (z >= CHUNK_SIZE || z < 0) ) {
+    else if ((z >= CHUNK_SIZE || z < 0)) {
         return false;
     }
 
     return true;
 };
+
+/*
+* function setup all chunk'block
+* my height map and type 
+* 
+*/
+void Chunk::BlocksConfiguration() {
+
+    for (int x = 0; x < CHUNK_SIZE; ++x) {
+
+        for (int z = 0; z < CHUNK_SIZE; ++z) {
+
+            /*
+            * h = CHUNK_SIZE 
+            * because _blocks has volumn 
+            * equal to CHUNK_SIZE
+            */
+            int h = GetHeight(x, z) % 16;
+
+            for (int y = 0; y < h; ++y) {
+
+                /*
+                * those block that not set type
+                * consider that is NULL pointer
+                * point to nothing . ignore when render
+                */
+                if (y == h - 1) {
+
+                    SetBlockType(x, y, z, BlockType::Grass);
+
+                }
+                else if (y > h - 3) {
+
+                    SetBlockType(x, y, z, BlockType::Dirt);
+
+                }
+                else {
+
+                    SetBlockType(x, y, z, BlockType::Stone);
+
+                }
+
+            }
+
+
+        }
+
+    }
+
+};
+
+void Chunk::SetChunkHeightMap(std::array<int, CHUNK_AREA > h) { _heighMap = h; };
+
+sf::Vector3i Chunk::GetChunkLocation()const { return _chunkId; };
 
 /*
 * return block of chunk which is and pointer
@@ -115,9 +135,34 @@ Block* Chunk::GetBlockByLocation(int x, int y, int z) {
     return NULL;
 };
 
-sf::Vector3i Chunk::GetChunkLocation()const { return _chunkId; };
+/*
+* function reset all block of chunk
+* we point to NULL
+*/
+void Chunk::resetBlockChunk() {
+
+    for (int x = 0; x < CHUNK_SIZE; ++x)
+    for (int y = 0; y < CHUNK_SIZE; ++y)
+
+            for (int z = 0; z < CHUNK_SIZE; ++z) {
+
+                _blocks[x][y][z] = NULL;
+
+            }
+
+};
 
 void Chunk::SetChunkLocation(sf::Vector3i l ) { _chunkId = l; };
+
+int Chunk::GetHeight(int x, int z) {
+
+    int pixel = x * CHUNK_SIZE + z;
+
+    return _heighMap[pixel];
+
+};
+
+ChunkModel* Chunk::GetChunkModel() { return _chunkModel; };
 
 /* i dont know this shit @@ , never use before */
 int Chunk::GenerateRandomId() {

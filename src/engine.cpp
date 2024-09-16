@@ -21,6 +21,7 @@
 #include "world/block/blockmodel.h"
 #include "texture/quadtexture.h"
 #include "texture/cubetexture.h"
+#include "world/world.h"
 
 
 
@@ -56,11 +57,11 @@ Engine::Engine(  Config* cf,  Application* a, Context* ct)
 
 	_renderMaster = new ModelRender();
 
-	_quadTexture = new QuadTexture();
-
-	_cubeTexture = new CubeTexture();
-
 	_blockFactory = new BlockFactory();
+
+	_chunkModelBuilder = new ChunkModelBuilder();
+
+	_world = new World();
 
 	Attach(_camera);
 
@@ -75,12 +76,12 @@ Engine::~Engine() {
 		delete _renderMaster; _renderMaster = nullptr; 
 	}
 
-	if (_quadTexture != NULL) {
-		delete _quadTexture; _quadTexture = nullptr;
+	if (_chunkModelBuilder != NULL) {
+		delete _chunkModelBuilder; _chunkModelBuilder = nullptr;
 	}
 
-	if (_cubeTexture != NULL) {
-		delete _cubeTexture; _cubeTexture = nullptr;
+	if (_world != NULL) {
+		delete _world; _world = nullptr;
 	}
 
 };
@@ -98,8 +99,7 @@ void Engine::UpdateGameLogic(sf::Event& e,float d) {
 };
 
 void Engine::InitTexture() {
-	_quadTexture->LoadFromFile("test");
-	_cubeTexture->SetupCubeImage("DefaultPack");
+	
 };
 
 /**/
@@ -109,41 +109,23 @@ void Engine::LoadMap() {
 
 	/* need baking chunk and chunk database ? */
 
-	/*
-	*	should containt 3 level 
-	*	chess 1  => map / noice , let say 10x 10 
-	*	chessMan => chunk  / 16x16x256 
-	*	bugs => block level / 
-	* -   -  -  -
-	*   |  |  |  |
-	* -  -  -   -
-	*   |  |  |  |
-	* -  -  -   -
-	* 
-	*/
-	BlockModel model(_cubeTexture);
+	/* moving all logic to world class */
 
-	Chunk chunk({0,0,0});
+	_world->createChunkMap();
 
-	chunk.BlocksConfiguration();
+	_world->buildChunkMapModel(_chunkModelBuilder,_renderMaster );
 
-	ChunkModel* chunkModel = new ChunkModel();
-
-	ChunkModelBuilder builder;
-
-	builder.BuildMesh(*chunkModel, chunk, *_cubeTexture);
-
-	_renderMaster->AddModel(chunkModel);
-	 
 };
 
 
 void Engine::Invoke() {
 
-	_renderMaster->RenderModels(_camera, _cubeTexture);
+	_world->WorldRender(_renderMaster, _camera);
+
 };
 
 void Engine::SetRenderMode( bool m ) { 
+
 	_renderMaster->SetRenderMode(m);
 };
 

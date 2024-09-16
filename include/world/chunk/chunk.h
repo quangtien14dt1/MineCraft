@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <array>
 #include "world/worldcontant.h"
 #include "world/block/blockcontribute.h"
 
@@ -21,7 +22,9 @@ class Block;
 
 class Chunk {
 public:
+
 	Chunk( sf::Vector3i );
+
 	~Chunk();
 
 	void SetBlockType(int x, int y, int z, BlockType type);
@@ -39,14 +42,23 @@ public:
 
 	void resetBlockChunk();
 
+	void SetChunkHeightMap(std::array<int, CHUNK_AREA > );
+
+	int GetHeight(int ,int);
+
+	ChunkModel* GetChunkModel();
+
 private:
 
+	ChunkModel* _chunkModel;
+
 	static int GenerateRandomId();
+
 	sf::Vector3i _chunkId;
 
-	/* store 3D map chunk' block y, x, z */
 	Block* _blocks[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
-	BlockFactory* _blockFactory;
+
+	std::array<int, CHUNK_AREA > _heighMap;
 
 };
 
