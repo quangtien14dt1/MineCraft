@@ -329,6 +329,7 @@
     <ClCompile Include="src\world\block\dirtblock.cpp" />
     <ClCompile Include="src\world\block\grassblock.cpp" />
     <ClCompile Include="src\world\block\stoneblock.cpp" />
+    <ClCompile Include="src\world\block\waterblock.cpp" />
     <ClCompile Include="src\world\chunk\chunk.cpp" />
     <ClCompile Include="src\world\chunk\chunkmodel.cpp" />
     <ClCompile Include="src\world\chunk\chunkmodelbuilder.cpp" />

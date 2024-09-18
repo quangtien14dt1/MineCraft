@@ -573,6 +573,9 @@
     <ClCompile Include="src\world\noicegenrator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\world\block\waterblock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\aiuehara.png">

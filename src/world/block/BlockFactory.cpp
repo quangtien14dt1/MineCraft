@@ -10,6 +10,7 @@ BlockFactory::BlockFactory() {
 	_blocksType[static_cast<size_t>(BlockType::Dirt)] = new DirtBlock();
 	_blocksType[static_cast<size_t>(BlockType::Grass)] = new GrassBlock();
 	_blocksType[static_cast<size_t>(BlockType::Stone)] = new StoneBlock();
+	_blocksType[static_cast<size_t>(BlockType::Water)] = new WaterBlock();
 };
 
 void BlockFactory::PointToBlockType(BlockType id,Block** block) {
@@ -29,6 +30,10 @@ void BlockFactory::PointToBlockType(BlockType id,Block** block) {
 
 		case BlockType::Stone:
 			*block = _blocksType[(unsigned)BlockType::Stone];
+			break;
+
+		case BlockType::Water:
+			*block = _blocksType[(unsigned)BlockType::Water];
 			break;
 
 		default:

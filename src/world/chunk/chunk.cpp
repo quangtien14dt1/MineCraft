@@ -72,45 +72,61 @@ bool Chunk::isLocationValidate(int x, int y, int z) {
 */
 void Chunk::BlocksConfiguration() {
 
-    for (int x = 0; x < CHUNK_SIZE; ++x) {
+    int waterLevel = 8;
 
-        for (int z = 0; z < CHUNK_SIZE; ++z) {
+    try {
 
-            /*
-            * h = CHUNK_SIZE 
-            * because _blocks has volumn 
-            * equal to CHUNK_SIZE
-            */
-            int h = GetHeight(x, z) % 16;
+        for (int x = 0; x < CHUNK_SIZE; ++x) {
 
-            for (int y = 0; y < h; ++y) {
+            for (int z = 0; z < CHUNK_SIZE; ++z) {
 
                 /*
-                * those block that not set type
-                * consider that is NULL pointer
-                * point to nothing . ignore when render
+                * h = CHUNK_SIZE
+                * because _blocks has volumn
+                * equal to CHUNK_SIZE
                 */
-                if (y == h - 1) {
+                int h = GetHeight(x, z) % 16;
 
-                    SetBlockType(x, y, z, BlockType::Grass);
+                for (int y = 0; y < h; ++y) {
+
+                    /*
+                    * those block that not set type
+                    * consider that is NULL pointer
+                    * point to nothing . ignore when render
+                    */
+                    if ( y <= waterLevel ) { // everything under water level 
+
+                        SetBlockType(x, y, z, BlockType::Water);
+
+                    }else if (y > waterLevel ) {  // first line
+
+                        SetBlockType(x, y, z, BlockType::Stone);
+
+                        if( y >= waterLevel + 3) {
+
+                            SetBlockType(x, y, z, BlockType::Dirt);
+
+                        }
+                        if (y == h - 1) {
+
+                            SetBlockType(x, y, z, BlockType::Grass);
+
+                        }
+                    }
+
 
                 }
-                else if (y > h - 3) {
 
-                    SetBlockType(x, y, z, BlockType::Dirt);
-
-                }
-                else {
-
-                    SetBlockType(x, y, z, BlockType::Stone);
-
-                }
 
             }
 
-
         }
 
+    }
+    catch (std::exception& e) {
+        throw std::runtime_error(
+            "out of size error configuration blocks"
+        );
     }
 
 };

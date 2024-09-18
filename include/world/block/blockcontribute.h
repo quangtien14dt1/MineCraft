@@ -16,6 +16,7 @@ enum class BlockType : Block_t {
 	Grass = 1,
 	Dirt = 2,
 	Stone = 3,
+	Water = 4,
 
 	NUM_TYPES
 };
@@ -34,6 +35,12 @@ public:
 class AirBlock : public Block {
 public:
 	AirBlock();
+	Block* operator()() override;
+};
+
+class WaterBlock : public Block {
+public:
+	WaterBlock();
 	Block* operator()() override;
 };
 
