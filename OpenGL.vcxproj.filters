@@ -597,4 +597,13 @@
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="deps\lib\flac.lib" />
+    <Library Include="deps\lib\freetype.lib" />
+    <Library Include="deps\lib\ogg.lib" />
+    <Library Include="deps\lib\openal32.lib" />
+    <Library Include="deps\lib\vorbis.lib" />
+    <Library Include="deps\lib\vorbisfile.lib" />
+    <Library Include="deps\lib\vorbisenc.lib" />
+  </ItemGroup>
 </Project>
