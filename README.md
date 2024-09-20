@@ -1,7 +1,7 @@
 # MineCraft
 
-Application Class 
-Engine class handle Engine level 
-# Im gonna using design pattern for this Engine 
-# Engine class as ISubject , owner of state 
-# Camera , Keyboard , ... as Observer 
+# For config Visual Studio 
+already inst all .libs file that needed to link
+
+# For config using cmake 
+

@@ -84,6 +84,3 @@ endif()
 
 # Apply the platform definitions
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PLATFORM_DEFINES})
-
-# Include external CMake helpers if needed
-include(${CMAKE_SOURCE_DIR}/CMake/Utils.cmake)
